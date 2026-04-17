@@ -748,12 +748,9 @@
 
         async function initMusicPlayer() {
             try {
-                // Google Drive 직접 재생 URL
-                playlist = [
-                    { src: 'https://drive.google.com/uc?export=download&id=1Le7tQ8gYknKDO7Q-Ors4sdYW2OyjGQDi', title: '灰色の夜' },
-                    { src: 'https://drive.google.com/uc?export=download&id=1mD88gxHUPYc9ynhVysPmMFucYnPp09eg', title: '마법소녀 데스매치 OST' },
-                    { src: 'https://drive.google.com/uc?export=download&id=1WmJVnvealEITsKUCNMJHNwdP9yEneuAh', title: 'Rust Orchard' },
-                ];
+                const res = await fetch('Music/list.json');
+                const files = await res.json();
+                playlist = files.map(f => ({ src: `Music/${f}`, title: f.split('.')[0].toUpperCase() }));
                 const listHtml = document.getElementById('track-list');
                 listHtml.innerHTML = '';
                 playlist.forEach((t, i) => {
