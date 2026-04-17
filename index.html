@@ -748,9 +748,12 @@
 
         async function initMusicPlayer() {
             try {
-                const res = await fetch('Music/list.json');
-                const files = await res.json();
-                playlist = files.map(f => ({ src: `Music/${f}`, title: f.split('.')[0].toUpperCase() }));
+                // Google Drive 직접 재생 URL
+                playlist = [
+                    { src: 'https://drive.google.com/uc?export=download&id=1Le7tQ8gYknKDO7Q-Ors4sdYW2OyjGQDi', title: '灰色の夜' },
+                    { src: 'https://drive.google.com/uc?export=download&id=1mD88gxHUPYc9ynhVysPmMFucYnPp09eg', title: '마법소녀 데스매치 OST' },
+                    { src: 'https://drive.google.com/uc?export=download&id=1WmJVnvealEITsKUCNMJHNwdP9yEneuAh', title: 'Rust Orchard' },
+                ];
                 const listHtml = document.getElementById('track-list');
                 listHtml.innerHTML = '';
                 playlist.forEach((t, i) => {
@@ -763,7 +766,7 @@
 
                 updateRepeatBtn();
 
-                // ✅ 수정: 자동재생 전에 먼저 이벤트 등록
+                // 자동재생 전에 먼저 이벤트 등록
                 mainBgm.addEventListener('ended', () => {
                     if (playMode === 0) return;
                     if (playMode === 1) {
@@ -779,10 +782,10 @@
                     }
                 });
 
-                // 리스트 로드 후 첫 번째 트랙 자동 재생
+                // 첫 번째 트랙 자동 재생
                 if (playlist.length > 0) playTrack(0);
 
-            } catch (e) { console.log("Music Error"); }
+            } catch (e) { console.log("Music Error:", e); }
         }
 
         function playTrack(i) {
