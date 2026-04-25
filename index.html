@@ -932,7 +932,7 @@
         #equip-body { flex: 1; overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 6px; padding-right: 4px; }
         #equip-body::-webkit-scrollbar { width: 4px; }
         #equip-body::-webkit-scrollbar-thumb { background: #1a4a1a; }
-        .eq-section { border: 1px solid #1a4a1a; background: rgba(5,5,5,0.8); overflow: hidden; transition: opacity 0.2s; }
+        .eq-section { border: 1px solid #1a4a1a; background: rgba(5,5,5,0.8); overflow: visible; transition: opacity 0.2s; }
         .eq-section.dimmed { opacity: 0.3; pointer-events: none; }
         .eq-section-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; cursor: pointer; color: #33ff33; font-size: 0.92rem; font-weight: bold; letter-spacing: 2px; transition: background 0.2s; user-select: none; }
         .eq-section-header:hover { background: rgba(51,255,51,0.05); }
@@ -943,6 +943,7 @@
         .eq-section-body::-webkit-scrollbar { width: 4px; }
         .eq-section-body::-webkit-scrollbar-thumb { background: #1a4a1a; }
         .eq-section-body.open { display: block; }
+        .eq-section-body.open.consumable-body { max-height: 380px; overflow-y: auto; }
         .eq-subsection { margin-bottom: 12px; }
         .eq-subsection-title { color: #2a7a2a; font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #1a3a1a; }
         .eq-items { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
@@ -1788,12 +1789,14 @@
         </div>
 
         <!-- 미리보기 오버레이 -->
-        <div id="export-preview-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:500; align-items:center; justify-content:center; background:rgba(0,0,0,0.9); flex-direction:column; gap:16px;">
-            <div style="display:flex; gap:14px; justify-content:flex-end; width:90%; max-width:800px;">
-                <button onclick="downloadPreviewPng()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:6px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">PNG 저장</button>
-                <button onclick="closeExportPreview()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:6px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">닫기</button>
+        <div id="export-preview-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:500; background:rgba(0,0,0,0.9); overflow-y:auto;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:20px 0 40px;">
+                <div style="display:flex; gap:14px; justify-content:flex-end; width:90%; max-width:900px;">
+                    <button onclick="downloadPreviewPng()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:6px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">PNG 저장</button>
+                    <button onclick="closeExportPreview()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:6px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">닫기</button>
+                </div>
+                <canvas id="export-canvas" style="width:90%; max-width:900px; border:1px solid #1a4a1a; display:block;"></canvas>
             </div>
-            <canvas id="export-canvas" style="max-width:90%; max-height:80vh; border:1px solid #1a4a1a; display:block;"></canvas>
         </div>
         <div id="help-popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:300; align-items:center; justify-content:center; background:rgba(0,0,0,0.7);">
             <div style="width:780px; max-height:82vh; background:rgba(5,5,5,0.98); border:1px solid #33ff33; box-shadow:0 0 40px rgba(51,255,51,0.2); display:flex; flex-direction:column;">
@@ -2895,7 +2898,7 @@
             ],
 
             9: [
-                { name: '마법',   abilityNum: 1, desc: '', abilityDesc: `<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">역사</b>\n미스트에 의해 세상이 변질되어 생긴 이능 중 하나입니다.\n심장을 중심삼아 서클을 만들어 미스트를 <b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">마나</b>로 가공, 이후 마법이라는 결과물로 출력할 수 있게 해줍니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주의사항</b>\n한계점을 넘는 양의 미스트를 사용할 경우 정신오염 및 극심한 두통에 시달리게 됩니다.\n미스트의 사용량은 사람마다 다릅니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">마법 목록</b>\n원소마법 (불, 물, 전기, 땅, 바람 중 택2), 생황 마법, 회복 마법, 가공마법, 무속성 마법\n원할 경우 마법서를 안개지대 혹은 구매하여 배우기 가능` },
+                { name: '마법',   abilityNum: 1, desc: '', abilityDesc: `<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">역사</b>\n미스트에 의해 세상이 변질되어 생긴 이능 중 하나입니다.\n심장을 중심삼아 서클을 만들어 미스트를 <b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">마나</b>로 가공, 이후 마법이라는 결과물로 출력할 수 있게 해줍니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주의사항</b>\n한계점을 넘는 양의 미스트를 사용할 경우 정신오염 및 극심한 두통에 시달리게 됩니다.\n미스트의 사용량은 사람마다 다릅니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">마법 목록</b>\n원소마법 (불, 물, 전기, 땅, 바람 중 택2), 생활 마법, 회복 마법, 가공마법, 무속성 마법\n마법서를 구매하여 자력으로 배우거나 안개지대에서 특수한 방법으로 배우기 가능` },
                 { name: '주술',   abilityNum: 2, desc: '', abilityDesc: `<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">역사</b>\n미스트에 의해 세상이 변질되어 생긴 이능 중 하나입니다.\n미스트를 몸 안에 담아두어 변이시키는 것으로 <b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주력</b>을 만들어 이용합니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주의사항</b>\n한계점을 넘는 양의 미스트를 사용할 경우 극심한 정신오염에 시달립니다.\n주술을 통해 불러낸 존재들의 컨트롤이 상시 필요합니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주술 목록</b>\n언령술, 조복술, 식신, 저주술, 음각술, 결계술\n재능 및 알아서 배우는 경우도 존재` },
                 { name: '초능력', abilityNum: 3, desc: '', abilityDesc: `<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">역사</b>\n미스트가 몸 안에 침범하여 생긴 이능을 다루는 자들입니다.\n각자가 다들 다른 초능력을 지니고 있습니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주의사항</b>\n오랜 사용 시 미스트가 몸을 침식해 수명이 줄어듭니다.\n정기적인 치료와 무리하지 않으면 지장이 없습니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">초능력 목록</b>\n염동력, 세뇌, 최면, 원소술, 공중부양 등 택2 혹은 직접 창작 가능` },
                 { name: '무공',   abilityNum: 4, desc: '', abilityDesc: `<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">역사</b>\n아시아를 기반으로 생겨난 이능입니다.\n미스트를 단전이라는 곳에 가두어 내공으로 변화시키는 방식으로 다룹니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주의사항</b>\n심마에 의해 주화입마에 빠질 수 있으며 무공의 종류에 따라 정신오염 가능성이 있습니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">무공 목록</b>\n정도무공, 마도무공, 사도무공, 혈도무공 등...\n원하는 무공 택1` },
@@ -3052,7 +3055,7 @@
 
         function showAbilityDetail(data, cardEl, idx) {
             _pendingAbility = { data, cardEl, idx };
-            const panel      = document.getElementById('ability-detail-panel');
+            const panel = document.getElementById('ability-detail-panel');
             const bgOverlay  = document.getElementById('ability-bg-overlay');
             const mainWrap   = document.getElementById('ability-main-wrap');
             const imgBox     = document.getElementById('ability-img-box');
@@ -3126,6 +3129,8 @@
                         if (!GameState.selections[9] || !GameState.selections[9].length) { const ce = document.getElementById('cat-9'); if (ce) ce.classList.remove('selected'); }
                         updateStatusTags(9);
                         gradeDesc.textContent = '';
+                        // 창을 닫지 않고 등급 버튼 상태만 초기화
+                        gradeWrap.querySelectorAll('.ability-grade-btn').forEach(b => b.classList.remove('selected'));
                         return;
                     }
                     if (prevGi2 !== null) {
@@ -4201,7 +4206,7 @@
                 sec.appendChild(header);
 
                 const secBody = document.createElement('div');
-                secBody.className = 'eq-section-body' + (isOpen ? ' open' : '');
+                secBody.className = 'eq-section-body' + (isOpen ? ' open' : '') + (key === 'consumable' ? ' consumable-body' : '');
                 if (isOpen) build(secBody);
                 sec.appendChild(secBody);
                 body.appendChild(sec);
@@ -5151,140 +5156,138 @@
         }
 
         async function _drawExportCanvas(canvas) {
-            const lines = _buildExportData();
             const W = 860;
-            const PAD = 32;
-            const COL_W = (W - PAD * 2 - 12) / 2; // 2열
-            const IMG_W = 90;
-            const IMG_H = 120;
-            const CARD_H = IMG_H + 8;
-            const ROW_H = 24;
-            const SECTION_H = 32;
-            const DIVIDER_H = 16;
-            const HEADER_H = 56;
+            const PAD = 36;
+            const ROW_H = 22;
+            const SECTION_H = 30;
+            const DIVIDER_H = 14;
+            const HEADER_H = 52;
+            const CARD_W_COLS = 4;
+            const CARD_IMG_W = 80;
+            const CARD_IMG_H = 110;
+            const CARD_H = CARD_IMG_H + 6;
+            const CARD_TEXT_W_RATIO = W - PAD*2;
 
-            // 이미지 로드 헬퍼
+            // 이미지 로드 헬퍼 (실패 시 null)
             const loadImg = (src) => new Promise(res => {
                 if (!src) return res(null);
                 const img = new Image();
                 img.crossOrigin = 'anonymous';
-                img.onload  = () => res(img);
+                img.onload = () => res(img);
                 img.onerror = () => res(null);
                 img.src = src;
             });
 
-            // 선택된 카드 이미지+설명 수집
-            const cardItems = []; // { label, name, desc, imgSrc }
+            // 카드 아이템 수집
+            const cardItems = [];
+            const tryCard = async (label, name, desc, imgPath) => {
+                const imgSrc = imgPath ? await findImage(imgPath) : null;
+                const img = imgSrc ? await loadImg(imgSrc) : null;
+                cardItems.push({ label, name, desc: (desc || '').replace(/<[^>]+>/g, '').slice(0, 80), img });
+            };
 
-            // 발현
             if (GameState.manifestation) {
-                const d = (categoryData[2] || []).find(x => x.name === GameState.manifestation);
-                const iNum = categoryData[2] ? String(categoryData[2].findIndex(x => x.name === GameState.manifestation) + 1).padStart(3, '0') : null;
-                const imgSrc = iNum ? await findImage(`img_cho/02/02_Cho_${iNum}`) : null;
-                cardItems.push({ label: '발현', name: GameState.manifestation, desc: d?.desc?.replace(/<[^>]+>/g, '').slice(0, 60) || '', imgSrc });
+                const arr = categoryData[2] || [];
+                const idx = arr.findIndex(x => x.name === GameState.manifestation);
+                const d = arr[idx];
+                await tryCard('발현', GameState.manifestation, d?.desc, idx >= 0 ? `img_cho/02/02_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 출신지
             if (GameState.origin) {
                 const arr = categoryData[3] || [];
                 const idx = arr.findIndex(x => x.name === GameState.origin);
-                const imgSrc = idx >= 0 ? await findImage(`img_cho/03/03_Cho_${String(idx+1).padStart(3,'0')}`) : null;
-                const d = arr[idx];
-                cardItems.push({ label: '출신지', name: GameState.origin, desc: d?.desc?.slice(0, 60) || '', imgSrc });
+                await tryCard('출신지', GameState.origin, arr[idx]?.desc, idx >= 0 ? `img_cho/03/03_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 신체능력
             for (const name of (GameState.selections?.[4] || [])) {
-                const arr = categoryData[4] || [];
-                const idx = arr.findIndex(x => x.name === name);
-                const imgSrc = idx >= 0 ? await findImage(`img_cho/04/04_Cho_${String(idx+1).padStart(3,'0')}`) : null;
-                cardItems.push({ label: '신체능력', name, desc: arr[idx]?.desc?.slice(0, 60) || '', imgSrc });
+                const arr = categoryData[4] || []; const idx = arr.findIndex(x => x.name === name);
+                await tryCard('신체능력', name, arr[idx]?.desc, idx >= 0 ? `img_cho/04/04_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 정신능력
             for (const name of (GameState.selections?.[5] || [])) {
-                const arr = categoryData[5] || [];
-                const idx = arr.findIndex(x => x.name === name);
-                const imgSrc = idx >= 0 ? await findImage(`img_cho/05/05_Cho_${String(idx+1).padStart(3,'0')}`) : null;
-                cardItems.push({ label: '정신능력', name, desc: arr[idx]?.desc?.slice(0, 60) || '', imgSrc });
+                const arr = categoryData[5] || []; const idx = arr.findIndex(x => x.name === name);
+                await tryCard('정신능력', name, arr[idx]?.desc, idx >= 0 ? `img_cho/05/05_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 신체 강점
             for (const name of (GameState.selections?.['6-1'] || [])) {
-                const arr = categoryData['6-1'] || [];
-                const idx = arr.findIndex(x => x.name === name);
-                const imgSrc = idx >= 0 ? await findImage(`img_cho/06_A/06A_Cho_${String(idx+1).padStart(3,'0')}`) : null;
-                cardItems.push({ label: '신체 강점', name, desc: arr[idx]?.desc?.slice(0, 60) || '', imgSrc });
+                const arr = categoryData['6-1'] || []; const idx = arr.findIndex(x => x.name === name);
+                await tryCard('신체 강점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/06_A/06A_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 신체 약점
             for (const name of (GameState.selections?.['6-2'] || [])) {
-                const arr = categoryData['6-2'] || [];
-                const idx = arr.findIndex(x => x.name === name);
-                const imgSrc = idx >= 0 ? await findImage(`img_cho/06_B/06B_Cho_${String(idx+1).padStart(3,'0')}`) : null;
-                cardItems.push({ label: '신체 약점', name, desc: arr[idx]?.desc?.slice(0, 60) || '', imgSrc });
+                const arr = categoryData['6-2'] || []; const idx = arr.findIndex(x => x.name === name);
+                await tryCard('신체 약점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/06_B/06B_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 정신 강점
             for (const name of (GameState.selections?.['7-1'] || [])) {
-                const arr = categoryData['7-1'] || [];
-                const idx = arr.findIndex(x => x.name === name);
-                const imgSrc = idx >= 0 ? await findImage(`img_cho/07_A/07A_Cho_${String(idx+1).padStart(3,'0')}`) : null;
-                cardItems.push({ label: '정신 강점', name, desc: arr[idx]?.desc?.slice(0, 60) || '', imgSrc });
+                const arr = categoryData['7-1'] || []; const idx = arr.findIndex(x => x.name === name);
+                await tryCard('정신 강점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/07_A/07A_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 정신 약점
             for (const name of (GameState.selections?.['7-2'] || [])) {
-                const arr = categoryData['7-2'] || [];
-                const idx = arr.findIndex(x => x.name === name);
-                const imgSrc = idx >= 0 ? await findImage(`img_cho/07_B/07B_Cho_${String(idx+1).padStart(3,'0')}`) : null;
-                cardItems.push({ label: '정신 약점', name, desc: arr[idx]?.desc?.slice(0, 60) || '', imgSrc });
+                const arr = categoryData['7-2'] || []; const idx = arr.findIndex(x => x.name === name);
+                await tryCard('정신 약점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/07_B/07B_Cho_${String(idx+1).padStart(3,'0')}` : null);
             }
-            // 기술
             for (const nameGrade of (GameState.selections?.[8] || [])) {
-                const baseName = nameGrade.split(' — ')[0];
-                const gradeName = nameGrade.split(' — ')[1] || '';
-                const d = (categoryData[8] || []).find(x => x.name === baseName);
-                const gi = skillGrades.findIndex(g => g.label === gradeName);
-                const imgSrc = d && gi >= 0 ? await findImage(`img_cho/08/${d.skillNum}/${String(gi+1).padStart(3,'0')}`) : null;
-                cardItems.push({ label: '기술', name: nameGrade, desc: gi >= 0 ? (skillGradeDesc[d?.skillKey]?.[gi] || '') : '', imgSrc });
+                const base = nameGrade.split(' — ')[0]; const grade = nameGrade.split(' — ')[1] || '';
+                const d = (categoryData[8] || []).find(x => x.name === base);
+                const gi = skillGrades.findIndex(g => g.label === grade);
+                const desc = d && gi >= 0 ? (skillGradeDesc[d.skillKey]?.[gi] || '') : '';
+                await tryCard('기술', nameGrade, desc, d && gi >= 0 ? `img_cho/08/${d.skillNum}/${String(gi+1).padStart(3,'0')}` : null);
             }
-            // 이능
             for (const nameGrade of (GameState.selections?.[9] || [])) {
-                const baseName = nameGrade.split(' — ')[0];
-                const d = (categoryData[9] || []).find(x => x.name === baseName);
-                const imgSrc = d ? await findImage(`img_cho/09/${d.abilityNum}/main`) : null;
-                cardItems.push({ label: '이능', name: nameGrade, desc: d?.abilityDesc?.replace(/<[^>]+>/g, '').slice(0, 60) || '', imgSrc });
+                const base = nameGrade.split(' — ')[0];
+                const d = (categoryData[9] || []).find(x => x.name === base);
+                await tryCard('이능', nameGrade, d?.abilityDesc, d ? `img_cho/09/${d.abilityNum}/main` : null);
             }
-            // 미스트기어
             if (_mistgearSelected !== null) {
                 const g = mistgearData[_mistgearSelected];
-                const imgSrc = await findImage(`img_cho/11/mistgear/${g.num}`);
-                cardItems.push({ label: '미스트기어', name: g.name, desc: g.hoverText.slice(0, 60), imgSrc });
+                await tryCard('미스트기어', g.name, g.part, `img_cho/11/mistgear/${g.num}`);
             }
 
-            // 이미지 로드
-            const loadedImgs = await Promise.all(cardItems.map(c => loadImg(c.imgSrc)));
+            // 텍스트 라인 생성
+            const output = [];
+            const addH = v => output.push({t:'H',v}); const addD = () => output.push({t:'D'});
+            const addS = v => output.push({t:'S',v}); const addR = (l,v) => output.push({t:'R',l,v});
+            const addI = v => output.push({t:'I',v});
+            addH('MIST EARTH : SURVIVAL'); addD();
+            addS('기본 정보');
+            addR('이름', GameState.name||'—'); addR('나이', GameState.age||'—');
+            addR('외형', GameState.gender||'—'); addR('출신', GameState.origin||'—');
+            const mgT = document.getElementById('st-gear')?.childNodes[0]?.textContent?.trim();
+            if (mgT && mgT !== '—') addR('미스트기어', mgT);
+            addD();
+            addS('포인트');
+            addR('인간성', String(GameState.points?.human??0)); addR('미스트', String(GameState.points?.mist??0));
+            addR('오염', String(GameState.points?.contam??0)); addR('크레딧', String(GameState.points?.credit??0));
+            addD();
+            addS('STATUS');
+            [['힘','str'],['민첩','agi'],['지능','int'],['운','luk'],['정신','men'],['저항','res']].forEach(([l,k])=>addR(l,String(GameState.stats?.[k]??0)));
+            addD();
+            if (GameState.contamination) { addS('미스트 오염도'); addI(GameState.contamination); }
+            if (GameState.manifestation) { addS('발현'); addI(GameState.manifestation); }
+            const q=(GameState.selections?.[10]||[]); if(q.length){addS('최종 의뢰');q.forEach(addI);}
+            const wl=[]; _equipState.weapon.selections.forEach(key=>{const[sub,i]=key.split(':');const item=equipData.weapon.subs[sub]?.[+i];if(!item)return;const mi=_equipState.weapon.materials[sub];const ml=subMaterialMap[sub]?.list;let n=item.name;if(mi!==null&&ml)n+=`-${ml[mi].name}`;wl.push(`무기: ${n}`);});
+            if(_equipState.armor.item!==null){let n=equipData.armor.items[_equipState.armor.item].name;if(_equipState.armor.material!==null)n+=`-${equipMaterials[_equipState.armor.material].name}`;wl.push(`방어구: ${n}`);}
+            if(wl.length){addS('장비');wl.forEach(addI);}
+            const cl=Object.entries(_equipState.consumable).filter(([,q])=>q>0);
+            if(cl.length){addS('소모품');cl.forEach(([n,q])=>addI(`${n} x${q}`));}
+            const hll=[]; if(_hideoutState.form!==null)hll.push(`형태: ${hideoutData.form.items[_hideoutState.form].name}`);
+            if(_hideoutState.location!==null)hll.push(`위치: ${hideoutData.location.items[_hideoutState.location].name}`);
+            _hideoutState.facility.forEach(i=>hll.push(`시설: ${hideoutData.facility.items[i].name}`));
+            if(hll.length){addS('은신처');hll.forEach(addI);}
 
-            // 텍스트 섹션 높이 계산
-            let textH = PAD + HEADER_H + DIVIDER_H;
-            textH += SECTION_H + ROW_H * 5 + DIVIDER_H; // 기본정보
-            textH += SECTION_H + ROW_H * 4 + DIVIDER_H; // 포인트
-            textH += SECTION_H + ROW_H * 6 + DIVIDER_H; // 스탯
-            const cardSectionsCheck = new Set(['발현','출신지','신체능력','정신능력','신체 강점','신체 약점','정신 강점','정신 약점','기술','이능','미스트기어']);
-            let inSectionCheck = false;
-            let skipCheck = false;
-            lines.forEach(l => {
-                if (l.type === 'header') return;
-                if (l.type === 'divider') { if (inSectionCheck && !skipCheck) textH += DIVIDER_H; inSectionCheck = false; skipCheck = false; return; }
-                if (l.type === 'section') {
-                    if (cardSectionsCheck.has(l.text)) { skipCheck = true; inSectionCheck = true; return; }
-                    skipCheck = false; inSectionCheck = true; textH += SECTION_H; return;
-                }
-                if (skipCheck || !inSectionCheck) return;
-                textH += ROW_H;
+            // 높이 계산
+            let textH = PAD;
+            output.forEach(l=>{
+                if(l.t==='H') textH+=HEADER_H; else if(l.t==='D') textH+=DIVIDER_H;
+                else if(l.t==='S') textH+=SECTION_H; else textH+=ROW_H;
             });
+            textH += PAD;
 
-            // 카드 섹션 높이
-            const cardRows = Math.ceil(cardItems.length / 4);
+            // 카드 섹션 높이 (4열)
+            const CARD_COLS = 4;
+            const CARD_SLOT_W = Math.floor((W - PAD*2 - 8*(CARD_COLS-1)) / CARD_COLS);
             const CARD_ROW_H = CARD_H + 12;
-            const cardSectionH = cardItems.length > 0 ? SECTION_H + cardRows * CARD_ROW_H + DIVIDER_H : 0;
+            const cardSectionH = cardItems.length > 0 ? SECTION_H + Math.ceil(cardItems.length/CARD_COLS) * CARD_ROW_H + 20 : 0;
 
-            const totalH = textH + cardSectionH + PAD;
-            const DPR = 2; // 2배 해상도
+            const totalH = Math.max(textH + cardSectionH, 400);
+            const MAX_CANVAS = 14000;
+            const DPR = totalH * 2 <= MAX_CANVAS ? 2 : 1;
+
             canvas.width  = W * DPR;
             canvas.height = totalH * DPR;
             canvas.style.width  = W + 'px';
@@ -5295,163 +5298,78 @@
             ctx.fillStyle = '#000500';
             ctx.fillRect(0, 0, W, totalH);
 
-            const drawText = (text, x, y, color, font, align = 'left', glow = false) => {
-                ctx.font = font;
-                ctx.fillStyle = color;
-                ctx.textAlign = align;
-                if (glow) { ctx.shadowColor = color; ctx.shadowBlur = 8; }
-                ctx.fillText(text, x, y);
-                ctx.shadowBlur = 0;
-            };
-
-            const wrapText = (ctx, text, x, y, maxW, lineH) => {
-                const words = text.split('');
-                let line = '';
-                let curY = y;
-                for (const ch of words) {
-                    const test = line + ch;
-                    if (ctx.measureText(test).width > maxW && line) {
-                        ctx.fillText(line, x, curY);
-                        line = ch; curY += lineH;
-                    } else { line = test; }
-                }
-                if (line) ctx.fillText(line, x, curY);
-                return curY;
-            };
-
             let y = PAD;
-
-            // 헤더
-            drawText('MIST EARTH : SURVIVAL', W/2, y+36, '#33ff33', 'bold 24px monospace', 'center', true);
-            y += HEADER_H;
-            ctx.strokeStyle = '#1a4a1a'; ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W-PAD, y); ctx.stroke();
-            y += DIVIDER_H;
-
-            // 기본정보
-            drawText('— 기본 정보 —', PAD, y+18, '#1a8a1a', 'bold 13px monospace', 'left', true); y += SECTION_H;
-            [
-                ['이름', GameState.name || '—'],
-                ['나이', GameState.age || '—'],
-                ['외형', GameState.gender || '—'],
-                ['출신', GameState.origin || '—'],
-                ['미스트기어', (() => { const el=document.getElementById('st-gear'); const t=el?.childNodes[0]?.textContent?.trim(); return (t&&t!=='—')?t:'—'; })()],
-            ].forEach(([label, value]) => {
-                drawText(label, PAD+10, y+16, '#2a7a2a', '12px monospace');
-                drawText(value, PAD+130, y+16, '#33ff33', '12px monospace');
-                y += ROW_H;
-            });
-            ctx.strokeStyle = '#1a4a1a'; ctx.beginPath(); ctx.moveTo(PAD, y+8); ctx.lineTo(W-PAD, y+8); ctx.stroke(); y += DIVIDER_H;
-
-            // 포인트
-            drawText('— 포인트 —', PAD, y+18, '#1a8a1a', 'bold 13px monospace', 'left', true); y += SECTION_H;
-            [
-                ['인간성', GameState.points?.human ?? 0],
-                ['미스트', GameState.points?.mist  ?? 0],
-                ['오염',   GameState.points?.contam ?? 0],
-                ['크레딧', GameState.points?.credit ?? 0],
-            ].forEach(([label, value]) => {
-                drawText(label, PAD+10, y+16, '#2a7a2a', '12px monospace');
-                drawText(String(value), PAD+130, y+16, '#33ff33', '12px monospace');
-                y += ROW_H;
-            });
-            ctx.strokeStyle = '#1a4a1a'; ctx.beginPath(); ctx.moveTo(PAD, y+8); ctx.lineTo(W-PAD, y+8); ctx.stroke(); y += DIVIDER_H;
-
-            // 스탯
-            drawText('— STATUS —', PAD, y+18, '#1a8a1a', 'bold 13px monospace', 'left', true); y += SECTION_H;
-            [['힘','str'],['민첩','agi'],['지능','int'],['운','luk'],['정신','men'],['저항','res']].forEach(([label, k]) => {
-                drawText(label, PAD+10, y+16, '#2a7a2a', '12px monospace');
-                drawText(String(GameState.stats?.[k] ?? 0), PAD+130, y+16, '#33ff33', '12px monospace');
-                y += ROW_H;
-            });
-            ctx.strokeStyle = '#1a4a1a'; ctx.beginPath(); ctx.moveTo(PAD, y+8); ctx.lineTo(W-PAD, y+8); ctx.stroke(); y += DIVIDER_H;
-
-            // 텍스트 전용 섹션들 — 카드로 표시되는 것 제외하고 전부 출력
-            const cardSections = new Set(['발현','출신지','신체능력','정신능력','신체 강점','신체 약점','정신 강점','정신 약점','기술','이능','미스트기어']);
-            let inSection = false;
-            let skipThisSection = false;
-            lines.forEach(l => {
-                if (l.type === 'header') return;
-                if (l.type === 'divider') {
-                    if (inSection && !skipThisSection) {
-                        ctx.strokeStyle = '#1a4a1a'; ctx.beginPath(); ctx.moveTo(PAD, y+8); ctx.lineTo(W-PAD, y+8); ctx.stroke();
-                        y += DIVIDER_H;
-                    }
-                    inSection = false; skipThisSection = false;
-                    return;
-                }
-                if (l.type === 'section') {
-                    if (cardSections.has(l.text)) { skipThisSection = true; inSection = true; return; }
-                    skipThisSection = false; inSection = true;
-                    drawText(`— ${l.text} —`, PAD, y+18, '#1a8a1a', 'bold 13px monospace', 'left', true); y += SECTION_H;
-                    return;
-                }
-                if (skipThisSection || !inSection) return;
-                if (l.type === 'row') {
-                    drawText(l.label, PAD+10, y+16, '#2a7a2a', '12px monospace');
-                    drawText(l.value, PAD+130, y+16, '#33ff33', '12px monospace');
-                    y += ROW_H;
-                } else if (l.type === 'item') {
-                    drawText(`  · ${l.text}`, PAD+10, y+16, '#4aaa4a', '12px monospace');
-                    y += ROW_H;
+            output.forEach(l => {
+                if (l.t === 'H') {
+                    ctx.font='bold 22px monospace'; ctx.fillStyle='#33ff33';
+                    ctx.shadowColor='#33ff33'; ctx.shadowBlur=10; ctx.textAlign='center';
+                    ctx.fillText(l.v, W/2, y+34); ctx.shadowBlur=0; y+=HEADER_H;
+                } else if (l.t === 'D') {
+                    ctx.strokeStyle='#1a4a1a'; ctx.lineWidth=1;
+                    ctx.beginPath(); ctx.moveTo(PAD,y+7); ctx.lineTo(W-PAD,y+7); ctx.stroke(); y+=DIVIDER_H;
+                } else if (l.t === 'S') {
+                    ctx.font='bold 13px monospace'; ctx.fillStyle='#1a8a1a';
+                    ctx.shadowColor='#33ff33'; ctx.shadowBlur=4; ctx.textAlign='left';
+                    ctx.fillText(`— ${l.v} —`, PAD, y+18); ctx.shadowBlur=0; y+=SECTION_H;
+                } else if (l.t === 'R') {
+                    ctx.font='12px monospace'; ctx.textAlign='left';
+                    ctx.fillStyle='#2a7a2a'; ctx.fillText(l.l, PAD+10, y+15);
+                    ctx.fillStyle='#33ff33'; ctx.fillText(l.v, PAD+130, y+15); y+=ROW_H;
+                } else if (l.t === 'I') {
+                    ctx.font='12px monospace'; ctx.fillStyle='#4aaa4a';
+                    ctx.textAlign='left'; ctx.fillText(`  · ${l.v}`, PAD+10, y+15); y+=ROW_H;
                 }
             });
 
             // 카드 섹션
             if (cardItems.length > 0) {
-                drawText('— 선택 카드 —', PAD, y+18, '#1a8a1a', 'bold 13px monospace', 'left', true); y += SECTION_H;
-                const COLS = 4;
-                const CARD_W = Math.floor((W - PAD*2 - 8*3) / COLS);
+                ctx.font='bold 13px monospace'; ctx.fillStyle='#1a8a1a';
+                ctx.shadowColor='#33ff33'; ctx.shadowBlur=4; ctx.textAlign='left';
+                ctx.fillText('— 선택 카드 —', PAD, y+18); ctx.shadowBlur=0; y+=SECTION_H;
                 cardItems.forEach((card, i) => {
-                    const col = i % COLS;
-                    const row = Math.floor(i / COLS);
-                    const cx = PAD + col * (CARD_W + 8);
-                    const cy = y + row * (CARD_H + 12);
-
+                    const col = i % CARD_COLS;
+                    const row = Math.floor(i / CARD_COLS);
+                    const cx = PAD + col * (CARD_SLOT_W + 8);
+                    const cy = y + row * CARD_ROW_H;
                     // 카드 배경
-                    ctx.fillStyle = 'rgba(5,10,5,0.9)';
-                    ctx.strokeStyle = '#1a4a1a';
-                    ctx.lineWidth = 1;
-                    ctx.fillRect(cx, cy, CARD_W, CARD_H);
-                    ctx.strokeRect(cx, cy, CARD_W, CARD_H);
-
+                    ctx.fillStyle='rgba(5,10,5,0.9)'; ctx.strokeStyle='#1a4a1a'; ctx.lineWidth=1;
+                    ctx.fillRect(cx, cy, CARD_SLOT_W, CARD_H);
+                    ctx.strokeRect(cx, cy, CARD_SLOT_W, CARD_H);
                     // 이미지
-                    const img = loadedImgs[i];
-                    if (img) {
+                    if (card.img) {
                         ctx.save();
-                        ctx.beginPath();
-                        ctx.rect(cx, cy, IMG_W, CARD_H);
-                        ctx.clip();
-                        const scale = Math.max(IMG_W / img.width, CARD_H / img.height);
-                        const dw = img.width * scale;
-                        const dh = img.height * scale;
-                        ctx.drawImage(img, cx + (IMG_W - dw)/2, cy + (CARD_H - dh)/2, dw, dh);
+                        ctx.beginPath(); ctx.rect(cx, cy, CARD_IMG_W, CARD_H); ctx.clip();
+                        const sc = Math.max(CARD_IMG_W/card.img.width, CARD_H/card.img.height);
+                        ctx.drawImage(card.img, cx+(CARD_IMG_W-card.img.width*sc)/2, cy+(CARD_H-card.img.height*sc)/2, card.img.width*sc, card.img.height*sc);
                         ctx.restore();
                     }
-
                     // 텍스트
-                    const tx = cx + IMG_W + 6;
-                    const tw = CARD_W - IMG_W - 10;
-                    ctx.font = 'bold 10px monospace';
-                    ctx.fillStyle = '#1a6a1a';
-                    ctx.textAlign = 'left';
-                    ctx.fillText(card.label, tx, cy + 14);
-                    ctx.font = 'bold 11px monospace';
-                    ctx.fillStyle = '#33ff33';
+                    const tx = cx + CARD_IMG_W + 5;
+                    const tw = CARD_SLOT_W - CARD_IMG_W - 8;
+                    ctx.textAlign='left';
+                    ctx.font='9px monospace'; ctx.fillStyle='#1a6a1a'; ctx.fillText(card.label, tx, cy+11);
+                    ctx.font='bold 10px monospace'; ctx.fillStyle='#33ff33';
+                    ctx.shadowColor='#33ff33'; ctx.shadowBlur=3;
                     // 이름 줄바꿈
-                    ctx.shadowColor = '#33ff33'; ctx.shadowBlur = 4;
-                    wrapText(ctx, card.name, tx, cy + 28, tw, 14);
-                    ctx.shadowBlur = 0;
+                    let ny = cy + 23;
+                    let nameLine = ''; const nameChars = card.name.split('');
+                    for (const ch of nameChars) {
+                        const test = nameLine + ch;
+                        if (ctx.measureText(test).width > tw && nameLine) { ctx.fillText(nameLine, tx, ny); nameLine=ch; ny+=13; }
+                        else nameLine=test;
+                    }
+                    if (nameLine) { ctx.fillText(nameLine, tx, ny); ny+=13; }
+                    ctx.shadowBlur=0;
                     // 설명 줄바꿈
-                    ctx.font = '9px monospace';
-                    ctx.fillStyle = '#2a7a2a';
-                    const descLines = card.desc.split('\n');
-                    let dy = cy + 52;
-                    descLines.forEach(dl => {
-                        dy = wrapText(ctx, dl, tx, dy, tw, 12) + 12;
-                    });
+                    ctx.font='8px monospace'; ctx.fillStyle='#2a7a2a';
+                    let descLine=''; ny+=2;
+                    for (const ch of card.desc) {
+                        const test = descLine+ch;
+                        if (ctx.measureText(test).width > tw && descLine) { ctx.fillText(descLine,tx,ny); descLine=ch; ny+=11; if(ny>cy+CARD_H-4)break; }
+                        else descLine=test;
+                    }
+                    if (descLine && ny<=cy+CARD_H-4) ctx.fillText(descLine, tx, ny);
                 });
-                y += Math.ceil(cardItems.length / COLS) * (CARD_H + 12);
             }
         }
 
@@ -5459,7 +5377,10 @@
             closeExportDialog();
             const overlay = document.getElementById('export-preview-overlay');
             const canvas  = document.getElementById('export-canvas');
-            overlay.style.display = 'flex';
+            // style 초기화 (DPR 적용 후 _drawExportCanvas에서 재설정)
+            canvas.style.width  = '';
+            canvas.style.height = '';
+            overlay.style.display = 'block';
             await _drawExportCanvas(canvas);
         }
 
@@ -6907,9 +6828,11 @@
 
         document.getElementById('progress-bar-bg').onclick = (e) => {
             e.stopPropagation();
-            const rect = e.target.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            mainBgm.currentTime = pos * mainBgm.duration;
+            const rect = document.getElementById('progress-bar-bg').getBoundingClientRect();
+            const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            if (mainBgm.duration && !isNaN(mainBgm.duration)) {
+                mainBgm.currentTime = pos * mainBgm.duration;
+            }
         };
 
         document.getElementById('volume-slider').oninput = (e) => { mainBgm.volume = e.target.value; };
