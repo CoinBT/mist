@@ -3055,8 +3055,6 @@
 
         function showAbilityDetail(data, cardEl, idx) {
             _pendingAbility = { data, cardEl, idx };
-            // 닫기 타이머가 있으면 취소 (빠르게 재클릭 시 remove('active')가 실행되는 것 방지)
-            if (_abilityCloseTimer) { clearTimeout(_abilityCloseTimer); _abilityCloseTimer = null; }
             const panel = document.getElementById('ability-detail-panel');
             const bgOverlay  = document.getElementById('ability-bg-overlay');
             const mainWrap   = document.getElementById('ability-main-wrap');
@@ -3071,24 +3069,25 @@
             const gradeDesc  = document.getElementById('ability-grade-desc');
             const gradeCursor= document.getElementById('ability-grade-cursor');
 
+            if (!panel || !bgOverlay || !mainWrap || !imgBox || !detailImg || !imgPlaceholder) return;
+
             mainWrap.classList.remove('show');
             bgOverlay.classList.remove('show');
             imgBox.classList.remove('loaded');
             detailImg.classList.remove('loaded');
             detailImg.src = '';
             imgPlaceholder.style.display = 'block';
-            imgName.classList.remove('show');
-            imgName.textContent = data.name;
-            titleEl.textContent = data.name;
-            descEl.textContent = '';
-            gradeDesc.textContent = '';
-            descCursor.style.display = 'none';
-            gradeCursor.style.display = 'none';
+            if (imgName) { imgName.classList.remove('show'); imgName.textContent = data.name; }
+            if (titleEl) titleEl.textContent = data.name;
+            if (descEl) descEl.textContent = '';
+            if (gradeDesc) gradeDesc.textContent = '';
+            if (descCursor) descCursor.style.display = 'none';
+            if (gradeCursor) gradeCursor.style.display = 'none';
             // 커서를 wrap 바깥(원래 위치)으로 복귀
             const descWrap = document.getElementById('ability-info-desc-wrap');
             const gradeDescWrap = document.getElementById('ability-grade-desc-wrap');
-            if (descCursor.parentElement !== descWrap) descWrap.appendChild(descCursor);
-            if (gradeCursor.parentElement !== gradeDescWrap) gradeDescWrap.appendChild(gradeCursor);
+            if (descCursor && descWrap && descCursor.parentElement !== descWrap) descWrap.appendChild(descCursor);
+            if (gradeCursor && gradeDescWrap && gradeCursor.parentElement !== gradeDescWrap) gradeDescWrap.appendChild(gradeCursor);
             if (_abilityTypingTimer) clearInterval(_abilityTypingTimer);
             if (_abilityGradeTypingTimer) clearInterval(_abilityGradeTypingTimer);
 
@@ -3131,15 +3130,6 @@
                         if (!GameState.selections[9] || !GameState.selections[9].length) { const ce = document.getElementById('cat-9'); if (ce) ce.classList.remove('selected'); }
                         updateStatusTags(9);
                         gradeDesc.textContent = '';
-                        gradeWrap.querySelectorAll('.ability-grade-btn').forEach(b => b.classList.remove('selected'));
-                        // 즉시 닫기 (타이머 없이 — 타이머가 나중에 active를 제거하는 문제 방지)
-                        if (_abilityTypingTimer) { clearInterval(_abilityTypingTimer); _abilityTypingTimer = null; }
-                        if (_abilityGradeTypingTimer) { clearInterval(_abilityGradeTypingTimer); _abilityGradeTypingTimer = null; }
-                        if (_abilityCloseTimer) { clearTimeout(_abilityCloseTimer); _abilityCloseTimer = null; }
-                        document.getElementById('ability-detail-panel')?.classList.remove('active');
-                        document.getElementById('ability-bg-overlay')?.classList.remove('show');
-                        document.getElementById('ability-main-wrap')?.classList.remove('show');
-                        _pendingAbility = null;
                         return;
                     }
                     if (prevGi2 !== null) {
@@ -3184,8 +3174,6 @@
             });
         }
 
-        let _abilityCloseTimer = null;
-
         function closeAbilityDetail(e) {
             if (e) e.stopPropagation();
             if (_abilityTypingTimer) { clearInterval(_abilityTypingTimer); _abilityTypingTimer = null; }
@@ -3195,8 +3183,7 @@
             const mainWrap  = document.getElementById('ability-main-wrap');
             mainWrap.classList.remove('show');
             bgOverlay.classList.remove('show');
-            if (_abilityCloseTimer) { clearTimeout(_abilityCloseTimer); _abilityCloseTimer = null; }
-            _abilityCloseTimer = setTimeout(() => { panel.classList.remove('active'); _abilityCloseTimer = null; }, 450);
+            setTimeout(() => { panel.classList.remove('active'); }, 450);
             _pendingAbility = null;
         }
 
