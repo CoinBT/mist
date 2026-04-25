@@ -5254,7 +5254,13 @@
             addR('오염', String(GameState.points?.contam??0)); addR('크레딧', String(GameState.points?.credit??0));
             addD();
             addS('STATUS');
-            [['힘','str'],['민첩','agi'],['지능','int'],['운','luk'],['정신','men'],['저항','res']].forEach(([l,k])=>addR(l,String(GameState.stats?.[k]??0)));
+            const _sb = GameState.statBonus || {};
+            [['힘','str'],['민첩','agi'],['지능','int'],['운','luk'],['정신','men'],['저항','res']].forEach(([l,k]) => {
+                const base = GameState.stats?.[k] ?? 0;
+                const bonus = _sb[k] || 0;
+                const total = base + bonus;
+                addR(l, bonus > 0 ? `${total} (+${bonus})` : bonus < 0 ? `${total} (${bonus})` : String(total));
+            });
             addD();
             if (GameState.contamination) { addS('미스트 오염도'); addI(GameState.contamination); }
             if (GameState.manifestation) { addS('발현'); addI(GameState.manifestation); }
@@ -5562,7 +5568,8 @@
                     applyPointDelta(prevData.points, -1, prevData);
                 }
                 if (GameState.manifestation === '존재발현') {
-                    GameState.stats.res = Math.max(0, GameState.stats.res - 5);
+                    if (!GameState.statBonus) GameState.statBonus = {};
+                    GameState.statBonus.res = (GameState.statBonus.res || 0) - 5;
                     updateStatUI();
                 }
                 if (GameState.manifestation === '괴이발현') {
@@ -5586,7 +5593,9 @@
                     GameState.points.contam += data.points.contam || 0;
                 }
                 if (data.name === '존재발현') {
-                    GameState.stats.res += 5;
+                    if (!GameState.statBonus) GameState.statBonus = {};
+                    GameState.statBonus.res = (GameState.statBonus.res || 0) + 5;
+                    console.log('[존재발현] statBonus.res:', GameState.statBonus.res, 'stats.res:', GameState.stats.res);
                     updateStatUI();
                 }
                 updatePointHUD();
