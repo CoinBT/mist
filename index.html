@@ -3055,6 +3055,8 @@
 
         function showAbilityDetail(data, cardEl, idx) {
             _pendingAbility = { data, cardEl, idx };
+            // 닫기 타이머가 있으면 취소 (빠르게 재클릭 시 remove('active')가 실행되는 것 방지)
+            if (_abilityCloseTimer) { clearTimeout(_abilityCloseTimer); _abilityCloseTimer = null; }
             const panel = document.getElementById('ability-detail-panel');
             const bgOverlay  = document.getElementById('ability-bg-overlay');
             const mainWrap   = document.getElementById('ability-main-wrap');
@@ -3129,8 +3131,15 @@
                         if (!GameState.selections[9] || !GameState.selections[9].length) { const ce = document.getElementById('cat-9'); if (ce) ce.classList.remove('selected'); }
                         updateStatusTags(9);
                         gradeDesc.textContent = '';
-                        // 창을 닫지 않고 등급 버튼 상태만 초기화
                         gradeWrap.querySelectorAll('.ability-grade-btn').forEach(b => b.classList.remove('selected'));
+                        // 즉시 닫기 (타이머 없이 — 타이머가 나중에 active를 제거하는 문제 방지)
+                        if (_abilityTypingTimer) { clearInterval(_abilityTypingTimer); _abilityTypingTimer = null; }
+                        if (_abilityGradeTypingTimer) { clearInterval(_abilityGradeTypingTimer); _abilityGradeTypingTimer = null; }
+                        if (_abilityCloseTimer) { clearTimeout(_abilityCloseTimer); _abilityCloseTimer = null; }
+                        document.getElementById('ability-detail-panel')?.classList.remove('active');
+                        document.getElementById('ability-bg-overlay')?.classList.remove('show');
+                        document.getElementById('ability-main-wrap')?.classList.remove('show');
+                        _pendingAbility = null;
                         return;
                     }
                     if (prevGi2 !== null) {
@@ -3175,6 +3184,8 @@
             });
         }
 
+        let _abilityCloseTimer = null;
+
         function closeAbilityDetail(e) {
             if (e) e.stopPropagation();
             if (_abilityTypingTimer) { clearInterval(_abilityTypingTimer); _abilityTypingTimer = null; }
@@ -3184,7 +3195,8 @@
             const mainWrap  = document.getElementById('ability-main-wrap');
             mainWrap.classList.remove('show');
             bgOverlay.classList.remove('show');
-            setTimeout(() => { panel.classList.remove('active'); }, 450);
+            if (_abilityCloseTimer) { clearTimeout(_abilityCloseTimer); _abilityCloseTimer = null; }
+            _abilityCloseTimer = setTimeout(() => { panel.classList.remove('active'); _abilityCloseTimer = null; }, 450);
             _pendingAbility = null;
         }
 
