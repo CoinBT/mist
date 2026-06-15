@@ -817,6 +817,9 @@
         .quest-card.selected .quest-card-title { text-shadow: 0 0 8px #33ff33; }
         .quest-card-reward { color: #1a7a1a; font-size: 0.72rem; text-align: center; line-height: 1.6; }
         .quest-card.selected .quest-card-reward { color: #2aaa2a; }
+        .quest-card-img { width: 100%; max-width: 130px; aspect-ratio: 3/4; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #050505; border: 1px solid #1a4a1a; margin-bottom: 6px; }
+        .quest-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+        .quest-card-img span { color: #1a4a1a; font-size: 0.65rem; }
 
         #quest-close-btn { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; background: rgba(0,0,0,0.85); border: 1px solid #1a4a1a; color: #1a4a1a; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; opacity: 0; pointer-events: none; transition: opacity 0.3s 0.3s, border-color 0.2s, color 0.2s; }
         #quest-panel.active #quest-close-btn { opacity: 1; pointer-events: all; }
@@ -969,6 +972,37 @@
         #equip-close-btn { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; background: rgba(0,0,0,0.85); border: 1px solid #1a4a1a; color: #1a4a1a; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; opacity: 0; pointer-events: none; transition: opacity 0.3s 0.3s, border-color 0.2s, color 0.2s; }
         #equip-panel.active #equip-close-btn { opacity: 1; pointer-events: all; }
         #equip-close-btn:hover { border-color: #33ff33; color: #33ff33; }
+        /* ✅ v16 장비 상점 리모델링 */
+        .eq-shop-note { color:#1a7a1a; font-size:0.72rem; line-height:1.7; margin:0 0 10px 0; border-left:2px solid #1a4a1a; padding-left:10px; }
+        .eq-slot-card { border:1px solid #123a12; background:linear-gradient(135deg, rgba(0,20,0,0.78), rgba(0,0,0,0.84)); margin-bottom:12px; padding:12px; box-shadow: inset 0 0 18px rgba(51,255,51,0.02); }
+        .eq-slot-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+        .eq-slot-title { color:#33ff33; font-size:0.9rem; letter-spacing:2px; font-weight:bold; text-shadow:0 0 8px rgba(51,255,51,0.25); }
+        .eq-slot-sub { color:#1a7a1a; font-size:0.68rem; text-align:right; line-height:1.5; }
+        .eq-path-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+        .eq-path-tab { border:1px solid #1a4a1a; color:#1a7a1a; background:rgba(0,0,0,0.6); padding:6px 10px; font-size:0.72rem; cursor:pointer; letter-spacing:1px; transition:0.2s; }
+        .eq-path-tab:hover { border-color:#33ff33; color:#33ff33; }
+        .eq-path-tab.active { border-color:#33ff33; color:#33ff33; background:rgba(51,255,51,0.07); box-shadow:0 0 8px rgba(51,255,51,0.12); }
+        .eq-card-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(155px, 1fr)); gap:8px; margin-bottom:10px; }
+        .eq-choice-card { border:1px solid #1a4a1a; background:rgba(0,0,0,0.66); padding:10px 11px; cursor:pointer; min-height:74px; display:flex; flex-direction:column; gap:5px; transition:border-color 0.2s, background 0.2s, transform 0.2s; }
+        .eq-choice-card:hover { border-color:#2a8a2a; background:rgba(20,40,20,0.72); transform:translateY(-1px); }
+        .eq-choice-card.selected { border-color:#33ff33; background:rgba(30,60,30,0.72); box-shadow:0 0 12px rgba(51,255,51,0.13); }
+        .eq-choice-card.locked { opacity:0.45; filter:grayscale(0.5); }
+        .eq-choice-name { color:#33ff33; font-size:0.8rem; font-weight:bold; letter-spacing:1px; }
+        .eq-choice-desc { color:#1f7f1f; font-size:0.7rem; line-height:1.55; word-break:keep-all; white-space:pre-wrap; }
+        .eq-choice-cost { color:#2aaa2a; font-size:0.68rem; margin-top:auto; }
+        .eq-choice-tagline { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:8px; }
+        .eq-mini-tag { border:1px solid #163a16; color:#1a7a1a; padding:2px 7px; font-size:0.62rem; letter-spacing:0.5px; }
+        .eq-mini-tag.mist { color:#66ff66; border-color:#1a6a1a; }
+        .eq-ammo-line { border-top:1px solid #123a12; padding-top:9px; margin-top:4px; }
+        .eq-empty-help { color:#1a5a1a; font-size:0.7rem; line-height:1.6; margin:6px 0 0; }
+        .eq-consumable { border:1px solid #1a4a1a; background:linear-gradient(135deg, rgba(0,18,0,0.72), rgba(0,0,0,0.72)); border-radius:0; padding:10px 12px; margin-bottom:7px; transition:border-color 0.2s, background 0.2s; }
+        .eq-consumable:hover { border-color:#2a8a2a; background:rgba(20,38,20,0.75); }
+        .eq-cons-name { letter-spacing:1px; }
+        .eq-cons-price { display:inline-block; border:1px solid #123a12; padding:2px 7px; margin-top:6px; }
+        .eq-cons-ctrl { background:rgba(0,0,0,0.35); border:1px solid #123a12; padding:5px; }
+        .eq-cons-btn { width:26px; height:26px; font-size:0.9rem; }
+        .eq-cons-qty { min-width:28px; font-weight:bold; }
+
 
         /* ── 은신처(13) 패널 ── */
         #hideout-panel { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 15; pointer-events: none; }
@@ -1065,6 +1099,10 @@
         .choice-item:hover { background: rgba(20,20,20,0.95); color: #33ff33; border-color: #33ff33; }
         .choice-item.selected { background: rgba(30,30,30,0.95); color: #33ff33; border-color: #33ff33; box-shadow: 0 0 10px rgba(51,255,51,0.2); }
 
+        .choice-item.hidden-choice { border-color: #5a4a1a; box-shadow: inset 0 0 18px rgba(255,200,80,0.05); }
+        .hidden-badge { display:inline-block; margin:0 auto 6px; padding:2px 8px; border:1px solid #d6b15a; color:#d6b15a; font-size:0.62rem; letter-spacing:2px; text-shadow:0 0 8px rgba(214,177,90,0.35); text-align:center; }
+        .quest-card.hidden-choice, .mg-card.hidden-choice { border-color:#5a4a1a; box-shadow: inset 0 0 18px rgba(255,200,80,0.05); }
+
         .choice-item-img {
             width: 100%;
             aspect-ratio: 714 / 1200;
@@ -1084,6 +1122,60 @@
         .choice-item-text { display: flex; flex-direction: column; gap: 4px; padding: 10px 10px 12px; width: 100%; box-sizing: border-box; flex-shrink: 0; flex-grow: 0; }
         .choice-item-name { color: inherit; font-size: 0.95rem; letter-spacing: 0px; text-align: center; font-weight: bold; }
         .choice-item-desc { color: #4aaa4a; font-size: 0.8rem; line-height: 1.6; text-align: center; white-space: pre-line; word-break: keep-all; overflow-wrap: break-word; }
+
+
+        /* ── 히든 이펙트 시스템(v21) ── */
+        .hidden-choice { position: relative; }
+        .hidden-choice.hidden-effect-glitch { animation: hiddenCardPulse 2.8s ease-in-out infinite; }
+        .hidden-choice.hidden-effect-mist { box-shadow: inset 0 0 18px rgba(51,255,51,0.10), 0 0 10px rgba(51,255,51,0.08); }
+        .hidden-choice.hidden-effect-rift { box-shadow: inset 0 0 20px rgba(90,160,255,0.12), 0 0 14px rgba(90,160,255,0.16); }
+        .hidden-choice.hidden-effect-blackbox { box-shadow: inset 0 0 24px rgba(255,255,255,0.05), 0 0 16px rgba(0,0,0,0.9); }
+        .hidden-choice.hidden-effect-silent { filter: saturate(0.55); }
+        .hidden-choice.hidden-effect-blood { box-shadow: inset 0 0 22px rgba(255,40,40,0.12), 0 0 12px rgba(255,40,40,0.12); }
+        .hidden-choice.hidden-effect-forbidden { box-shadow: inset 0 0 24px rgba(214,177,90,0.13), 0 0 14px rgba(214,177,90,0.12); }
+        @keyframes hiddenCardPulse { 0%,100%{ filter:brightness(1); } 50%{ filter:brightness(1.18) contrast(1.08); } }
+
+        #hidden-effect-overlay {
+            position: fixed; inset: 0; z-index: 99998; pointer-events: none; opacity: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(51,255,51,0.32), rgba(0,0,0,0.72) 72%);
+            mix-blend-mode: normal; transition: opacity 0.08s ease;
+            display: block; visibility: hidden;
+        }
+        #hidden-effect-overlay::before {
+            content: ''; position: absolute; inset: 0; opacity: 0.65;
+            background: repeating-linear-gradient(0deg, rgba(255,255,255,0.08) 0 1px, transparent 1px 5px);
+            animation: hiddenScanline 0.18s linear infinite;
+        }
+        #hidden-effect-overlay::after {
+            content: attr(data-label); position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+            min-width: 280px; padding: 14px 22px; border: 1px solid rgba(214,177,90,0.9);
+            background: rgba(0,0,0,0.78); color: #d6b15a; text-align: center; letter-spacing: 3px;
+            font-size: 0.9rem; text-shadow: 0 0 12px rgba(214,177,90,0.65);
+        }
+        #hidden-effect-overlay.active { visibility: visible; opacity: 1; animation: hiddenOverlayShake 0.72s ease-in-out; }
+        #hidden-effect-overlay.glitch { background: repeating-linear-gradient(90deg, rgba(51,255,51,0.22) 0 2px, rgba(0,0,0,0.50) 2px 7px), radial-gradient(circle, rgba(51,255,51,0.25), rgba(0,0,0,0.80) 70%); }
+        #hidden-effect-overlay.mist { background: radial-gradient(circle, rgba(51,255,51,0.36), rgba(0,0,0,0.78) 70%); }
+        #hidden-effect-overlay.rift { background: radial-gradient(circle, rgba(90,160,255,0.42), rgba(10,0,25,0.82) 72%); }
+        #hidden-effect-overlay.blackbox { background: repeating-linear-gradient(90deg, rgba(255,255,255,0.18) 0 2px, rgba(0,0,0,0.88) 2px 13px); }
+        #hidden-effect-overlay.silent { background: rgba(0,0,0,0.96); }
+        #hidden-effect-overlay.blood { background: radial-gradient(circle, rgba(255,40,40,0.42), rgba(0,0,0,0.82) 72%); }
+        #hidden-effect-overlay.forbidden { background: radial-gradient(circle, rgba(214,177,90,0.42), rgba(0,0,0,0.82) 72%); }
+        body.hidden-screen-shake { animation: hiddenBodyShake 0.42s ease-in-out; }
+        @keyframes hiddenScanline { from { transform: translateY(0); } to { transform: translateY(8px); } }
+        @keyframes hiddenOverlayShake { 0%{transform:translate(0,0) scale(1)} 20%{transform:translate(-5px,3px) scale(1.01)} 40%{transform:translate(5px,-2px) scale(1.015)} 60%{transform:translate(-2px,-5px) scale(1.01)} 80%{transform:translate(3px,2px) scale(1.005)} 100%{transform:translate(0,0) scale(1)} }
+        @keyframes hiddenBodyShake { 0%,100%{ transform:translate(0,0); } 25%{ transform:translate(2px,-1px); } 50%{ transform:translate(-2px,1px); } 75%{ transform:translate(1px,2px); } }
+
+        #hidden-unlock-toast {
+            position: fixed; left: 50%; top: 12%; transform: translateX(-50%) translateY(-10px);
+            z-index: 9999; opacity: 0; pointer-events: none; min-width: 320px; max-width: 620px;
+            padding: 16px 22px; border: 1px solid #d6b15a; background: rgba(0,0,0,0.94);
+            color: #d6b15a; font-family: inherit; text-align: center; letter-spacing: 2px;
+            box-shadow: 0 0 28px rgba(214,177,90,0.22); transition: opacity 0.28s, transform 0.28s;
+        }
+        #hidden-unlock-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        #hidden-unlock-toast .hu-title { color:#33ff33; font-size:0.78rem; margin-bottom:8px; text-shadow:0 0 8px rgba(51,255,51,0.45); }
+        #hidden-unlock-toast .hu-name { font-size:1.02rem; font-weight:bold; }
+
         .choice-item-points { color: #33ff33; font-size: 0.78rem; font-weight: bold; text-align: center; margin-top: auto; padding-top: 10px; border-top: 1px solid #2a5a2a; letter-spacing: 0.5px; overflow: hidden; text-overflow: ellipsis; word-break: keep-all; }
         .choice-item:hover .choice-item-desc, .choice-item.selected .choice-item-desc { color: #66cc66; }
         .choice-item:hover .choice-item-points, .choice-item.selected .choice-item-points { color: #fff; text-shadow: 0 0 6px rgba(51,255,51,0.5); border-top-color: #33ff33; }
@@ -1188,9 +1280,24 @@
             font-weight: bold;
             text-shadow: 0 0 8px rgba(51,255,51,0.5);
         }
+
+
+        /* [I18N] Language selector - top right fixed toggle */
+        #language-selector { position:fixed; top:18px; right:18px; display:flex; gap:8px; z-index:1000; align-items:center; background:rgba(0,0,0,0.58); border:1px solid #123a12; padding:6px; box-shadow:0 0 14px rgba(0,0,0,0.65); }
+        .lang-btn { background:rgba(0,255,0,0.04); border:1px solid #1a4a1a; color:#2a8a2a; padding:7px 12px; font-family:inherit; font-size:0.72rem; letter-spacing:1.5px; cursor:pointer !important; transition:0.25s; min-width:72px; }
+        .lang-btn:hover, .lang-btn.active { border-color:#33ff33; color:#33ff33; box-shadow:0 0 12px rgba(51,255,51,0.25); background:rgba(51,255,51,0.10); }
+        #language-selector.locked { opacity:0; pointer-events:none; transform:translateY(-8px); transition:opacity 0.35s ease, transform 0.35s ease; }
+        body.booted #language-selector { display:none; }
+        #language-hint { display:none; }
     </style>
 </head>
 <body onclick="handleGlobalClick()">
+
+    <div id="language-selector" onclick="event.stopPropagation()">
+        <button class="lang-btn active" id="lang-ko-btn" onclick="setLanguage('ko')">한국어</button>
+        <button class="lang-btn" id="lang-en-btn" onclick="setLanguage('en')">ENGLISH</button>
+    </div>
+    <div id="language-hint">SELECT LANGUAGE BEFORE BOOT</div>
 
     <div id="opening-container">
         <button id="boot-btn">SYSTEM BOOT</button>
@@ -1782,20 +1889,31 @@
                 <div style="color:#33ff33; font-size:0.88rem; letter-spacing:2px; margin-bottom:28px;">지금까지의 선택을 내보내시겠습니까?</div>
                 <div style="display:flex; gap:12px; justify-content:center;">
                     <button onclick="openExportPreview()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.78rem; padding:8px 18px; cursor:pointer; letter-spacing:1px; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">[미리보기]</button>
-                    <button onclick="doExport()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.78rem; padding:8px 18px; cursor:pointer; letter-spacing:1px; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">[네]</button>
+                    <button onclick="doExport('png')" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.78rem; padding:8px 18px; cursor:pointer; letter-spacing:1px; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">[네]</button>
                     <button onclick="closeExportDialog()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.78rem; padding:8px 18px; cursor:pointer; letter-spacing:1px; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">[아니요]</button>
                 </div>
             </div>
         </div>
 
         <!-- 미리보기 오버레이 -->
-        <div id="export-preview-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:500; background:rgba(0,0,0,0.9); overflow-y:auto;">
-            <div style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:20px 0 40px;">
-                <div style="display:flex; gap:14px; justify-content:flex-end; width:90%; max-width:900px;">
-                    <button onclick="downloadPreviewPng()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:6px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">PNG 저장</button>
-                    <button onclick="closeExportPreview()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:6px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">닫기</button>
+        <div id="export-preview-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:500; background:rgba(0,0,0,0.94); overflow-y:auto;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:16px; padding:24px 0 40px;">
+                <div style="width:92%; max-width:1200px; border:1px solid #1a4a1a; background:rgba(2,8,2,0.96); box-shadow:0 0 30px rgba(0,0,0,0.5);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:20px; padding:14px 18px; border-bottom:1px solid #113311;">
+                        <div>
+                            <div style="color:#33ff33; font-size:0.95rem; letter-spacing:3px; font-weight:bold;">EXPORT PREVIEW</div>
+                            <div style="color:#1f7a1f; font-size:0.72rem; margin-top:6px;">선택한 항목을 이미지로 미리 확인하고 PNG / JPG로 저장할 수 있습니다.</div>
+                        </div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+                            <button onclick="downloadPreviewPng()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:8px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">PNG 저장</button>
+                            <button onclick="downloadPreviewJpg()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:8px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">JPG 저장</button>
+                            <button onclick="closeExportPreview()" style="background:none; border:1px solid #1a4a1a; color:#1a7a1a; font-family:inherit; font-size:0.75rem; padding:8px 16px; cursor:pointer; transition:0.2s;" onmouseover="this.style.borderColor='#33ff33';this.style.color='#33ff33'" onmouseout="this.style.borderColor='#1a4a1a';this.style.color='#1a7a1a'">닫기</button>
+                        </div>
+                    </div>
+                    <div style="padding:18px; display:flex; justify-content:center;">
+                        <canvas id="export-canvas" style="width:100%; max-width:1080px; border:1px solid #1a4a1a; display:block; background:#000;"></canvas>
+                    </div>
                 </div>
-                <canvas id="export-canvas" style="width:90%; max-width:900px; border:1px solid #1a4a1a; display:block;"></canvas>
             </div>
         </div>
         <div id="help-popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:300; align-items:center; justify-content:center; background:rgba(0,0,0,0.7);">
@@ -1843,6 +1961,8 @@
     <audio id="snd-shock" src="shock.mp3"></audio>
     <audio id="main-bgm"></audio>
 
+    <script src="lang/ko.js"></script>
+    <script src="lang/en.js"></script>
     <script>
         // --- [1] 전역 변수 및 데이터 ---
         const GameState = { name: "", gender: "" };
@@ -1854,6 +1974,129 @@
         const skipBtn = document.getElementById('skip-btn');
         const glitchOverlay = document.getElementById('glitch-overlay');
         const mainBgm = document.getElementById('main-bgm');
+        mainBgm.volume = 0.5;
+
+
+        // --- [I18N] Korean / English language layer ---
+        const I18N_PACKS = window.MIST_LANG_PACKS || { ko: {}, en: {} };
+        const I18N_EN = I18N_PACKS.en || {};
+        let languageLocked = false;
+        let currentLang = localStorage.getItem('mistEarthLang') || 'ko';
+        let __i18nApplying = false;
+        const __i18nSkipSelector = [
+            '#terminal',
+            '#scenario-text', '#scenario-cursor-wrap',
+            '#quest-dialog-text', '#quest-dialog-text-wrap',
+            '#mgear-dialog-text', '#mgear-dialog-text-wrap',
+            '#ability-info-desc', '#ability-grade-desc',
+            '#appearance-select-label',
+            '#track-list', '.track-item'
+        ].join(',');
+
+        function isI18nSkippedNode(node) {
+            const el = node?.nodeType === Node.ELEMENT_NODE ? node : node?.parentElement;
+            return !!(el && el.closest && el.closest(__i18nSkipSelector));
+        }
+
+        function translateText(raw) {
+            if (currentLang !== 'en' || raw == null) return raw;
+            const source = String(raw);
+
+            // v8: exact-match first. Long texts such as Prologue entries are stored
+            // in lang/en.js with escaped newlines (\n), while template literals in
+            // index.html contain real newlines. Normalize before the glossary pass
+            // so long story blocks do not become half-Korean / half-English.
+            if (Object.prototype.hasOwnProperty.call(I18N_EN, source)) {
+                return I18N_EN[source];
+            }
+            const escapedNewlineKey = source.replace(/\n/g, '\\n');
+            if (Object.prototype.hasOwnProperty.call(I18N_EN, escapedNewlineKey)) {
+                return I18N_EN[escapedNewlineKey];
+            }
+
+            let out = source;
+            const keys = Object.keys(I18N_EN).sort((a,b) => b.length - a.length);
+            for (const k of keys) {
+                if (!k) continue;
+                out = out.split(k).join(I18N_EN[k]);
+            }
+            out = out.replace(/\[\s*([^\]]+)\s*\]\s*이\(가\)\s*Are you sure\?/g, 'Are you sure this is [ $1 ]?');
+            out = out.replace(/\[\s*([^\]]+)\s*\]<br>Are you sure\?/g, 'Are you sure this is [ $1 ]?<br>');
+            return out;
+        }
+
+        function applyLanguage(root = document.body) {
+            if (__i18nApplying || !root) return;
+            __i18nApplying = true;
+            document.documentElement.lang = currentLang;
+            document.getElementById('lang-ko-btn')?.classList.toggle('active', currentLang === 'ko');
+            document.getElementById('lang-en-btn')?.classList.toggle('active', currentLang === 'en');
+
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+                acceptNode(node) {
+                    const p = node.parentElement;
+                    if (!p || ['SCRIPT','STYLE','NOSCRIPT'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+                    if (isI18nSkippedNode(node)) return NodeFilter.FILTER_REJECT;
+                    if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            });
+            const nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+            nodes.forEach(node => {
+                if (node.parentElement && !node.parentElement.dataset.i18nOriginal) {
+                    node.parentElement.dataset.i18nOriginal = node.nodeValue;
+                }
+                const base = node.parentElement?.dataset.i18nOriginal || node.nodeValue;
+                node.nodeValue = currentLang === 'ko' ? base : translateText(base);
+            });
+
+            root.querySelectorAll?.('input[placeholder], textarea[placeholder], button[title], img[alt]').forEach(el => {
+                ['placeholder','title','alt'].forEach(attr => {
+                    if (!el.hasAttribute(attr)) return;
+                    const dataKey = 'i18n' + attr.charAt(0).toUpperCase() + attr.slice(1);
+                    if (!el.dataset[dataKey]) el.dataset[dataKey] = el.getAttribute(attr);
+                    const base = el.dataset[dataKey];
+                    el.setAttribute(attr, currentLang === 'ko' ? base : translateText(base));
+                });
+            });
+            __i18nApplying = false;
+        }
+
+        function setLanguage(lang) {
+            if (languageLocked) return;
+            currentLang = lang === 'en' ? 'en' : 'ko';
+            localStorage.setItem('mistEarthLang', currentLang);
+            applyLanguage();
+        }
+
+        function lockLanguageSelection() {
+            languageLocked = true;
+            const selector = document.getElementById('language-selector');
+            selector?.classList.add('locked');
+            selector?.querySelectorAll('button').forEach(btn => {
+                btn.disabled = true;
+                btn.setAttribute('aria-disabled', 'true');
+            });
+            document.body.classList.add('booted');
+        }
+
+        function applyScriptLanguage() {
+            openingScriptData.forEach(line => {
+                if (!line._koText) line._koText = line.text;
+                line.text = currentLang === 'ko' ? line._koText : translateText(line._koText);
+            });
+        }
+
+        const __i18nObserver = new MutationObserver(muts => {
+            if (__i18nApplying || currentLang !== 'en') return;
+            const hasTranslatableMutation = muts.some(m => !isI18nSkippedNode(m.target));
+            if (!hasTranslatableMutation) return;
+            clearTimeout(window.__i18nTimer);
+            window.__i18nTimer = setTimeout(() => applyLanguage(), 40);
+        });
+        __i18nObserver.observe(document.body, { childList:true, subtree:true, characterData:true });
+        setTimeout(() => applyLanguage(), 0);
 
         let isOpeningSkipped = false;
         let isTyping = false;
@@ -1893,6 +2136,7 @@
                 GameState.isAdmin = true;
 
                 // 인트로 스킵하고 바로 MAIN으로
+                lockLanguageSelection();
                 isOpeningSkipped = true;
                 document.getElementById('admin-wrap').style.display = 'none';
                 showTitleScreen();
@@ -1903,10 +2147,13 @@
 
         // --- [2] 오프닝 로직 ---
         bootBtn.addEventListener('click', () => {
+            lockLanguageSelection();
             bootBtn.style.display = 'none';
+            openingTerminal.textContent = '';
             document.getElementById('screen').style.display = 'block';
             skipBtn.style.display = 'block';
             document.getElementById('snd-beep').play().catch(()=>{});
+            applyScriptLanguage();
             runOpeningSequence();
         });
 
@@ -2065,6 +2312,7 @@
         const scenarioText = document.getElementById('scenario-text');
         const scenarioCursorWrap = document.getElementById('scenario-cursor-wrap');
         async function typeScenarioLine(text, speed = 25) {
+            text = translateText(text);
             isTyping = true; skipTyping = false;
             const cursor = document.getElementById('scenario-cursor');
             for (let i = 0; i < text.length; i++) {
@@ -2098,7 +2346,7 @@
             const name = document.getElementById('user-name-input').value.trim();
             if (name) {
                 // 확인 팝업 표시
-                document.getElementById('name-confirm-text').textContent = `[ ${name} ] 이(가) 확실합니까?`;
+                document.getElementById('name-confirm-text').textContent = translateText(`[ ${name} ] 이(가) 확실합니까?`);
                 document.getElementById('name-input-ui').style.display = 'none';
                 document.getElementById('name-confirm-ui').style.display = 'block';
             }
@@ -2109,7 +2357,7 @@
             const name = document.getElementById('user-name-input').value.trim();
             GameState.name = name;
             document.getElementById('name-confirm-ui').style.display = 'none';
-            scenarioText.textContent += `\n> 등록 완료: ${name}\n----------------------------------------\n`;
+            scenarioText.textContent += translateText(`\n> 등록 완료: ${name}\n----------------------------------------\n`);
             setTimeout(() => {
                 scenarioText.innerHTML = 'Mist Warker Management Program - <span style="color:#33ff33;text-shadow:0 0 8px #33ff33,0 0 16px rgba(51,255,51,0.5);font-weight:bold;">online</span>\n----------------------------------------\n';
                 runBodyContent();
@@ -2138,7 +2386,7 @@
         function setGender(gender, e) {
             e.stopPropagation();
             // 확인 팝업 표시
-            document.getElementById('gender-confirm-text').innerHTML = `[ ${gender} ]<br>확실합니까?`;
+            document.getElementById('gender-confirm-text').innerHTML = translateText(`[ ${gender} ]<br>확실합니까?`);
             document.getElementById('gender-choices-ui').style.display = 'none';
             document.getElementById('gender-confirm-ui').style.display = 'block';
             // 임시 저장
@@ -2150,7 +2398,7 @@
             const gender = window._pendingGender;
             GameState.gender = gender;
             document.getElementById('gender-confirm-ui').style.display = 'none';
-            scenarioText.textContent += `\n[성별] ${gender} 확인 완료\n----------------------------------------\n`;
+            scenarioText.textContent += translateText(`\n[성별] ${gender} 확인 완료\n----------------------------------------\n`);
             setTimeout(async () => {
                 await typeScenarioLine("기억복구 프로토콜을 시작하시겠습니까?\n", 30);
                 await typeScenarioLine("[과거의 기억 및 역사정보, 기초 정보를 제공합니다.]\n", 30);
@@ -2296,7 +2544,7 @@
             prologueTyping = true;
             prologueSkip = false;
             body.innerHTML = '';
-            const blocks = parseBlocks(data.text);
+            const blocks = parseBlocks(translateText(data.text));
 
             for (let bi = 0; bi < blocks.length; bi++) {
                 const block = blocks[bi];
@@ -2344,7 +2592,7 @@
             prologueTyping = false;
 
             // NEXT 버튼 표시
-            nextBtn.textContent = idx < prologueData.length - 1 ? 'NEXT ▶' : '시작하기 ▶';
+            nextBtn.textContent = idx < prologueData.length - 1 ? 'NEXT ▶' : translateText('시작하기 ▶');
             nextBtn.classList.add('show');
         }
 
@@ -2419,7 +2667,7 @@
             selectConfirm.classList.remove('show');
 
             if (img) selectImg.src = img.src;
-            selectLabel.textContent = `[ ${type} ]`;
+            selectLabel.textContent = translateText(`[ ${type} ]`);
 
             // 오버레이 표시
             overlay.classList.add('active');
@@ -2555,28 +2803,28 @@
                 {
                     name: '미침식자',
                     desc: `당신은 미스트에 오염되지 않았습니다.\n당신의 육체와 정신은 깨끗하며\n평범한 한명의 사람입니다.`,
-                    points: { human: 2000, mist: 100, contam: 0 },
-                    pointText: '인간성 +2000 / 미스트 +100 / 오염 ±0 / 가능성 60'
+                    points: { human: 1600, mist: 100, contam: 0 },
+                    pointText: '인간성 +1600 / 미스트 +100 / 오염 ±0 / 가능성 60'
                 },
                 {
                     name: '침식자',
                     desc: `당신은 미스트에 어느정도 오염되었습니다.\n육체와 정신은 맑지만\n어느정도 미스트와 동기화 되어있군요\n그저 평범한, 안개사태 이후의 생존자...\n일지도 모릅니다...`,
-                    points: { human: 1500, mist: 500, contam: 100 },
-                    pointText: '인간성 +1500 / 미스트 +500 / 오염 +100 / 가능성 40'
+                    points: { human: 1200, mist: 500, contam: 100 },
+                    pointText: '인간성 +1200 / 미스트 +500 / 오염 +100 / 가능성 45'
                 },
                 {
                     name: '과침식자',
                     desc: `당신은 이미 미스트의 마수에 당했습니다.\n인간인가요? 인간이 아닌가요?\n정의내리는 것은 당신입니다.\n부디 미스트에 잡아먹히지 말길`,
-                    points: { human: 1000, mist: 1000, contam: 500 },
-                    pointText: '인간성 +1000 / 미스트 +1000 / 오염 +500 / 가능성 30'
+                    points: { human: 800, mist: 1100, contam: 400 },
+                    pointText: '인간성 +800 / 미스트 +1100 / 오염 +400 / 가능성 35'
                 },
             ],
             2: [
                 {
                     name: '무발현',
                     desc: `당신은 그 어떠한 것도 발현하지 않았습니다.\n특이한 신체, 능력, 그 무엇도 말입니다.\n하지만 이는 당신이 인간이라는 증거겠지요.`,
-                    pointText: '인간성 +1000',
-                    points: { human: 1000, mist: 0, contam: 0 },
+                    pointText: '인간성 +500',
+                    points: { human: 500, mist: 0, contam: 0 },
                 },
                 {
                     name: '눈발현',
@@ -2634,8 +2882,8 @@
                 },
                 {
                     name: '괴이발현',
-                    desc: `아, 이미 늦었군요\n당신은 미스트에서 나온 괴이와 비슷한 존재입니다.\n더 이상 인간이라 볼 수 없겠지만...\n적어도 인간의 형상은 하고 계시는 군요\n\n<b style="color:#33ff33;text-shadow:0 0 8px #33ff33;">모든 인간성이 미스트로 치환됩니다.</b>`,
-                    pointText: '인간성→미스트 / 오염 +300',
+                    desc: `아, 이미 늦었군요\n당신은 미스트에서 나온 괴이와 비슷한 존재입니다.\n더 이상 인간이라 볼 수 없겠지만...\n적어도 인간의 형상은 하고 계시는 군요\n\n<b style="color:#33ff33;text-shadow:0 0 8px #33ff33;">현재 인간성의 60%가 미스트로 치환됩니다.</b>`,
+                    pointText: '현재 인간성의 60%→미스트 / 오염 +300',
                     points: { human: 0, mist: 0, contam: 300 },
                     special: 'human_to_mist',
                 },
@@ -2768,7 +3016,45 @@
                 { name: '정적 근지구력', desc: `매달리거나 같은 자세를\n오래 유지할 때 더 오래 버팁니다.`,                    pointText: '인간성 -50',           points: { human: -50, mist: 0, contam: 0 } },
                 { name: '말초 혈류 제어', desc: `추위나 손발이 자유롭지 않을 때\n정밀한 사격 및 기계 조작이 가능합니다.`,     pointText: '인간성 -50',           points: { human: -50, mist: 0, contam: 0 } },
                 { name: '분별력',       desc: `환상, 환영 등에\n영향이 적어집니다.`,                                           pointText: '인간성 -50',           points: { human: -50, mist: 0, contam: 0 } },
-            ],
+            
+                // v13 추가 항목 — 기존 항목과 겹치지 않는 신체적 강점
+                { name: '지혈 반응', desc: `상처가 벌어져도 피가 비교적 빨리 멎습니다.
+치료가 필요 없는 것은 아니지만
+붉은 흔적을 오래 남기지는 않습니다.`, pointText: '인간성 -60', points: { human: -60, mist: 0, contam: 0 } },
+                { name: '반동 제어', desc: `총기나 둔기의 반동을 몸으로 흘립니다.
+연속 사격과 강한 타격 뒤에도
+자세가 크게 무너지지 않습니다.`, pointText: '힘 +2 / 인간성 -40', points: { human: -40, mist: 0, contam: 0 }, statBonus: { str: 2 } },
+                { name: '체취 억제', desc: `땀과 체취가 옅습니다.
+짐승이나 괴이가 냄새로 추적할 때
+당신의 흔적은 조금 늦게 잡힙니다.`, pointText: '인간성 -50', points: { human: -50, mist: 0, contam: 0 } },
+                { name: '관절 잠금', desc: `몸을 고정해야 할 때 관절이 잘 버팁니다.
+밀리거나 끌려가도
+한 번 버틴 자세는 쉽게 풀리지 않습니다.`, pointText: '저항 +3 / 인간성 -50', points: { human: -50, mist: 0, contam: 0 }, statBonus: { res: 3 } },
+                { name: '압박 내성', desc: `무너진 잔해나 좁은 틈의 압박을 더 오래 견딥니다.
+숨은 막혀도
+몸이 먼저 비명을 지르지는 않습니다.`, pointText: '저항 +3 / 인간성 -60', points: { human: -60, mist: 0, contam: 0 }, statBonus: { res: 3 } },
+                { name: '기압 적응', desc: `낮은 압력과 높은 압력의 변화에 빠르게 적응합니다.
+지하, 고층, 밀폐 시설에서
+귀와 머리가 덜 무너집니다.`, pointText: '인간성 -40', points: { human: -40, mist: 0, contam: 0 } },
+                { name: '수면 분할', desc: `짧은 잠을 여러 번 나눠도 몸이 어느 정도 회복됩니다.
+깊게 잠들지는 못하지만
+경계 임무에는 유리합니다.`, pointText: '인간성 -50', points: { human: -50, mist: 0, contam: 0 } },
+                { name: '소화 지연', desc: `먹은 것을 천천히 태워 오래 씁니다.
+폭발적인 힘은 아니지만
+굶주림이 찾아오는 시간이 늦습니다.`, pointText: '인간성 -50', points: { human: -50, mist: 0, contam: 0 } },
+                { name: '피부 밀폐', desc: `피부의 틈이 쉽게 열리지 않습니다.
+분진, 진흙, 약한 오염 물질이
+몸속으로 들어오는 속도가 늦습니다.`, pointText: '인간성 -60', points: { human: -60, mist: 0, contam: 0 } },
+                { name: '충격 분산', desc: `둔기와 낙하의 충격을 몸 전체로 흩어냅니다.
+아프지 않은 것은 아니지만
+한 곳이 바로 망가지진 않습니다.`, pointText: '저항 +4 / 인간성 -70', points: { human: -70, mist: 0, contam: 0 }, statBonus: { res: 4 } },
+                { name: '상처 봉합감', desc: `찢어진 부위의 감각을 정확히 압니다.
+어디를 누르고 묶어야 할지
+몸이 먼저 알려줍니다.`, pointText: '인간성 -40', points: { human: -40, mist: 0, contam: 0 } },
+                { name: '발성 제어', desc: `숨소리, 기침, 신음을 억누르는 법을 압니다.
+완전한 침묵은 아니지만
+들켜선 안 될 때 한 박자 더 버팁니다.`, pointText: '인간성 -40', points: { human: -40, mist: 0, contam: 0 } },
+],
 
             '6-2': [
                 { name: '약한',           desc: `일반인보다 힘이 약합니다.\n무거운 것을 들기 힘듭니다.`,                                      pointText: '힘 -5 / 인간성 +10',   points: { human: 10, mist: 0, contam: 0 }, statBonus: { str: -5 } },
@@ -2803,7 +3089,45 @@
                 { name: '지속 불가',      desc: `같은 자세나 동작을 오래 유지하지 못합니다.\n매달리거나 버티는 것이 유독 힘겹습니다.`,   pointText: '인간성 +50',            points: { human: 50, mist: 0, contam: 0 } },
                 { name: '손 떨림',        desc: `추위나 긴장 상태에서 손이 떨립니다.\n정밀한 조작이나 사격이 흔들립니다.`,               pointText: '인간성 +50',            points: { human: 50, mist: 0, contam: 0 } },
                 { name: '피암시성',       desc: `환상이나 환영에 쉽게 영향을 받습니다.\n있지도 않은 것을 실제로 믿어버리기도 합니다.`,   pointText: '인간성 +50',            points: { human: 50, mist: 0, contam: 0 } },
-            ],
+            
+                // v13 추가 항목 — 기존 항목과 겹치지 않는 신체적 약점
+                { name: '출혈성 체질', desc: `작은 상처도 피가 오래 납니다.
+통증보다 먼저
+바닥에 남는 흔적이 당신을 배신합니다.`, pointText: '인간성 +60', points: { human: 60, mist: 0, contam: 0 } },
+                { name: '반동 취약', desc: `강한 반동을 받으면 자세가 쉽게 무너집니다.
+총, 둔기, 방패를 다룰 때
+몸이 한 박자 뒤로 밀립니다.`, pointText: '힘 -2 / 인간성 +40', points: { human: 40, mist: 0, contam: 0 }, statBonus: { str: -2 } },
+                { name: '강한 체취', desc: `땀과 냄새가 쉽게 남습니다.
+사람은 몰라도
+짐승과 괴이는 당신을 더 빨리 찾습니다.`, pointText: '인간성 +50', points: { human: 50, mist: 0, contam: 0 } },
+                { name: '관절 풀림', desc: `힘을 주고 버텨야 할 때 관절이 먼저 풀립니다.
+붙잡고 버티는 순간
+몸이 제멋대로 밀려납니다.`, pointText: '저항 -3 / 인간성 +50', points: { human: 50, mist: 0, contam: 0 }, statBonus: { res: -3 } },
+                { name: '압박 공포', desc: `좁은 틈이나 무너진 잔해 아래에서 몸이 굳습니다.
+아직 버틸 수 있어도
+숨이 먼저 당신을 배신합니다.`, pointText: '인간성 +60', points: { human: 60, mist: 0, contam: 0 } },
+                { name: '기압 민감', desc: `압력 변화에 귀와 머리가 쉽게 흔들립니다.
+고층, 지하, 밀폐 구역에서
+멀쩡한 판단이 늦어집니다.`, pointText: '인간성 +40', points: { human: 40, mist: 0, contam: 0 } },
+                { name: '수면 파편화', desc: `잠을 자도 깊게 회복되지 않습니다.
+작은 소리에도 깨고
+깨어난 뒤에도 피로가 남습니다.`, pointText: '인간성 +50', points: { human: 50, mist: 0, contam: 0 } },
+                { name: '소화 과속', desc: `에너지를 빨리 태웁니다.
+먹은 것은 금방 사라지고
+공복은 남들보다 빨리 찾아옵니다.`, pointText: '인간성 +50', points: { human: 50, mist: 0, contam: 0 } },
+                { name: '피부 흡수', desc: `분진과 오염 물질이 피부에 오래 달라붙습니다.
+씻어내도
+불쾌한 감각이 늦게 사라집니다.`, pointText: '인간성 +60', points: { human: 60, mist: 0, contam: 0 } },
+                { name: '충격 집중', desc: `둔기나 낙하 충격이 한 부위에 몰립니다.
+겉보기보다
+속에서 먼저 멍이 깊어집니다.`, pointText: '저항 -4 / 인간성 +70', points: { human: 70, mist: 0, contam: 0 }, statBonus: { res: -4 } },
+                { name: '상처 둔감', desc: `상처의 깊이와 위치를 늦게 알아차립니다.
+괜찮다고 움직인 뒤
+피가 고여 있는 걸 보게 됩니다.`, pointText: '인간성 +40', points: { human: 40, mist: 0, contam: 0 } },
+                { name: '발성 누출', desc: `긴장하면 숨소리와 신음이 새어 나옵니다.
+숨으려는 순간
+목이 먼저 위치를 알려줍니다.`, pointText: '인간성 +40', points: { human: 40, mist: 0, contam: 0 } },
+],
 
             '7-2': [
                 { name: '운없는',         desc: `어쩐지 늘 운이 따르지 않습니다.\n작은 일에도 일이 꼬이는 편입니다.`,                      pointText: '행운 -5 / 인간성 +10', points: { human: 10, mist: 0, contam: 0 }, statBonus: { luk: -5 } },
@@ -2830,7 +3154,45 @@
                 { name: '한 가지 얼굴',   desc: `좋게 말하면 자신의 주도가 강하고\n나쁘게 말하면 유도리가 없습니다.`,                  pointText: '인간성 +80',            points: { human: 80, mist: 0, contam: 0 } },
                 { name: '고립된 의식',    desc: `극한 상황에서 아무런 조언도 떠오르지 않습니다.\n오로지 혼자서 판단해야 합니다.`,       pointText: '인간성 +80',            points: { human: 80, mist: 0, contam: 0 } },
                 { name: '쉬운 심리',    desc: `심리적 압박이나 조종에\n취약해집니다.`,                                          pointText: '인간성 +100',           points: { human: 100, mist: 0, contam: 0 } },
-            ],
+            
+                // v13 추가 항목 — 기존 항목과 겹치지 않는 정신적 약점
+                { name: '시간 감각 결여', desc: `몇 분이 지났는지 잘 붙잡지 못합니다.
+기다림과 지연이 섞이면
+약속된 순간을 놓치기 쉽습니다.`, pointText: '인간성 +40', points: { human: 40, mist: 0, contam: 0 } },
+                { name: '숫자 공포', desc: `수량과 계산 앞에서 사고가 느려집니다.
+탄약, 거리, 보상처럼
+숫자가 걸린 판단에 약합니다.`, pointText: '지능 -2 / 인간성 +40', points: { human: 40, mist: 0, contam: 0 }, statBonus: { int: -2 } },
+                { name: '우선순위 붕괴', desc: `급한 일과 중요한 일을 자주 혼동합니다.
+살아남아야 할 때
+엉뚱한 문제를 먼저 붙잡습니다.`, pointText: '정신 -3 / 인간성 +50', points: { human: 50, mist: 0, contam: 0 }, statBonus: { men: -3 } },
+                { name: '선택 마비', desc: `선택지가 많아지면 몸보다 생각이 멈춥니다.
+나쁜 선택을 피하려다
+아무것도 고르지 못합니다.`, pointText: '인간성 +50', points: { human: 50, mist: 0, contam: 0 } },
+                { name: '침묵 공포', desc: `소리 없는 시간이 길어지면 불안이 커집니다.
+무언가 숨어 있다는 생각이
+먼저 머리를 채웁니다.`, pointText: '저항 -2 / 인간성 +40', points: { human: 40, mist: 0, contam: 0 }, statBonus: { res: -2 } },
+                { name: '기록 의존', desc: `본 것을 기록하지 않으면 불안합니다.
+적어두는 동안
+눈앞의 위협을 놓치기도 합니다.`, pointText: '인간성 +40', points: { human: 40, mist: 0, contam: 0 } },
+                { name: '증거 집착', desc: `당황하면 단서를 함부로 만집니다.
+확인하려는 손이
+오히려 흔적을 망칩니다.`, pointText: '인간성 +40', points: { human: 40, mist: 0, contam: 0 } },
+                { name: '명령 오해', desc: `짧은 지시를 자기 식으로 해석합니다.
+의도는 나쁘지 않아도
+결과는 엉뚱한 방향으로 갑니다.`, pointText: '인간성 +50', points: { human: 50, mist: 0, contam: 0 } },
+                { name: '금기 집착', desc: `하지 말라는 말에 정신이 묶입니다.
+위험한 문, 봉인, 버튼 앞에서
+손이 오래 머뭅니다.`, pointText: '저항 -3 / 인간성 +60', points: { human: 60, mist: 0, contam: 0 }, statBonus: { res: -3 } },
+                { name: '이름 강박', desc: `정체 모를 것에 이름을 붙여야 안심합니다.
+모르는 채 두는 법을 몰라
+불필요한 접촉을 시도합니다.`, pointText: '인간성 +40', points: { human: 40, mist: 0, contam: 0 } },
+                { name: '후회 과잉', desc: `지나간 선택을 오래 되씹습니다.
+이미 끝난 장면이
+다음 판단에 계속 끼어듭니다.`, pointText: '정신 -3 / 인간성 +50', points: { human: 50, mist: 0, contam: 0 }, statBonus: { men: -3 } },
+                { name: '무의미 공포', desc: `우연한 흔적에도 의미를 덧씌웁니다.
+패턴을 찾는 능력이 아니라
+패턴에 잡아먹히는 버릇입니다.`, pointText: '인간성 +50', points: { human: 50, mist: 0, contam: 0 } },
+],
 
             4: [
                 { name: '미스트 기관',  desc: `미스트를 소모할 때, 카트리지가 아닌\n몸에 미스트를 직접 축적하게 해주는 기관입니다.`,                               pointText: '인간성 -200 / 오염 +500',   points: { human: -200, mist: 0, contam: 500 } },
@@ -2844,6 +3206,27 @@
                 { name: '일루전',       desc: `미스트로 이루어진 나와 똑같이 생긴 환상을\n내 위치 기준 2m 이내에 형성할 수 있습니다.`,                             pointText: '인간성 -100 / 오염 +150',   points: { human: -100, mist: 0, contam: 150 } },
                 { name: '장막',         desc: `미스트를 사용해 카멜레온처럼\n환경에 동기화됩니다.\n본인 기준 5m 이내까지 적용할 수 있으며\n소모량이 상승합니다.`, pointText: '인간성 -200 / 오염 +250',   points: { human: -200, mist: 0, contam: 250 } },
                 { name: '결정화',       desc: `미스트를 미스트-크리스탈이라 불리는\n소재로 만들어 경질화합니다.\n미스트의 성질은 잃지만 단단합니다.`,              pointText: '인간성 -100 / 오염 +200',   points: { human: -100, mist: 0, contam: 200 } },
+                { name: '근섬유 증폭',  desc: `근섬유가 순간적으로 팽창합니다.
+짧은 시간 동안 폭발적인 힘을 내지만
+사용 후 근육통과 미세파열이 찾아옵니다.`,              pointText: '힘 +10 / 인간성 -150 / 오염 +150', points: { human: -150, mist: 0, contam: 150 }, statBonus: { str: 10 } },
+                { name: '반사 가속',    desc: `위협을 인지한 순간 신경계가 먼저 움직입니다.
+머리보다 몸이 빠르게 반응하지만
+연속 사용 시 떨림이 남습니다.`,                  pointText: '민첩 +10 / 인간성 -150 / 오염 +150', points: { human: -150, mist: 0, contam: 150 }, statBonus: { agi: 10 } },
+                { name: '골격 재배열',  desc: `관절과 뼈의 위치를 강제로 비틀어
+좁은 틈이나 비정상적인 자세를 통과합니다.
+통증은 적지만 인간의 형태에서 멀어집니다.`,      pointText: '인간성 -200 / 오염 +250', points: { human: -200, mist: 0, contam: 250 } },
+                { name: '생체 저장낭',  desc: `몸 안에 영양과 수분을 저장하는 기관이 생깁니다.
+굶주림과 탈수에 더 오래 버티지만
+몸 안에서 무언가가 차오르는 감각이 남습니다.`, pointText: '인간성 -150 / 오염 +150', points: { human: -150, mist: 0, contam: 150 } },
+                { name: '독성 여과',    desc: `혈액과 장기가 독성 물질을 걸러냅니다.
+오염된 물, 약한 독, 미스트 분진에 대한 저항이 생기지만
+여과 과정에서 몸이 천천히 망가집니다.`,        pointText: '인간성 -150 / 오염 +200', points: { human: -150, mist: 0, contam: 200 } },
+                { name: '감각 개방',    desc: `한 감각을 선택해 비정상적으로 끌어올립니다.
+보거나 듣거나 맡는 것은 선명해지지만
+필요 없는 정보까지 밀려듭니다.`,                pointText: '인간성 -100 / 오염 +150', points: { human: -100, mist: 0, contam: 150 } },
+                { name: '혈액 무장화',  desc: `상처에서 흘러나온 피를 굳혀
+칼날, 봉합, 고정구처럼 사용할 수 있습니다.
+피를 많이 잃을수록 판단이 흐려집니다.`,          pointText: '인간성 -200 / 오염 +300', points: { human: -200, mist: 0, contam: 300 } },
             ],
 
             5: [
@@ -2857,6 +3240,27 @@
                 { name: '감정 연소',    desc: `미스트를 매개로 감정을 불태워\n육체적 힘을 얻습니다.\n사용할 때마다 감정이 사라집니다.`,                             pointText: '인간성 -300 / 오염 +200',   points: { human: -300, mist: 0, contam: 200 } },
                 { name: '평행 관측',    desc: `다른 선택에 대한 가능성을 관측할 수 있습니다.\n절대적이지 않습니다.`,                                                  pointText: '인간성 -200 / 오염 +350',   points: { human: -200, mist: 0, contam: 350 } },
                 { name: '안개 언어',    desc: `괴이, 안개 속 존재들과의 대화가 가능합니다.\n저항이 높을수록 오래 대화할 수 있습니다.`,                               pointText: '저항 +20 / 인간성 -300 / 오염 +300', points: { human: -300, mist: 0, contam: 300 }, statBonus: { res: 20 } },
+                { name: '위협 예지',    desc: `명확한 미래는 아니지만
+위험이 닿기 직전의 위화감을 감지합니다.
+늦게 믿으면 아무 의미도 없습니다.`,              pointText: '인간성 -150 / 오염 +200', points: { human: -150, mist: 0, contam: 200 } },
+                { name: '기억 봉인',    desc: `트라우마나 오염된 기억을 의식 깊은 곳에 묻습니다.
+당장은 버틸 수 있지만
+언젠가 봉인이 흔들릴 수 있습니다.`,                pointText: '인간성 -100 / 오염 +150', points: { human: -100, mist: 0, contam: 150 } },
+                { name: '사고 가속',    desc: `짧은 순간 사고 속도를 비정상적으로 끌어올립니다.
+계산과 판단은 빨라지지만
+끝난 뒤 현실감이 느리게 돌아옵니다.`,              pointText: '정신 +10 / 인간성 -150 / 오염 +200', points: { human: -150, mist: 0, contam: 200 }, statBonus: { men: 10 } },
+                { name: '감정 절단',    desc: `공포, 죄책감, 슬픔 같은 감정을 임시로 잘라냅니다.
+움직이는 데는 편하지만
+무엇을 잃었는지 뒤늦게 깨닫게 됩니다.`,            pointText: '인간성 -200 / 오염 +250', points: { human: -200, mist: 0, contam: 250 } },
+                { name: '거짓 자아',    desc: `정신 간섭에 노출될 때
+가짜 인격을 앞세워 본심을 숨깁니다.
+오래 유지하면 어느 쪽이 진짜인지 흐려집니다.`,     pointText: '저항 +10 / 인간성 -150 / 오염 +200', points: { human: -150, mist: 0, contam: 200 }, statBonus: { res: 10 } },
+                { name: '미스트 독해',  desc: `미스트의 흐름과 잔향을 문자처럼 읽습니다.
+최근 지나간 존재나 이상현상의 흔적을 파악하지만
+읽을수록 머릿속에 안개가 낍니다.`,              pointText: '인간성 -100 / 오염 +150', points: { human: -100, mist: 0, contam: 150 } },
+                { name: '의식 고정',    desc: `자신이 누구인지 끊임없이 되새겨
+환각, 세뇌, 이상현상 속에서도 현실에 묶입니다.
+대신 무너질 때는 한 번에 무너집니다.`,          pointText: '저항 +15 / 인간성 -200 / 오염 +300', points: { human: -200, mist: 0, contam: 300 }, statBonus: { res: 15 } },
             ],
 
             '7-1': [
@@ -2884,7 +3288,45 @@
                 { name: '페르소나',     desc: `상황이나 의도에 맞는 가면을 만들어 냅니다.\n무엇이 진짜 성격인지는.. 모르겠죠.`,                                 pointText: '인간성 -80',            points: { human: -80, mist: 0, contam: 0 } },
                 { name: '집단 무의식',  desc: `극한 상황에서 갑작스러운\n조언이나 힌트를 떠올릴 수 있습니다.`,               pointText: '인간성 -80',            points: { human: -80, mist: 0, contam: 0 } },
                 { name: '감언이설',     desc: `심리적으로 상대를 압박하거나\n조종하는 데 천부적 재능을 가집니다.`,           pointText: '인간성 -50',            points: { human: -50, mist: 0, contam: 0 } },
-            ],
+            
+                // v13 추가 항목 — 기존 항목과 겹치지 않는 정신적 강점
+                { name: '시간 감각', desc: `시계가 없어도 흐른 시간을 대략 짚습니다.
+대기, 잠복, 제한 시간이 걸린 상황에서
+감이 쉽게 무너지지 않습니다.`, pointText: '인간성 -40', points: { human: -40, mist: 0, contam: 0 } },
+                { name: '숫자 감각', desc: `수량, 거리, 남은 자원을 빠르게 어림합니다.
+정확한 계산은 아니지만
+틀린 판단을 줄여줍니다.`, pointText: '지능 +2 / 인간성 -40', points: { human: -40, mist: 0, contam: 0 }, statBonus: { int: 2 } },
+                { name: '우선순위 분류', desc: `무엇을 먼저 해야 하는지 빠르게 나눕니다.
+모두를 구하지는 못해도
+가장 늦으면 안 되는 일을 압니다.`, pointText: '정신 +3 / 인간성 -50', points: { human: -50, mist: 0, contam: 0 }, statBonus: { men: 3 } },
+                { name: '결정 단축', desc: `선택지가 많아도 오래 멈추지 않습니다.
+완벽한 답은 아니지만
+멈춰 죽는 일은 줄어듭니다.`, pointText: '인간성 -50', points: { human: -50, mist: 0, contam: 0 } },
+                { name: '침묵 적응', desc: `소리 없는 시간이 길어져도 마음이 쉽게 흔들리지 않습니다.
+무언가 오기 전까지
+당신은 기다릴 수 있습니다.`, pointText: '저항 +2 / 인간성 -40', points: { human: -40, mist: 0, contam: 0 }, statBonus: { res: 2 } },
+                { name: '기록 습관', desc: `중요한 흔적을 짧고 명확하게 남깁니다.
+기억이 흐려져도
+당신의 글은 길을 되짚게 해줍니다.`, pointText: '인간성 -40', points: { human: -40, mist: 0, contam: 0 } },
+                { name: '증거 보존', desc: `현장을 망치지 않고 단서를 다룹니다.
+손대야 할 것과
+그대로 둬야 할 것을 구분합니다.`, pointText: '인간성 -40', points: { human: -40, mist: 0, contam: 0 } },
+                { name: '명령 해석', desc: `짧은 지시의 의도를 빠르게 파악합니다.
+말이 부족해도
+무엇을 원하는지 먼저 맞춥니다.`, pointText: '인간성 -50', points: { human: -50, mist: 0, contam: 0 } },
+                { name: '금기 인식', desc: `건드리면 안 되는 것을 본능적으로 구분합니다.
+이유는 몰라도
+손대지 않는 편이 낫다는 걸 압니다.`, pointText: '저항 +3 / 인간성 -60', points: { human: -60, mist: 0, contam: 0 }, statBonus: { res: 3 } },
+                { name: '이름 보류', desc: `모르는 것을 억지로 정의하지 않습니다.
+이름 붙이지 않은 공포를
+그대로 두고 지나갈 수 있습니다.`, pointText: '인간성 -40', points: { human: -40, mist: 0, contam: 0 } },
+                { name: '후회 보류', desc: `잘못된 선택을 나중으로 미룹니다.
+지금은 움직이고
+무너지는 건 살아난 뒤의 일입니다.`, pointText: '정신 +3 / 인간성 -50', points: { human: -50, mist: 0, contam: 0 }, statBonus: { men: 3 } },
+                { name: '무의미 수용', desc: `모든 사건에 이유를 찾으려 하지 않습니다.
+세상이 미쳤다는 사실을
+잠시 그대로 받아들입니다.`, pointText: '인간성 -50', points: { human: -50, mist: 0, contam: 0 } },
+],
 
             // 기술(08) — 각 항목은 카드 정보만, 실제 등급은 skillGrades에서 관리
             8: [
@@ -2908,6 +3350,355 @@
                 { name: '개념',   abilityNum: 8, desc: '', abilityDesc: `<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">역사</b>\n아직 명확하게 밝혀진 것이 없습니다.\n시간, 공간, 좌표, 뜨거움, 차가움 등 특정 개념을 다룹니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">주의사항</b>\n다루는 개념이 높을수록 정신오염 및 미스트 잠식이 심해집니다.\n\n<b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">개념 목록</b>\n대부분의 <b style="color:#33ff33;text-shadow:0 0 6px #33ff33;">개념</b>이라면 가능합니다.` },
             ],
         };
+
+        // --- 히든 선택지 시스템(v17) ---
+        // hidden: true인 항목은 조건을 만족했을 때만 목록에 나타납니다.
+        // --- 히든 해금 조건(v20) ---
+        // 강력한 히든은 단순 오염도 + 선택지 1개가 아니라,
+        // 오염도 + 미스트 수치 + 일반 선택지 여러 개 + 강점/약점 조합을 요구합니다.
+        const hiddenUnlocks = {
+            sealed_zone_escapee: () => {
+                const c = GameState.points?.contam || 0;
+                // 폐쇄구역 탈출자는 강력한 전투 히든은 아니지만, 생존 루트 확인용으로 2조건 요구.
+                return c >= 350 && _countAny([
+                    [2, '눈발현'], [2, '귀발현'], [2, '비늘발현'],
+                    [5, '위협 예지'], [4, '감각 개방'],
+                    ['6-1', '피부 밀폐'], ['6-1', '압박 내성'], ['6-1', '수면 분할'],
+                    ['6-2', '압박 공포'], ['6-2', '수면 파편화'],
+                    [8, '수색 — 중급'], [8, '잠입 — 중급']
+                ]) >= 2;
+            },
+            tumanovsk_survivor: () => {
+                const c = GameState.points?.contam || 0;
+                // 연구도시 생존자 계열. 침식 상태 + 감지/기록/미스트 이해를 요구.
+                return c >= 400 && _countAny([
+                    [1, '침식자'], [1, '과침식자'],
+                    [2, '눈발현'], [2, '귀발현'],
+                    [5, '미스트 독해'], [5, '데스 콜링'], [5, '의식 고정'],
+                    ['7-1', '기록 습관'], ['7-1', '증거 보존'], ['7-1', '금기 인식'],
+                    ['7-2', '기록 의존'], ['7-2', '무의미 공포']
+                ]) >= 3;
+            },
+            echo_tracking: () => {
+                const c = GameState.points?.contam || 0;
+                // 추적 성능이 높은 기술이라 감각/기록/수색 계열을 여러 개 요구.
+                return c >= 450 && _countAny([
+                    [5, '미스트 독해'], [4, '감각 개방'], [5, '위협 예지'],
+                    ['6-1', '초시각'], ['6-1', '청각 예민'], ['6-1', '진동감'], ['6-1', '체취 억제'],
+                    ['7-1', '기록 습관'], ['7-1', '증거 보존'], ['7-1', '시간 감각'],
+                    [8, '수색 — 중급'], [8, '수색 — 고급'], [8, '분석 — 중급']
+                ]) >= 3;
+            },
+            aberrant_anatomy: () => {
+                const c = GameState.points?.contam || 0;
+                // 분석/해부/신체 변이 이해가 필요한 고성능 기술.
+                return c >= 550 && _countAny([
+                    [4, '독성 여과'], [4, '골격 재배열'], [5, '기억 봉인'],
+                    ['6-1', '상처 봉합감'], ['6-1', '지혈 반응'], ['6-1', '피부 밀폐'],
+                    ['6-2', '상처 둔감'], ['6-2', '피부 흡수'],
+                    ['7-1', '증거 보존'], ['7-1', '금기 인식'],
+                    [8, '분석 — 고급'], [8, '분석 — 전문가'],
+                    [9, '연금술'], [9, '사령술']
+                ]) >= 3;
+            },
+            forbidden_protocol: () => {
+                const c = GameState.points?.contam || 0;
+                // 금지 프로토콜은 강력한 지식 히든이라 기록/분석/금기 계열 4조건 요구.
+                return c >= 600 && _countAny([
+                    [5, '미스트 독해'], [5, '데스 콜링'], [5, '의식 고정'],
+                    ['7-1', '기록 습관'], ['7-1', '증거 보존'], ['7-1', '금기 인식'],
+                    ['7-1', '우선순위 분류'], ['7-2', '기록 의존'], ['7-2', '금기 집착'],
+                    [8, '분석 — 고급'], [8, '분석 — 전문가'], [8, '수색 — 고급'],
+                    [9, '연금술'], [9, '개념']
+                ]) >= 4;
+            },
+            echo_suture: () => {
+                const c = GameState.points?.contam || 0;
+                const m = GameState.points?.mist || 0;
+                // 회복/봉합 계열 히든 이능. 미스트 수치와 신체/정신 조건 모두 요구.
+                return c >= 650 && m >= 700 && _countAny([
+                    [5, '기억 봉인'], [5, '의식 고정'], [5, '데스 콜링'],
+                    ['6-1', '상처 봉합감'], ['6-1', '지혈 반응'], ['6-1', '혈류 조절'],
+                    ['6-2', '출혈성 체질'], ['6-2', '상처 둔감'],
+                    ['7-1', '후회 보류'], ['7-1', '기록 습관'], ['7-1', '증거 보존'],
+                    [9, '연금술'], [9, '사령술']
+                ]) >= 4;
+            },
+            black_mist_breath: () => {
+                const c = GameState.points?.contam || 0;
+                const m = GameState.points?.mist || 0;
+                // 전투/고오염 성능 히든. 오염, 미스트, 호흡/육체/이능 조합을 요구.
+                return c >= 750 && m >= 900 && _countAny([
+                    [2, '입발현'], [2, '비늘발현'], [2, '뼈발현'],
+                    [5, '안개 통로'], [5, '감정 연소'], [5, '의식 고정'],
+                    ['6-1', '폐쇄 순환'], ['6-1', '체온 유지력'], ['6-1', '충격 분산'], ['6-1', '압박 내성'],
+                    ['6-2', '얕은 숨'], ['6-2', '압박 공포'],
+                    [9, '무공'], [9, '주술'], [9, '계약']
+                ]) >= 4;
+            },
+            fog_gate: () => {
+                const c = GameState.points?.contam || 0;
+                const m = GameState.points?.mist || 0;
+                // 이동/탈출 성능이 큰 히든 이능이라 고오염 + 미스트 + 공간/계약/안개 조건 4개.
+                return c >= 750 && m >= 1100 && _countAny([
+                    [5, '안개 통로'], [5, '평행 관측'], [5, '안개 언어'],
+                    ['6-1', '공간 지각'], ['6-1', '기압 적응'],
+                    ['7-1', '금기 인식'], ['7-1', '이름 보류'], ['7-2', '금기 집착'],
+                    [8, '분석 — 고급'], [8, '수색 — 전문가'],
+                    [9, '개념'], [9, '계약'], [3, '이상현상']
+                ]) >= 4;
+            },
+            silent_zone_contract: () => {
+                const c = GameState.points?.contam || 0;
+                // 무음구역 의뢰는 잠입/침묵/정찰 빌드 보상. 중간 난이도 3조건.
+                return c >= 600 && _countAny([
+                    ['6-1', '그림자'], ['6-1', '발성 제어'], ['6-1', '체취 억제'],
+                    ['6-2', '발성 누출'],
+                    ['7-1', '침묵 적응'], ['7-1', '시간 감각'], ['7-1', '명령 해석'],
+                    ['7-2', '침묵 공포'],
+                    [8, '잠입 — 중급'], [8, '잠입 — 고급'], [8, '수색 — 고급']
+                ]) >= 3;
+            },
+            blackbox_contract: () => {
+                const c = GameState.points?.contam || 0;
+                // 블랙박스 의뢰는 강한 히든 의뢰. 이상현상/고급 수색/분석/금기 조건 4개.
+                return c >= 700 && _countAny([
+                    [3, '이상현상'], [3, '안개교단'],
+                    [5, '미스트 독해'], [5, '데스 콜링'], [5, '의식 고정'],
+                    ['7-1', '증거 보존'], ['7-1', '금기 인식'], ['7-1', '무의미 수용'],
+                    ['7-2', '무의미 공포'],
+                    [8, '수색 — 고급'], [8, '수색 — 전문가'], [8, '분석 — 고급'], [8, '분석 — 전문가'],
+                    [9, '개념'], [9, '계약']
+                ]) >= 4;
+            },
+            saturn_black_ring: () => {
+                const c = GameState.points?.contam || 0;
+                const m = GameState.points?.mist || 0;
+                // 고성능 미스트기어. 계약/주술/사령/정신 약점까지 포함해 깊은 오염 빌드 요구.
+                return c >= 850 && m >= 1200 && _countAny([
+                    [5, '의식 고정'], [5, '미스트 독해'], [5, '안개 언어'],
+                    ['7-1', '금기 인식'], ['7-1', '이름 보류'], ['7-1', '무의미 수용'],
+                    ['7-2', '이름 강박'], ['7-2', '무의미 공포'], ['7-2', '금기 집착'],
+                    [9, '계약'], [9, '주술'], [9, '사령술'], [9, '개념']
+                ]) >= 4;
+            },
+            rift_anchor: () => {
+                const c = GameState.points?.contam || 0;
+                const m = GameState.points?.mist || 0;
+                // v29 조정: 실제 빌드에서 남은 미스트 1400을 유지하기 어려워 해금선을 완화.
+                // 최상위 히든 장비 느낌은 유지하되, 과침식/안개/공간/계약 루트라면 도달 가능하게 조정.
+                return c >= 750 && m >= 900 && _countAny([
+                    [5, '안개 통로'], [5, '평행 관측'], [5, '안개 언어'],
+                    ['6-1', '관절 잠금'], ['6-1', '공간 지각'], ['6-1', '기압 적응'], ['6-1', '압박 내성'],
+                    ['6-2', '관절 풀림'], ['6-2', '기압 민감'],
+                    ['7-1', '금기 인식'], ['7-1', '이름 보류'],
+                    ['7-2', '금기 집착'], ['7-2', '선택 마비'],
+                    [9, '계약'], [9, '개념'], [3, '이상현상']
+                ]) >= 4;
+            },
+        };
+
+        function _countAny(pairs) {
+            return pairs.reduce((n, pair) => n + (_hasSelection(pair[0], pair[1]) ? 1 : 0), 0);
+        }
+
+        function _hasSelection(cat, name) {
+            const arr = (GameState.selections && GameState.selections[cat]) || [];
+            return arr.some(v => String(v).startsWith(name) || String(v) === name);
+        }
+        function isHiddenUnlocked(item) {
+            if (!item || !item.hidden) return true;
+            if (!item.unlockKey) return false;
+            const fn = hiddenUnlocks[item.unlockKey];
+            try { return !!(fn && fn()); } catch(e) { return false; }
+        }
+        function getVisibleDataForCategory(catNum, data) {
+            return (data || categoryData[catNum] || []).filter(isHiddenUnlocked);
+        }
+
+
+        // ── 히든 이펙트 시스템(v21) ──
+        const hiddenEffectTypes = {
+            tumanovsk_survivor: 'blackbox',
+            sealed_zone_escapee: 'silent',
+            forbidden_protocol: 'forbidden',
+            echo_tracking: 'glitch',
+            aberrant_anatomy: 'forbidden',
+            fog_gate: 'rift',
+            echo_suture: 'blood',
+            black_mist_breath: 'mist',
+            blackbox_contract: 'blackbox',
+            silent_zone_contract: 'silent',
+            rift_anchor: 'rift',
+            saturn_black_ring: 'glitch'
+        };
+        const hiddenUnlockMessages = {
+            ko: 'UNKNOWN DATA UNLOCKED',
+            en: 'UNKNOWN DATA UNLOCKED'
+        };
+        const _announcedHiddenUnlocks = new Set();
+        function _ensureHiddenEffectDom() {
+            if (!document.getElementById('hidden-effect-overlay')) {
+                const ov = document.createElement('div');
+                ov.id = 'hidden-effect-overlay';
+                document.body.appendChild(ov);
+            }
+            if (!document.getElementById('hidden-unlock-toast')) {
+                const toast = document.createElement('div');
+                toast.id = 'hidden-unlock-toast';
+                toast.innerHTML = '<div class="hu-title">UNKNOWN DATA UNLOCKED</div><div class="hu-name"></div>';
+                document.body.appendChild(toast);
+            }
+        }
+        function _hiddenDisplayName(item) { return item?.name || item?.title || item?.skillKey || item?.unlockKey || 'HIDDEN'; }
+        function _hiddenEffectType(item) { return hiddenEffectTypes[item?.unlockKey] || item?.effectType || 'glitch'; }
+        function decorateHiddenElement(el, item) {
+            if (!el || !item || !item.hidden) return;
+            const type = _hiddenEffectType(item);
+            el.classList.add('hidden-effect-' + type);
+            const badge = el.querySelector('.hidden-badge');
+            if (badge && !badge.dataset.effectReady) {
+                badge.dataset.effectReady = '1';
+                badge.textContent = 'HIDDEN';
+            }
+        }
+        function announceHiddenUnlock(item) {
+            if (!item || !item.hidden || !item.unlockKey) return;
+            if (_announcedHiddenUnlocks.has(item.unlockKey)) return;
+            _announcedHiddenUnlocks.add(item.unlockKey);
+            _ensureHiddenEffectDom();
+            const toast = document.getElementById('hidden-unlock-toast');
+            const nameEl = toast?.querySelector('.hu-name');
+            if (nameEl) nameEl.textContent = _hiddenDisplayName(item);
+            if (toast) {
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2300);
+            }
+            playHiddenEffect(item, 'unlock');
+        }
+        function playHiddenEffect(item, mode='select') {
+            if (!item || !item.hidden) return;
+            _ensureHiddenEffectDom();
+            const type = _hiddenEffectType(item);
+            const ov = document.getElementById('hidden-effect-overlay');
+            if (!ov) return;
+            const label = mode === 'unlock' ? 'UNKNOWN DATA UNLOCKED' : 'HIDDEN DATA SELECTED';
+            ov.dataset.label = label;
+            ov.className = '';
+            document.body.classList.remove('hidden-screen-shake');
+            void ov.offsetWidth;
+            ov.classList.add(type, 'active');
+            document.body.classList.add('hidden-screen-shake');
+            const duration = mode === 'unlock' ? 980 : 1180;
+            clearTimeout(ov._hiddenEffectTimer);
+            ov._hiddenEffectTimer = setTimeout(() => {
+                ov.classList.remove('active');
+                document.body.classList.remove('hidden-screen-shake');
+            }, duration);
+        }
+
+
+        // 히든 즉시 해금 알림(v22)
+        // 기존에는 해당 카테고리를 열어 목록이 렌더링될 때 announceHiddenUnlock()이 실행되어
+        // 알림이 늦게 뜨는 문제가 있었음. 이제 포인트/선택지가 변할 때마다 전체 히든 조건을 검사한다.
+        let _hiddenUnlockCheckTimer = null;
+        function _collectHiddenItemsForNotify() {
+            const out = [];
+            try {
+                Object.keys(categoryData || {}).forEach(k => {
+                    const list = categoryData[k];
+                    if (Array.isArray(list)) list.forEach(item => { if (item && item.hidden) out.push(item); });
+                });
+            } catch(e) {}
+            try {
+                if (Array.isArray(questData)) questData.forEach(item => { if (item && item.hidden) out.push(item); });
+            } catch(e) {}
+            try {
+                if (Array.isArray(mistgearData)) mistgearData.forEach(item => { if (item && item.hidden) out.push(item); });
+            } catch(e) {}
+            return out;
+        }
+        function checkHiddenUnlockNotifications() {
+            // DOM/데이터 초기화 전 호출되어도 안전하게 무시
+            if (!GameState || !GameState.points || !document.body) return;
+            _collectHiddenItemsForNotify().forEach(item => {
+                if (item && item.hidden && item.unlockKey && isHiddenUnlocked(item)) announceHiddenUnlock(item);
+            });
+        }
+        function scheduleHiddenUnlockCheck() {
+            clearTimeout(_hiddenUnlockCheckTimer);
+            _hiddenUnlockCheckTimer = setTimeout(checkHiddenUnlockNotifications, 80);
+        }
+
+        // v23: 카테고리 렌더링/포인트 HUD 갱신이 안 거쳐도 해금 이펙트가 뜨도록 전역 검사 보강
+        document.addEventListener('DOMContentLoaded', () => {
+            _ensureHiddenEffectDom();
+            setTimeout(checkHiddenUnlockNotifications, 250);
+        });
+        document.addEventListener('click', () => scheduleHiddenUnlockCheck(), true);
+        document.addEventListener('change', () => scheduleHiddenUnlockCheck(), true);
+        document.addEventListener('keyup', () => scheduleHiddenUnlockCheck(), true);
+
+        // 히든 출신지
+        categoryData[3].push({ name: '투마놉스크 잔류자', hidden: true, unlockKey: 'tumanovsk_survivor', img: 'img_cho/03/H_001', detail: `
+<span class="detail-section">기록</span>
+<span class="detail-para">당신은 투마놉스크가 봉쇄되던 날, 도시 밖으로 나오지 못했습니다.</span>
+<span class="detail-para">공식 기록상 당신은 사망자, 실종자, 혹은 존재하지 않는 사람입니다.</span>
+<span class="detail-section">잔류</span>
+<span class="detail-para">당신은 안개 속에서 살아남았습니다. 살아남은 대가로, 안개는 당신을 기억합니다.</span>
+<span class="detail-section">주의사항</span>
+<span class="detail-para">일부 세력은 당신의 증언을 원하고, 일부 세력은 당신의 입을 막고 싶어합니다.</span>
+<div class="detail-tags"><span class="detail-tag">히든</span><span class="detail-tag">투마놉스크</span><span class="detail-tag">생존자</span><span class="detail-tag">블랙박스</span></div>` });
+
+        categoryData[3].push({ name: '폐쇄구역 탈출자', hidden: true, unlockKey: 'sealed_zone_escapee', img: 'img_cho/03/H_002', detail: `
+<span class="detail-section">기록</span>
+<span class="detail-para">당신은 지도에서 지워진 폐쇄구역 안에서 빠져나왔습니다.</span>
+<span class="detail-para">그곳에서 무엇을 봤는지 묻는 사람은 많지만, 끝까지 들어줄 사람은 거의 없습니다.</span>
+<span class="detail-section">탈출</span>
+<span class="detail-para">당신은 출구를 찾은 것이 아닙니다. 안개가 잠시 등을 돌렸을 뿐입니다.</span>
+<span class="detail-section">주의사항</span>
+<span class="detail-para">폐쇄구역의 표식은 아직 당신의 몸과 장비 어딘가에 남아 있습니다.</span>
+<div class="detail-tags"><span class="detail-tag">히든</span><span class="detail-tag">폐쇄구역</span><span class="detail-tag">탈출자</span><span class="detail-tag">추적대상</span></div>` });
+
+        // 히든 기술
+        categoryData[8].push({
+            name: '금지 프로토콜', skillKey: 'forbidden_protocol', skillNum: 'hidden_01', hidden: true, unlockKey: 'forbidden_protocol', img: 'img_cho/08/H_001/main',
+            desc: `폐기된 연구소와 군사 기록에서만 발견되는 금지 절차입니다.\n정상적인 기술이라기보다, 실패한 실험을 다시 재현하는 법에 가깝습니다.`
+        });
+
+        categoryData[8].push({
+            name: '잔향 추적', skillKey: 'echo_tracking', skillNum: 'hidden_02', hidden: true, unlockKey: 'echo_tracking', img: 'img_cho/08/H_002/main',
+            desc: `발자국이 아니라, 안개 속에 남은 감정과 소리의 흔적을 따라가는 기술입니다.
+사람을 찾는 데 유용하지만, 사람이 아닌 것도 함께 따라올 수 있습니다.`
+        });
+        categoryData[8].push({
+            name: '변칙 해부학', skillKey: 'aberrant_anatomy', skillNum: 'hidden_03', hidden: true, unlockKey: 'aberrant_anatomy', img: 'img_cho/08/H_003/main',
+            desc: `괴이화된 조직, 미스트 변성 장기, 살아 있는 장비를 해석하는 금지 지식입니다.
+치료와 해체의 경계가 자주 사라집니다.`
+        });
+
+        // 히든 이능
+        categoryData[9].push({
+            name: '안개문 개방', abilityNum: 'hidden_01', hidden: true, unlockKey: 'fog_gate', img: 'img_cho/09/H_001/main',
+            desc: `당신은 짙은 미스트 안에서 존재하지 않는 문을 엽니다.\n문 너머가 어디인지, 언제인지, 혹은 누구의 내부인지 확신할 수 없습니다.`,
+            abilityDesc: `공간과 인식의 틈을 열어 이동, 회피, 강제 접촉을 시도하는 히든 이능입니다.\n강력하지만 사용할수록 안개가 당신의 위치를 더 또렷하게 기억합니다.`
+        });
+
+
+        categoryData[9].push({
+            name: '잔향 봉합', abilityNum: 'hidden_02', hidden: true, unlockKey: 'echo_suture', img: 'img_cho/09/H_002/main',
+            desc: `찢어진 육체가 아니라, 사건 이후 남은 흔적을 봉합합니다.
+상처가 닫히는 대신 기억이나 감각 일부가 함께 묶일 수 있습니다.`,
+            abilityDesc: `미스트에 남은 잔향을 실처럼 끌어와 상처, 파손, 기억의 틈을 임시로 꿰매는 히든 이능입니다.
+회복과 조작의 경계에 있으며, 잘못 쓰면 원래 없던 흉터까지 만들어냅니다.`
+        });
+        categoryData[9].push({
+            name: '검은 안개 호흡', abilityNum: 'hidden_03', hidden: true, unlockKey: 'black_mist_breath', img: 'img_cho/09/H_003/main',
+            desc: `숨을 쉬는 대신 안개를 들이마시고, 내뱉는 순간 몸 안의 무언가를 함께 태웁니다.
+강력하지만 오래 버티는 법은 아닙니다.`,
+            abilityDesc: `고농도 미스트를 호흡기관과 순환계에 직접 통과시켜 순간적인 신체 강화와 이능 증폭을 얻는 히든 이능입니다.
+사용자는 잠깐 괴물처럼 움직일 수 있지만, 끝난 뒤 몸이 인간의 구조를 기억하지 못할 수 있습니다.`
+        });
 
         // --- 이능(09) 등급 데이터 ---
         const abilityGrades = [
@@ -2986,12 +3777,69 @@
             ],
         };
 
+        abilityGradeDesc['hidden_01'] = [
+            '입문: 아주 짧은 거리의 균열을 감지합니다.',
+            '초급: 눈앞의 사각지대로 몸을 밀어 넣을 수 있습니다.',
+            '중급: 폐쇄된 문이나 벽 너머의 안개와 접촉합니다.',
+            '고급: 전투 중 한 차례 위치를 어긋나게 만들 수 있습니다.',
+            '전문가: 타인의 인식 안쪽에 문을 열어 추적을 끊습니다.',
+            '달인: 안개가 허락한다면, 존재하지 않았던 출구로 걸어나갑니다.'
+        ];
+
+        abilityGradeDesc['hidden_02'] = [
+            `잔향을 더듬어 작은 상처나 균열을 임시로 봉합합니다.`,
+            `봉합한 흔적이 몇 시간 유지되며, 단순 손상과 미세한 기억 공백을 잠시 메울 수 있습니다.`,
+            `부상자, 파손된 장비, 끊어진 단서의 연결점을 복구합니다.`,
+            `사건 현장 전체에 남은 잔향을 묶어 짧은 시간 동안 재현할 수 있습니다.`,
+            `죽음 직전의 잔향이나 끊어진 계약의 흔적까지 임시 봉합합니다.`,
+            `이미 사라진 것의 흔적을 꿰매어, 세계가 잠시 그것을 아직 존재하는 것으로 착각하게 만듭니다.`
+        ];
+        abilityGradeDesc['hidden_03'] = [
+            `짧은 시간 동안 미스트를 들이마셔 신체 부담을 무시합니다.`,
+            `호흡이 안정되는 동안 힘과 반응이 증가하지만, 사용 후 심한 탈진이 찾아옵니다.`,
+            `검은 안개를 순환시켜 상처와 피로를 잠시 뒤로 미룹니다.`,
+            `전투 중 신체 한계를 강제로 넘기며, 주변 미스트 농도가 높을수록 효과가 커집니다.`,
+            `호흡 한 번으로 괴이의 압박과 독성 미스트를 역이용합니다.`,
+            `몸 안을 작은 균열처럼 만들어, 미스트가 당신을 통로로 착각하게 합니다.`
+        ];
+
+
         let _abilitySelections = {};
         let _pendingAbility = null;
         let _abilityTypingTimer = null;
         let _abilityGradeTypingTimer = null;
 
+        function isDirectHiddenAbility(data) {
+            return !!(data && data.hidden && typeof data.abilityNum === 'string' && String(data.abilityNum).startsWith('hidden_'));
+        }
+
+        function toggleDirectHiddenAbility(data, cardEl) {
+            if (!data || !cardEl) return;
+            if (!GameState.selections[9]) GameState.selections[9] = [];
+            const selected = GameState.selections[9].includes(data.name);
+            if (selected) {
+                GameState.selections[9] = GameState.selections[9].filter(n => n !== data.name);
+                cardEl.classList.remove('selected');
+                const ne = cardEl.querySelector('.choice-item-name'); if (ne) ne.textContent = data.name;
+                const de = cardEl.querySelector('.choice-item-desc'); if (de) de.textContent = data.desc || '';
+                if (!GameState.selections[9].length) {
+                    const ce = document.getElementById('cat-9');
+                    if (ce) ce.classList.remove('selected');
+                }
+            } else {
+                GameState.selections[9].push(data.name);
+                cardEl.classList.add('selected');
+                const ne = cardEl.querySelector('.choice-item-name'); if (ne) ne.textContent = data.name;
+                const de = cardEl.querySelector('.choice-item-desc'); if (de) de.textContent = data.desc || '';
+                const ce = document.getElementById('cat-9');
+                if (ce) ce.classList.add('selected');
+                if (data.hidden) playHiddenEffect(data, 'select');
+            }
+            updateStatusTags(9);
+        }
+
         function _abTypeText(el, cursorEl, text, speed) {
+            text = translateText(text);
             if (_abilityTypingTimer) { clearInterval(_abilityTypingTimer); _abilityTypingTimer = null; }
             const plain = text.replace(/<[^>]+>/g, '');
             el.textContent = '';
@@ -3024,6 +3872,7 @@
         }
 
         function _abGradeTypeText(el, cursorEl, text, speed) {
+            text = translateText(text);
             if (_abilityGradeTypingTimer) { clearInterval(_abilityGradeTypingTimer); _abilityGradeTypingTimer = null; }
             el.textContent = '';
             el.appendChild(cursorEl);
@@ -3132,6 +3981,19 @@
                         gradeDesc.textContent = '';
                         return;
                     }
+                    const prevHumanRefund = prevGi2 !== null ? abilityGrades[prevGi2].humanCost : 0;
+                    const prevMistRefund  = prevGi2 !== null ? abilityGrades[prevGi2].mistCost  : 0;
+                    if (GameState.isKaoi) {
+                        if ((GameState.points.mist + prevHumanRefund + prevMistRefund) < (g.humanCost + g.mistCost)) {
+                            showInsufficientResource('자원이 부족합니다.');
+                            return;
+                        }
+                    } else {
+                        if ((GameState.points.human + prevHumanRefund) < g.humanCost || (GameState.points.mist + prevMistRefund) < g.mistCost) {
+                            showInsufficientResource('자원이 부족합니다.');
+                            return;
+                        }
+                    }
                     if (prevGi2 !== null) {
                         if (GameState.isKaoi) GameState.points.mist += abilityGrades[prevGi2].humanCost;
                         else GameState.points.human += abilityGrades[prevGi2].humanCost;
@@ -3212,8 +4074,8 @@
             },
             {
                 title: '의뢰 — 어려움',
-                reward: '오염 +150\n크레딧 +9,000',
-                contam: 150, credit: 9000,
+                reward: '오염 +150\n크레딧 +12,000',
+                contam: 150, credit: 12000,
                 hoverText: `허, 용캐도 살아왔잖아?`,
                 selectText: `허, 우리랑 전속계약할 생각있어?\n농담이야 농담, 그래도 나중에 마음 생기면 찾아오라구`,
                 selectDelay: [
@@ -3222,8 +4084,8 @@
             },
             {
                 title: '의뢰 — 아주 어려움',
-                reward: '오염 +200\n크레딧 +19,000',
-                contam: 200, credit: 19000,
+                reward: '오염 +200\n크레딧 +25,000',
+                contam: 200, credit: 25000,
                 hoverText: `...뭐라고?`,
                 selectText: `이정도 실력자라고?`,
                 selectDelay: [
@@ -3232,8 +4094,8 @@
             },
             {
                 title: '의뢰 — 불가능',
-                reward: '오염 +300\n크레딧 +150,000',
-                contam: 300, credit: 150000,
+                reward: '오염 +500\n크레딧 +60,000',
+                contam: 500, credit: 60000,
                 hoverText: `허, 나중에 한번 우리길드로 찾아와\n대우는 섭섭치 않게 해줄게`,
                 selectText: `솔직히 말해서 믿기지 않아\n네가 이 의뢰를 완수했다구?\n하...아니..아니지...좋아, 확실히 네가 완료한거 같으니`,
                 selectDelay: [
@@ -3241,6 +4103,31 @@
                 ],
             },
         ];
+
+
+        questData.push({
+            title: '의뢰 — 블랙박스', hidden: true, unlockKey: 'blackbox_contract', img: 'img_cho/10/H_001',
+            reward: '히든\n오염 +700\n크레딧 +85,000',
+            contam: 700, credit: 85000,
+            hoverText: `그 의뢰는 원래 장부에 없어.\n그래도 네가 기억했다면... 이미 자격은 있겠네.`,
+            selectText: `좋아. 이건 공식 의뢰가 아니야.\n네가 본 것, 네가 가져온 것, 네가 잊지 못한 것까지 전부 정산할게.`,
+            selectDelay: [
+                { delay: 700, text: `입금 완료.\n그리고 충고 하나. 이 의뢰를 끝냈다고 말하지 마.` },
+            ],
+        });
+
+        questData.push({
+            title: '의뢰 — 무음구역', hidden: true, unlockKey: 'silent_zone_contract', img: 'img_cho/10/H_002',
+            reward: '히든\n오염 +450\n크레딧 +42,000',
+            contam: 450, credit: 42000,
+            hoverText: `말소리도, 발소리도, 무전도 금지된 구역이 있어.
+거기서 뭔가를 꺼내와야 해. 살아서 나오면 추가금은 확실히 줄게.`,
+            selectText: `무음구역 의뢰를 골랐다고?
+좋아. 계약서는 짧아. 안에서 들은 소리를 절대 따라하지 마.`,
+            selectDelay: [
+                { delay: 700, text: `입금 완료. 그리고 네가 돌아온 뒤에도 계속 조용한 소리가 들리면, 우리 사무실로는 오지 마.` },
+            ],
+        });
 
         const questDefaultText = `이봐! 이봐! 이제야 연결되네!\n도대체 뭘 하고 있었기에 이제야 받는거야?!\n\n네가 완료한 의뢰, 정산금 받아가야지?\n무슨 의뢰인지 기억은 나?`;
 
@@ -3263,6 +4150,7 @@
         }
 
         function _questType(text, speed, onDone) {
+            text = translateText(text);
             if (_questTypingTimer) { clearTimeout(_questTypingTimer); _questTypingTimer = null; }
             const textEl = document.getElementById('quest-dialog-text');
             const cursor = document.getElementById('quest-dialog-cursor');
@@ -3320,7 +4208,7 @@
                     textEl.textContent = textEl.textContent + append;
                     cursor.style.display = 'inline';
                     let i = 0;
-                    const chars = step.text.split('');
+                    const chars = translateText(step.text).split('');
                     const tick = () => {
                         if (i < chars.length) {
                             textEl.textContent += chars[i++];
@@ -3379,10 +4267,17 @@
             row1.innerHTML = '';
             row2.innerHTML = '';
 
-            questData.forEach((q, i) => {
+            const visibleQuestData = questData.map((q, rawIndex) => Object.assign({ _rawIndex: rawIndex }, q)).filter(isHiddenUnlocked);
+            visibleQuestData.forEach((q, i) => {
+                const rawIndex = q._rawIndex;
                 const card = document.createElement('div');
-                card.className = 'quest-card' + (_questSelected === i ? ' selected' : '');
-                card.innerHTML = `<div class="quest-card-title">${q.title}</div><div class="quest-card-reward">${q.reward}</div>`;
+                card.className = 'quest-card' + (_questSelected === rawIndex ? ' selected' : '') + (q.hidden ? ' hidden-choice' : '');
+                if (q.hidden) { decorateHiddenElement(card, q); announceHiddenUnlock(q); }
+                card.innerHTML = `${q.hidden ? '<div class="hidden-badge">HIDDEN</div>' : ''}${q.img ? '<div class="quest-card-img"><span>IMG</span></div>' : ''}<div class="quest-card-title">${q.title}</div><div class="quest-card-reward">${q.reward}</div>`;
+                if (q.img) {
+                    const qImgBox = card.querySelector('.quest-card-img');
+                    findImage(q.img).then(src => { if (src && qImgBox) qImgBox.innerHTML = `<img src="${src}" alt="${q.title}">`; });
+                }
 
                 card.addEventListener('mouseenter', () => {
                     if (_questSelected !== null) return;
@@ -3404,7 +4299,7 @@
                 });
                 card.addEventListener('click', (ev) => {
                     ev.stopPropagation();
-                    if (_questSelected === i) {
+                    if (_questSelected === rawIndex) {
                         // 해제
                         if (_questSelected !== null) {
                             const prev = questData[_questSelected];
@@ -3431,7 +4326,8 @@
                         GameState.points.credit  -= prev.credit;
                         updatePointHUD();
                     }
-                    _questSelected = i;
+                    if (q && q.hidden) playHiddenEffect(q, 'select');
+                    _questSelected = rawIndex;
                     GameState.points.contam += q.contam;
                     GameState.points.credit  += q.credit;
                     updatePointHUD();
@@ -3493,10 +4389,26 @@
             { num: '012', name: '이카로스 헤일로',    part: '머리/환',      cost: 1000,  hoverText: `이카로스 헤일로~\n주위 미스트를 정화해서 안전구역을 만들어!\n광범위 정화랑 회복 효과도 있어.\n1,000크레딧이야!` },
         ];
 
+        mistgearData.push({
+            num: '021', name: '리프트 앵커', part: '허리/척추 고정구', cost: 12000,
+            hidden: true, unlockKey: 'rift_anchor', img: 'img_cho/11/mistgear/H_001',
+            hoverText: `리프트 앵커... 이건 원래 팔면 안 되는 물건인데.\n안개문이 열릴 때 몸이 끌려가지 않도록 박아두는 고정구야.\n가격은 12,000크레딧. 싸게 부른 거야.`
+        });
+
+
+        mistgearData.push({
+            num: '022', name: '새턴 블랙링', part: '손가락/계약구', cost: 22000,
+            hidden: true, unlockKey: 'saturn_black_ring', img: 'img_cho/11/mistgear/H_002',
+            hoverText: `새턴 블랙링... 계약을 묶는 고리야.
+끼는 순간 네가 부르는 것과 네가 갚아야 할 것이 선명해져.
+22,000크레딧. 값보다 대가가 더 비싼 물건이지.`
+        });
+
         let _mistgearSelected = null;
         let _mistgearTypingTimer = null;
 
         function _mgType(text, speed, onDone) {
+            text = translateText(text);
             if (_mistgearTypingTimer) { clearTimeout(_mistgearTypingTimer); _mistgearTypingTimer = null; }
             const textEl = document.getElementById('mistgear-dialog-text');
             const cursor = document.getElementById('mistgear-dialog-cursor');
@@ -3588,20 +4500,23 @@
             wrap.style.pointerEvents = _mgCardsRevealed ? 'auto' : 'none';
             wrap.style.transition = 'opacity 0.3s';
 
-            mistgearData.forEach((g, i) => {
+            const visibleMistgearData = mistgearData.map((g, rawIndex) => Object.assign({ _rawIndex: rawIndex }, g)).filter(isHiddenUnlocked);
+            visibleMistgearData.forEach((g, i) => {
+                const rawIndex = g._rawIndex;
                 const card = document.createElement('div');
-                card.className = 'mg-card' + (_mistgearSelected === i ? ' selected' : '');
+                card.className = 'mg-card' + (_mistgearSelected === rawIndex ? ' selected' : '') + (g.hidden ? ' hidden-choice' : '');
+                if (g.hidden) { decorateHiddenElement(card, g); announceHiddenUnlock(g); }
 
                 const imgDiv = document.createElement('div');
                 imgDiv.className = 'mg-card-img';
                 imgDiv.innerHTML = `<span>IMG</span>`;
-                findImage(`img_cho/11/mistgear/${g.num}`).then(src => {
+                findImage(g.img || `img_cho/11/mistgear/${g.num}`).then(src => {
                     if (src) imgDiv.innerHTML = `<img src="${src}" alt="${g.name}">`;
                 });
 
                 const info = document.createElement('div');
                 info.className = 'mg-card-info';
-                info.innerHTML = `<div class="mg-card-name">${g.name}</div><div class="mg-card-part">${g.part}</div>`;
+                info.innerHTML = `${g.hidden ? '<div class="hidden-badge">HIDDEN</div>' : ''}<div class="mg-card-name">${g.name}</div><div class="mg-card-part">${g.part}</div>`;
 
                 card.appendChild(imgDiv);
                 card.appendChild(info);
@@ -3617,7 +4532,7 @@
                 card.addEventListener('click', (ev) => {
                     ev.stopPropagation();
                     const allCards = wrap.querySelectorAll('.mg-card');
-                    if (_mistgearSelected === i) {
+                    if (_mistgearSelected === rawIndex) {
                         GameState.points.credit += g.cost;
                         updatePointHUD();
                         _mistgearSelected = null;
@@ -3636,10 +4551,16 @@
                         updateStatusTags(11);
                         return;
                     }
+                    const mgRefund = _mistgearSelected !== null ? mistgearData[_mistgearSelected].cost : 0;
+                    if ((GameState.points.credit + mgRefund) < g.cost) {
+                        showInsufficientResource('크레딧이 부족합니다.');
+                        return;
+                    }
                     if (_mistgearSelected !== null) {
                         GameState.points.credit += mistgearData[_mistgearSelected].cost;
                     }
-                    _mistgearSelected = i;
+                    if (g && g.hidden) playHiddenEffect(g, 'select');
+                    _mistgearSelected = rawIndex;
                     GameState.points.credit -= g.cost;
                     updatePointHUD();
                     if (!GameState.selections[11]) GameState.selections[11] = [];
@@ -3728,41 +4649,65 @@
         }
 
         // --- 장비(12) 데이터 ---
-        const equipMaterials = [
-            { name: '철',          cost: 50,  desc: '오랜시간 인간과 함께한 신뢰의 광물' },
-            { name: '티타늄',      cost: 150, desc: '인간 시대의 집합체' },
-            { name: '미스트 스틸', cost: 300, desc: '미스트의 현실을 간직한 광물' },
+        const firearmAmmoNormal = [
+            { name: '납탄',   cost: 40,  desc: '가장 싸고 흔한 일반탄. 인간과 약한 생명체에게만 안정적으로 유효하다.' },
+            { name: '소이탄', cost: 90,  desc: '착탄 지점에 열과 불꽃을 남기는 일반 특수탄. 식물성 변이체와 은신처 방어에 적합하다.' },
+            { name: '철갑탄', cost: 120, desc: '장갑과 두꺼운 외피를 노리는 관통탄. 일반 화기에서 선택 가능한 가장 믿을 만한 탄종이다.' },
         ];
-        const equipAmmo = [
-            { name: '납탄',         cost: 50,  desc: '기본적인 납 재질의 탄약' },
-            { name: '강화탄',       cost: 150, desc: '관통력이 강화된 탄약' },
-            { name: '미스트 불릿',  cost: 300, desc: '미스트가 깃든 특수 탄약' },
+        const firearmAmmoMist = [
+            { name: '납탄',     cost: 40,  desc: '미스트 화기에도 장전 가능한 기본탄. 성능은 낮지만 유지비가 싸다.' },
+            { name: '소이탄',   cost: 90,  desc: '열로 미스트 잔류물을 태우는 탄. 낮은 등급 변이체에게 유효하다.' },
+            { name: '철갑탄',   cost: 120, desc: '미스트 화기용으로 재가공된 관통탄. 단단한 외피를 상대할 때 사용한다.' },
+            { name: '미스트탄', cost: 320, desc: '압축 미스트를 탄두 내부에 봉입한 특수탄. 괴이와 고오염 개체에게 유효하다.' },
+            { name: '괴이탄',   cost: 520, desc: '괴생명체의 조직 반응을 역이용하는 위험탄. 비싸지만 대부분의 비정상 개체에게 깊게 박힌다.' },
         ];
-        const subMaterialMap = {
-            '도검': { label: '재질 선택', list: equipMaterials },
-            '총기': { label: '탄약 선택', list: equipAmmo },
-            '특수': { label: '재질 선택', list: equipMaterials },
-        };
+        const meleeMaterials = [
+            { name: '일반강철', cost: 60,  desc: '저렴하고 약한 강철. 인간과 약한 상대에게만 확실한 피해를 기대할 수 있다.' },
+            { name: '강화강철', cost: 140, desc: '조금 더 믿을 만한 보급형 강화재. 인간과 약한 변이체, 조금 강한 상대까지 상대 가능하다.' },
+            { name: '미스트 합금', cost: 360, desc: '미스트와 철을 섞어 만든 합금. 순수 미스트 스틸보다 약하지만 가격과 성능의 균형이 좋다.' },
+            { name: '미스트 스틸', cost: 720, desc: '비싸고 귀한 고급품. 대부분의 상대에게 피해를 입힐 수 있는 검은 강철이다.' },
+        ];
         const equipData = {
             weapon: {
                 label: '무기',
-                subs: {
-                    '도검': [
-                        { name: '단검',   cost: 100, desc: '짧고도 확실한 선택' },
-                        { name: '장검',   cost: 300, desc: '기교와 확실한 공격' },
-                        { name: '양손검', cost: 450, desc: '크고 묵직한 한방' },
-                    ],
-                    '총기': [
-                        { name: '권총',      cost: 100, desc: '작고, 빠르고, 치명적이지' },
-                        { name: 'SMG',       cost: 350, desc: '순간의 화력과 제압에 능해' },
-                        { name: '돌격 소총', cost: 500, desc: '상당한 화력, 묵직한 감각 나쁘지 않아.' },
-                    ],
-                    '특수': [
-                        { name: '특수 제작', cost: 500, desc: '물론 네가 원하는 특수 제작도 받아.' },
-                    ],
+                slots: {
+                    primary: {
+                        label: '주무기', subtitle: '전투의 중심. 화력은 좋지만 비용과 탄약 선택이 중요하다.',
+                        normal: { label: '일반 화기', tags: ['크레딧만 소모', '낮은 유지비', '일반탄 전용'], ammo: firearmAmmoNormal, items: [
+                            { name: '구식 소총', cost: 650, desc: '오래된 수동식 소총. 약하지만 정비가 쉽고 탄을 가리지 않는다.' },
+                            { name: '펌프 산탄총', cost: 760, desc: '근거리 제압용 산탄총. 인간과 약한 변이체에게는 여전히 무섭다.' },
+                            { name: '보급형 돌격소총', cost: 980, desc: '안정적인 일반 화기. 특출나진 않지만 대부분의 인간 상대에게 충분하다.' },
+                        ]},
+                        mist: { label: '미스트 화기', tags: ['고가', '특수탄 사용', '괴이 대응'], ammo: firearmAmmoMist, items: [
+                            { name: '미스트 코어 라이플', cost: 2200, desc: '미스트 코어로 약실을 보강한 소총. 유지비는 높지만 괴이에게도 탄이 박힌다.' },
+                            { name: '균열 산탄총', cost: 2600, desc: '짧은 거리에서 미스트 파편을 뿌리는 산탄총. 가까이 갈수록 끔찍하다.' },
+                            { name: '괴이 추적총', cost: 3100, desc: '비정상 생명체의 잔향을 따라 탄도를 보정하는 고가 화기.' },
+                        ]},
+                    },
+                    secondary: {
+                        label: '보조무기', subtitle: '급할 때 뽑는 두 번째 선택. 싸게 막거나, 비싸게 살아남거나.',
+                        normal: { label: '일반 화기', tags: ['크레딧만 소모', '휴대성 우수', '일반탄 전용'], ammo: firearmAmmoNormal, items: [
+                            { name: '리볼버', cost: 360, desc: '단순하고 튼튼한 보조 권총. 탄 수는 적지만 배신하지 않는다.' },
+                            { name: '자동권총', cost: 480, desc: '흔한 보조화기. 빠르게 쏘고 빠르게 비운다.' },
+                            { name: '절단 산탄권총', cost: 620, desc: '손목이 아픈 대신 가까운 적을 멈춰 세운다.' },
+                        ]},
+                        mist: { label: '미스트 화기', tags: ['고가', '특수탄 사용', '비상 괴이 대응'], ammo: firearmAmmoMist, items: [
+                            { name: '미스트 피스톨', cost: 1450, desc: '작은 미스트 약실을 단 권총. 보조무기치곤 지나치게 위험하다.' },
+                            { name: '침식 권총', cost: 1750, desc: '쏠 때마다 손끝에 차가운 감각이 남는 권총. 괴이탄과 궁합이 좋다.' },
+                            { name: '비명 발사기', cost: 2100, desc: '탄두가 아니라 압축된 비명을 쏘는 듯한 기괴한 보조화기.' },
+                        ]},
+                    },
+                    melee: {
+                        label: '근접무기', subtitle: '탄약이 떨어졌을 때 남는 마지막 확신. 재질이 곧 생존률이다.', materials: meleeMaterials,
+                        items: [
+                            { name: '단검', cost: 120, desc: '짧고 빠른 칼. 은밀한 처치와 마지막 발악에 어울린다.' },
+                            { name: '장검', cost: 260, desc: '균형 잡힌 근접무기. 재질에 따라 성능 차이가 크게 갈린다.' },
+                            { name: '벌목 도끼', cost: 300, desc: '무겁고 거칠다. 나무와 뼈를 가르는 감각은 비슷하다.' },
+                            { name: '창', cost: 340, desc: '거리를 지킬 수 있는 근접무기. 좁은 실내에서는 다루기 어렵다.' },
+                            { name: '파쇄 둔기', cost: 380, desc: '베지 못하는 것을 부수기 위한 물건. 단단한 상대에게 그나마 믿을 만하다.' },
+                        ],
+                    },
                 },
-                hasMaterial: true,
-                materialLabel: '— 재질 선택 —',
             },
             armor: {
                 label: '방어구',
@@ -3771,8 +4716,6 @@
                     { name: '중량 방어구',   cost: 250, desc: '방어력과 움직임을 일부 보장하지만 완벽하진 않아' },
                     { name: '초중량 방어구', cost: 450, desc: '오로지 방어만을 위한 방어구' },
                 ],
-                hasMaterial: true,
-                materialLabel: '— 재질 선택 —',
             },
             consumable: {
                 label: '소모품',
@@ -3827,14 +4770,18 @@
                         ],
                     },
                 ],
-            },
+            }
         };
 
         // 장비 선택 상태
         const _equipState = {
-            weapon:     { selections: new Set(), materials: { '도검': null, '총기': null, '특수': null } },
-            armor:      { item: null, material: null },
-            consumable: {},  // name -> qty
+            weapon: {
+                primary:   { path: 'normal', item: null, ammo: null },
+                secondary: { path: 'normal', item: null, ammo: null },
+                melee:     { item: null, material: null },
+            },
+            armor:      { item: null },
+            consumable: {},
         };
 
         let _equipTypingTimer = null;
@@ -3879,6 +4826,7 @@
         }
 
         function _equipType(text, speed, onDone) {
+            text = translateText(text);
             if (_equipTypingTimer) { clearTimeout(_equipTypingTimer); _equipTypingTimer = null; }
             const textEl = document.getElementById('equip-dialog-text');
             const cursor = document.getElementById('equip-dialog-cursor');
@@ -3899,32 +4847,27 @@
             _equipTypingTimer = setTimeout(tick, speed);
         }
 
+        function _equipWeaponSlotCost(slotKey) {
+            const slot = _equipState.weapon[slotKey];
+            const slotData = equipData.weapon.slots[slotKey];
+            if (!slot || !slotData) return 0;
+            if (slotKey === 'melee') {
+                return (slot.item !== null ? slotData.items[slot.item].cost : 0) + (slot.material !== null ? slotData.materials[slot.material].cost : 0);
+            }
+            const pathData = slotData[slot.path || 'normal'];
+            return (slot.item !== null ? pathData.items[slot.item].cost : 0) + (slot.ammo !== null ? pathData.ammo[slot.ammo].cost : 0);
+        }
+
         function _equipGetTotalCost() {
-            let total = 0;
-            const ws = _equipState.weapon;
-            if (ws.item !== null) {
-                const sub = ws.sub;
-                const subItems = equipData.weapon.subs[sub];
-                if (subItems) total += subItems[ws.item].cost;
-                if (ws.material !== null) total += equipMaterials[ws.material].cost;
-            }
+            let total = _equipWeaponSlotCost('primary') + _equipWeaponSlotCost('secondary') + _equipWeaponSlotCost('melee');
             const as = _equipState.armor;
-            if (as.item !== null) {
-                total += equipData.armor.items[as.item].cost;
-                if (as.material !== null) total += equipMaterials[as.material].cost;
-            }
-            Object.entries(_equipState.consumable).forEach(([name, qty]) => {
-                const found = _equipFindConsumable(name);
-                if (found) total += found.cost * qty;
-            });
+            if (as.item !== null) total += equipData.armor.items[as.item].cost;
+            Object.entries(_equipState.consumable).forEach(([name, qty]) => { const found = _equipFindConsumable(name); if (found) total += found.cost * qty; });
             return total;
         }
 
         function _equipFindConsumable(name) {
-            for (const g of equipData.consumable.groups) {
-                const f = g.items.find(i => i.name === name);
-                if (f) return f;
-            }
+            for (const g of equipData.consumable.groups) { const f = g.items.find(i => i.name === name); if (f) return f; }
             return null;
         }
 
@@ -3933,33 +4876,33 @@
             const consWrap  = document.getElementById('st-cons-tags');
             if (equipWrap) equipWrap.innerHTML = '';
             if (consWrap)  consWrap.innerHTML  = '';
-
-            const ws = _equipState.weapon;
-            const as = _equipState.armor;
             const sel = [];
-
-            // 무기
-            _equipState.weapon.selections.forEach(key => {
-                const [subName, idxStr] = key.split(':');
-                const idx = parseInt(idxStr);
-                const subItems = equipData.weapon.subs[subName];
-                if (!subItems) return;
-                let name = subItems[idx].name;
-                const matIdx = _equipState.weapon.materials[subName];
-                const matList = subMaterialMap[subName]?.list;
-                if (matIdx !== null && matList) name += `-${matList[matIdx].name}`;
+            const slots = equipData.weapon.slots;
+            ['primary','secondary'].forEach(slotKey => {
+                const slot = _equipState.weapon[slotKey];
+                const slotData = slots[slotKey];
+                if (!slot || slot.item === null) return;
+                const pathData = slotData[slot.path];
+                const item = pathData.items[slot.item];
+                let name = `${slotData.label}:${item.name}`;
+                let desc = `[${pathData.label}] ${item.desc}`;
+                let cost = item.cost;
+                if (slot.ammo !== null) { const ammo = pathData.ammo[slot.ammo]; name += `-${ammo.name}`; desc += `\n탄약: ${ammo.desc}`; cost += ammo.cost; }
                 sel.push(name);
-                const matCost = (matIdx !== null && matList) ? matList[matIdx].cost : 0;
-                if (equipWrap) equipWrap.appendChild(_makeTagEl(name, null, subItems[idx].desc, `${subItems[idx].cost + matCost} 크레딧`));
+                if (equipWrap) equipWrap.appendChild(_makeTagEl(name, null, desc, `${cost} 크레딧`));
             });
-            // 방어구
-            if (as.item !== null) {
-                let name = equipData.armor.items[as.item].name;
-                if (as.material !== null) name += `-${equipMaterials[as.material].name}`;
+            const melee = _equipState.weapon.melee;
+            if (melee.item !== null) {
+                const item = slots.melee.items[melee.item];
+                let name = `${slots.melee.label}:${item.name}`;
+                let desc = item.desc;
+                let cost = item.cost;
+                if (melee.material !== null) { const mat = slots.melee.materials[melee.material]; name += `-${mat.name}`; desc += `\n재질: ${mat.desc}`; cost += mat.cost; }
                 sel.push(name);
-                if (equipWrap) equipWrap.appendChild(_makeTagEl(name, null, equipData.armor.items[as.item].desc, `${equipData.armor.items[as.item].cost + (as.material !== null ? equipMaterials[as.material].cost : 0)} 크레딧`));
+                if (equipWrap) equipWrap.appendChild(_makeTagEl(name, null, desc, `${cost} 크레딧`));
             }
-            // 소모품
+            const as = _equipState.armor;
+            if (as.item !== null) { const item = equipData.armor.items[as.item]; sel.push(item.name); if (equipWrap) equipWrap.appendChild(_makeTagEl(item.name, null, item.desc, `${item.cost} 크레딧`)); }
             Object.entries(_equipState.consumable).forEach(([name, qty]) => {
                 if (qty <= 0) return;
                 const found = _equipFindConsumable(name);
@@ -3967,152 +4910,135 @@
                 sel.push(tagName);
                 if (consWrap && found) consWrap.appendChild(_makeTagEl(tagName, null, found.desc, `${found.cost * qty} 크레딧`));
             });
-
             GameState.selections[12] = sel;
             const catEl = document.getElementById('cat-12');
             if (catEl) catEl.classList.toggle('selected', sel.length > 0);
         }
 
-        function _buildEquipWeapon(container) {
-            const subs = equipData.weapon.subs;
-            Object.entries(subs).forEach(([subName, items]) => {
-                const subSec = document.createElement('div');
-                subSec.className = 'eq-subsection';
-                const subTitle = document.createElement('div');
-                subTitle.className = 'eq-subsection-title';
-                subTitle.textContent = `— ${subName} —`;
-                subSec.appendChild(subTitle);
-                const itemsDiv = document.createElement('div');
-                itemsDiv.className = 'eq-items';
-                const subSelected = [..._equipState.weapon.selections].filter(k => k.startsWith(subName + ':'));
+        function _equipMakeChoiceCard(item, selected, onClick, extraClass='') {
+            const el = document.createElement('div');
+            el.className = 'eq-choice-card' + (selected ? ' selected' : '') + (extraClass ? ' ' + extraClass : '');
+            el.innerHTML = `<div class="eq-choice-name">${item.name}</div><div class="eq-choice-desc">${item.desc}</div><div class="eq-choice-cost">${item.cost} 크레딧</div>`;
+            el.addEventListener('click', (ev) => { ev.stopPropagation(); onClick(); });
+            return el;
+        }
 
-                items.forEach((item, idx) => {
-                    const key = `${subName}:${idx}`;
-                    const el = document.createElement('div');
-                    el.className = 'eq-item';
-                    if (_equipState.weapon.selections.has(key)) el.classList.add('selected');
-                    el.innerHTML = `${item.name} <span style="color:#1a5a1a;font-size:0.65rem;">${item.cost}cr</span><span class="eq-item-desc">${item.desc}\n${item.cost} 크레딧</span>`;
-                    el.addEventListener('mouseenter', () => {
-                        const d = el.querySelector('.eq-item-desc');
-                        if (d) { const r = el.getBoundingClientRect(); d.style.top = (r.bottom+4)+'px'; d.style.left = r.left+'px'; }
-                    });
-                    el.addEventListener('click', (ev) => {
-                        ev.stopPropagation();
-                        const matIdx = _equipState.weapon.materials[subName];
-                        const matList = subMaterialMap[subName].list;
-                        const matCost = matIdx !== null ? matList[matIdx].cost : 0;
-                        if (_equipState.weapon.selections.has(key)) {
-                            GameState.points.credit += item.cost + matCost;
-                            _equipState.weapon.selections.delete(key);
-                            const remain = [..._equipState.weapon.selections].filter(k => k.startsWith(subName+':'));
-                            if (remain.length === 0) _equipState.weapon.materials[subName] = null;
-                        } else {
-                            GameState.points.credit -= item.cost + matCost;
-                            _equipState.weapon.selections.add(key);
-                        }
-                        updatePointHUD(); _equipUpdateHUD(); _buildEquipBody();
-                    });
-                    itemsDiv.appendChild(el);
-                });
-                subSec.appendChild(itemsDiv);
-                container.appendChild(subSec);
+        function _equipRefundAndSet(slotKey, applyFn) {
+            const oldCost = slotKey === 'armor' ? (_equipState.armor.item !== null ? equipData.armor.items[_equipState.armor.item].cost : 0) : _equipWeaponSlotCost(slotKey);
+            const backup = JSON.parse(JSON.stringify(slotKey === 'armor' ? _equipState.armor : _equipState.weapon[slotKey]));
+            applyFn();
+            const newCost = slotKey === 'armor' ? (_equipState.armor.item !== null ? equipData.armor.items[_equipState.armor.item].cost : 0) : _equipWeaponSlotCost(slotKey);
+            const delta = newCost - oldCost;
+            if (delta > 0 && !canSpendCredit(delta)) {
+                if (slotKey === 'armor') _equipState.armor = backup;
+                else _equipState.weapon[slotKey] = backup;
+                showInsufficientResource('크레딧이 부족합니다.');
+                return false;
+            }
+            GameState.points.credit -= delta;
+            updatePointHUD(); _equipUpdateHUD(); _buildEquipBody();
+            return true;
+        }
 
-                // 해당 서브 무기가 선택됐을 때만 재질/탄약 표시
-                const subHasSelected = [..._equipState.weapon.selections].some(k => k.startsWith(subName+':'));
-                if (subHasSelected) {
-                    const matInfo = subMaterialMap[subName];
-                    const matLabel = document.createElement('div');
-                    matLabel.className = 'eq-material-label';
-                    matLabel.textContent = `— ${matInfo.label} —`;
-                    container.appendChild(matLabel);
-                    const matDiv = document.createElement('div');
-                    matDiv.className = 'eq-items';
-                    matInfo.list.forEach((mat, idx) => {
-                        const el = document.createElement('div');
-                        el.className = 'eq-item';
-                        if (_equipState.weapon.materials[subName] === idx) el.classList.add('selected');
-                        el.innerHTML = `${mat.name} <span style="color:#1a5a1a;font-size:0.65rem;">${mat.cost}cr</span><span class="eq-item-desc">${mat.desc}\n${mat.cost} 크레딧</span>`;
-                        el.addEventListener('mouseenter', () => {
-                            const d = el.querySelector('.eq-item-desc'); if (d) { const r = el.getBoundingClientRect(); d.style.top=(r.bottom+4)+'px'; d.style.left=r.left+'px'; }
-                        });
-                        el.addEventListener('click', (ev) => {
-                            ev.stopPropagation();
-                            const count = [..._equipState.weapon.selections].filter(k => k.startsWith(subName+':')).length;
-                            const prev = _equipState.weapon.materials[subName];
-                            if (prev === idx) {
-                                GameState.points.credit += mat.cost * count;
-                                _equipState.weapon.materials[subName] = null;
-                            } else {
-                                if (prev !== null) GameState.points.credit += matInfo.list[prev].cost * count;
-                                GameState.points.credit -= mat.cost * count;
-                                _equipState.weapon.materials[subName] = idx;
-                            }
-                            updatePointHUD(); _equipUpdateHUD(); _buildEquipBody();
-                        });
-                        matDiv.appendChild(el);
-                    });
-                    container.appendChild(matDiv);
-                }
+        function _buildFirearmSlot(container, slotKey) {
+            const slot = _equipState.weapon[slotKey];
+            const slotData = equipData.weapon.slots[slotKey];
+            const wrap = document.createElement('div');
+            wrap.className = 'eq-slot-card';
+            wrap.innerHTML = `<div class="eq-slot-head"><div class="eq-slot-title">${slotData.label}</div><div class="eq-slot-sub">${slotData.subtitle}</div></div>`;
+            const tabs = document.createElement('div');
+            tabs.className = 'eq-path-tabs';
+            ['normal','mist'].forEach(path => {
+                const tab = document.createElement('div');
+                tab.className = 'eq-path-tab' + (slot.path === path ? ' active' : '');
+                tab.textContent = slotData[path].label;
+                tab.addEventListener('click', (ev) => { ev.stopPropagation(); if (slot.path === path) return; _equipRefundAndSet(slotKey, () => { slot.path = path; slot.item = null; slot.ammo = null; }); });
+                tabs.appendChild(tab);
             });
+            wrap.appendChild(tabs);
+            const pathData = slotData[slot.path || 'normal'];
+            const tags = document.createElement('div');
+            tags.className = 'eq-choice-tagline';
+            pathData.tags.forEach(t => { const sp = document.createElement('span'); sp.className = 'eq-mini-tag' + (slot.path === 'mist' ? ' mist' : ''); sp.textContent = t; tags.appendChild(sp); });
+            wrap.appendChild(tags);
+            const grid = document.createElement('div');
+            grid.className = 'eq-card-grid';
+            pathData.items.forEach((item, idx) => { grid.appendChild(_equipMakeChoiceCard(item, slot.item === idx, () => { _equipRefundAndSet(slotKey, () => { if (slot.item === idx) { slot.item = null; slot.ammo = null; } else { slot.item = idx; slot.ammo = null; } }); })); });
+            wrap.appendChild(grid);
+            const ammoBox = document.createElement('div');
+            ammoBox.className = 'eq-ammo-line';
+            const ammoLabel = document.createElement('div');
+            ammoLabel.className = 'eq-material-label';
+            ammoLabel.textContent = slot.item === null ? '— 화기를 선택하면 탄약을 고를 수 있습니다 —' : '— 탄약 선택 —';
+            ammoBox.appendChild(ammoLabel);
+            if (slot.item !== null) {
+                const ammoGrid = document.createElement('div');
+                ammoGrid.className = 'eq-card-grid';
+                pathData.ammo.forEach((ammo, idx) => { ammoGrid.appendChild(_equipMakeChoiceCard(ammo, slot.ammo === idx, () => { _equipRefundAndSet(slotKey, () => { slot.ammo = (slot.ammo === idx ? null : idx); }); })); });
+                ammoBox.appendChild(ammoGrid);
+            } else {
+                const help = document.createElement('div');
+                help.className = 'eq-empty-help';
+                help.textContent = slot.path === 'mist' ? '미스트 화기는 비싸지만 미스트탄과 괴이탄을 사용할 수 있습니다.' : '일반 화기는 저렴하지만 납탄, 소이탄, 철갑탄만 사용할 수 있습니다.';
+                ammoBox.appendChild(help);
+            }
+            wrap.appendChild(ammoBox);
+            container.appendChild(wrap);
+        }
+
+        function _buildMeleeSlot(container) {
+            const slot = _equipState.weapon.melee;
+            const slotData = equipData.weapon.slots.melee;
+            const wrap = document.createElement('div');
+            wrap.className = 'eq-slot-card';
+            wrap.innerHTML = `<div class="eq-slot-head"><div class="eq-slot-title">${slotData.label}</div><div class="eq-slot-sub">${slotData.subtitle}</div></div>`;
+            const grid = document.createElement('div');
+            grid.className = 'eq-card-grid';
+            slotData.items.forEach((item, idx) => { grid.appendChild(_equipMakeChoiceCard(item, slot.item === idx, () => { _equipRefundAndSet('melee', () => { if (slot.item === idx) { slot.item = null; slot.material = null; } else { slot.item = idx; slot.material = null; } }); })); });
+            wrap.appendChild(grid);
+            const matLine = document.createElement('div');
+            matLine.className = 'eq-ammo-line';
+            const matLabel = document.createElement('div');
+            matLabel.className = 'eq-material-label';
+            matLabel.textContent = slot.item === null ? '— 근접무기를 선택하면 재질을 고를 수 있습니다 —' : '— 재질 선택 —';
+            matLine.appendChild(matLabel);
+            if (slot.item !== null) {
+                const matGrid = document.createElement('div');
+                matGrid.className = 'eq-card-grid';
+                slotData.materials.forEach((mat, idx) => { matGrid.appendChild(_equipMakeChoiceCard(mat, slot.material === idx, () => { _equipRefundAndSet('melee', () => { slot.material = (slot.material === idx ? null : idx); }); })); });
+                matLine.appendChild(matGrid);
+            } else {
+                const help = document.createElement('div');
+                help.className = 'eq-empty-help';
+                help.textContent = '일반강철은 싸지만 약하고, 미스트 스틸은 비싸지만 대부분의 상대에게 피해를 줄 수 있습니다.';
+                matLine.appendChild(help);
+            }
+            wrap.appendChild(matLine);
+            container.appendChild(wrap);
+        }
+
+        function _buildEquipWeapon(container) {
+            const note = document.createElement('div');
+            note.className = 'eq-shop-note';
+            note.textContent = '주무기와 보조무기는 일반 화기/미스트 화기로 나뉩니다. 근접무기는 무기와 재질을 따로 고릅니다.';
+            container.appendChild(note);
+            _buildFirearmSlot(container, 'primary');
+            _buildFirearmSlot(container, 'secondary');
+            _buildMeleeSlot(container);
         }
 
         function _buildEquipArmor(container) {
             const itemsDiv = document.createElement('div');
-            itemsDiv.className = 'eq-items';
-            equipData.armor.items.forEach((item, idx) => {
-                const el = document.createElement('div');
-                el.className = 'eq-item';
-                if (_equipState.armor.item === idx) el.classList.add('selected');
-                el.innerHTML = `${item.name} <span style="color:#1a5a1a;font-size:0.65rem;">${item.cost}cr</span><span class="eq-item-desc">${item.desc}\n${item.cost} 크레딧</span>`;
-                el.addEventListener('mouseenter', () => { const d = el.querySelector('.eq-item-desc'); if (d) { const r = el.getBoundingClientRect(); d.style.top = (r.bottom + 4) + 'px'; d.style.left = r.left + 'px'; } });
-                el.addEventListener('click', (ev) => {
-                    ev.stopPropagation();
-                    if (_equipState.armor.item === idx) {
-                        const cost = item.cost + (_equipState.armor.material !== null ? equipMaterials[_equipState.armor.material].cost : 0);
-                        GameState.points.credit += cost;
-                        _equipState.armor.item = null; _equipState.armor.material = null;
-                    } else {
-                        if (_equipState.armor.item !== null) {
-                            let refund = equipData.armor.items[_equipState.armor.item].cost;
-                            if (_equipState.armor.material !== null) refund += equipMaterials[_equipState.armor.material].cost;
-                            GameState.points.credit += refund;
-                            _equipState.armor.material = null;
-                        }
-                        _equipState.armor.item = idx;
-                        GameState.points.credit -= item.cost;
-                    }
-                    updatePointHUD(); _equipUpdateHUD(); _buildEquipBody();
-                });
-                itemsDiv.appendChild(el);
-            });
+            itemsDiv.className = 'eq-card-grid';
+            equipData.armor.items.forEach((item, idx) => { itemsDiv.appendChild(_equipMakeChoiceCard(item, _equipState.armor.item === idx, () => { _equipRefundAndSet('armor', () => { _equipState.armor.item = (_equipState.armor.item === idx ? null : idx); }); })); });
             container.appendChild(itemsDiv);
-
-            if (_equipState.armor.item !== null) {
-                const matLabel = document.createElement('div');
-                matLabel.className = 'eq-material-label';
-                matLabel.textContent = '— 재질 선택 —';
-                container.appendChild(matLabel);
-                const matDiv = document.createElement('div');
-                matDiv.className = 'eq-items';
-                equipMaterials.forEach((mat, idx) => {
-                    const el = document.createElement('div');
-                    el.className = 'eq-item';
-                    if (_equipState.armor.material === idx) el.classList.add('selected');
-                    el.innerHTML = `${mat.name} <span style="color:#1a5a1a;font-size:0.65rem;">${mat.cost}cr</span><span class="eq-item-desc">${mat.desc}\n${mat.cost} 크레딧</span>`;
-                    el.addEventListener('mouseenter', () => { const d = el.querySelector('.eq-item-desc'); if (d) { const r = el.getBoundingClientRect(); d.style.top = (r.bottom + 4) + 'px'; d.style.left = r.left + 'px'; } });
-                    el.addEventListener('click', (ev) => {
-                        ev.stopPropagation();
-                        if (_equipState.armor.material === idx) { GameState.points.credit += mat.cost; _equipState.armor.material = null; }
-                        else { if (_equipState.armor.material !== null) GameState.points.credit += equipMaterials[_equipState.armor.material].cost; _equipState.armor.material = idx; GameState.points.credit -= mat.cost; }
-                        updatePointHUD(); _equipUpdateHUD(); _buildEquipBody();
-                    });
-                    matDiv.appendChild(el);
-                });
-                container.appendChild(matDiv);
-            }
         }
 
         function _buildEquipConsumable(container) {
+            const note = document.createElement('div');
+            note.className = 'eq-shop-note';
+            note.textContent = '소모품은 기존처럼 수량 단위로 구매합니다. + / - 버튼으로 수량을 조절하고, Ctrl 클릭 시 최대 10개씩 조절됩니다.';
+            container.appendChild(note);
             equipData.consumable.groups.forEach(group => {
                 const groupTitle = document.createElement('div');
                 groupTitle.className = 'eq-subsection-title';
@@ -4122,41 +5048,10 @@
                     const row = document.createElement('div');
                     row.className = 'eq-consumable';
                     const qty = _equipState.consumable[item.name] || 0;
-                    row.innerHTML = `
-                        <div class="eq-cons-info">
-                            <div class="eq-cons-name">${item.name}</div>
-                            <div class="eq-cons-desc">${item.desc}</div>
-                            <div class="eq-cons-price">${item.cost} 크레딧 / 개</div>
-                        </div>
-                        <div class="eq-cons-ctrl">
-                            <button class="eq-cons-btn eq-cons-minus">-</button>
-                            <span class="eq-cons-qty">${qty}</span>
-                            <button class="eq-cons-btn eq-cons-plus">+</button>
-                        </div>`;
+                    row.innerHTML = `<div class="eq-cons-info"><div class="eq-cons-name">${item.name}</div><div class="eq-cons-desc">${item.desc}</div><div class="eq-cons-price">${item.cost} 크레딧 / 개</div></div><div class="eq-cons-ctrl"><button class="eq-cons-btn eq-cons-minus">-</button><span class="eq-cons-qty">${qty}</span><button class="eq-cons-btn eq-cons-plus">+</button></div>`;
                     const qtyEl = row.querySelector('.eq-cons-qty');
-
-                    row.querySelector('.eq-cons-minus').addEventListener('click', (ev) => {
-                        ev.stopPropagation();
-                        const cur = _equipState.consumable[item.name] || 0;
-                        if (cur <= 0) return;
-                        const amount = ev.ctrlKey ? Math.min(10, cur) : 1;
-                        _equipState.consumable[item.name] = cur - amount;
-                        if (_equipState.consumable[item.name] === 0) delete _equipState.consumable[item.name];
-                        GameState.points.credit += item.cost * amount;
-                        qtyEl.textContent = _equipState.consumable[item.name] || 0;
-                        updatePointHUD(); _equipUpdateHUD();
-                    });
-                    row.querySelector('.eq-cons-plus').addEventListener('click', (ev) => {
-                        ev.stopPropagation();
-                        const affordable = Math.floor(GameState.points.credit / item.cost);
-                        if (affordable <= 0) return;
-                        const amount = ev.ctrlKey ? Math.min(10, affordable) : 1;
-                        const cur = _equipState.consumable[item.name] || 0;
-                        _equipState.consumable[item.name] = cur + amount;
-                        GameState.points.credit -= item.cost * amount;
-                        qtyEl.textContent = _equipState.consumable[item.name];
-                        updatePointHUD(); _equipUpdateHUD();
-                    });
+                    row.querySelector('.eq-cons-minus').addEventListener('click', (ev) => { ev.stopPropagation(); const cur = _equipState.consumable[item.name] || 0; if (cur <= 0) return; const amount = ev.ctrlKey ? Math.min(10, cur) : 1; _equipState.consumable[item.name] = cur - amount; if (_equipState.consumable[item.name] === 0) delete _equipState.consumable[item.name]; GameState.points.credit += item.cost * amount; qtyEl.textContent = _equipState.consumable[item.name] || 0; updatePointHUD(); _equipUpdateHUD(); });
+                    row.querySelector('.eq-cons-plus').addEventListener('click', (ev) => { ev.stopPropagation(); const affordable = Math.floor(GameState.points.credit / item.cost); if (affordable <= 0) { showInsufficientResource('크레딧이 부족합니다.'); return; } const amount = ev.ctrlKey ? Math.min(10, affordable) : 1; const cur = _equipState.consumable[item.name] || 0; _equipState.consumable[item.name] = cur + amount; GameState.points.credit -= item.cost * amount; qtyEl.textContent = _equipState.consumable[item.name]; updatePointHUD(); _equipUpdateHUD(); });
                     container.appendChild(row);
                 });
             });
@@ -4327,6 +5222,7 @@
         ];
 
         function _hideoutType(text, onDone) {
+            text = translateText(text);
             if (_hideoutTypingTimer) { clearTimeout(_hideoutTypingTimer); _hideoutTypingTimer = null; }
             const textEl = document.getElementById('hideout-vn-text');
             const cursor = document.getElementById('hideout-vn-cursor');
@@ -4415,6 +5311,7 @@
                                 if (item.cost) GameState.points.credit += item.cost;
                                 _hideoutState[key] = null;
                             } else {
+                                if (item.cost && !canSpendCredit(item.cost)) { showInsufficientResource('크레딧이 부족합니다.'); return; }
                                 if (item.cost) GameState.points.credit -= item.cost;
                                 _hideoutState[key] = idx;
                             }
@@ -4430,6 +5327,7 @@
                                     }
                                 }
                             } else {
+                                if (item.cost && !canSpendCredit(item.cost)) { showInsufficientResource('크레딧이 부족합니다.'); return; }
                                 if (item.cost) GameState.points.credit -= item.cost;
                                 _hideoutState[key].add(idx);
                             }
@@ -4510,6 +5408,33 @@
             guard:   ['한 곳을 지켜야 한다는 것 정도는 안다', '기본적인 방어선 구축이 가능하다', '거점 하나를 믿고 맡길 수 있다', '적의 침투 경로를 미리 읽고 막는다', '방어선이 곧 전장을 지배한다', '이곳은 무너지지 않는다. 그것으로 충분하다'],
             analyze: ['뭔가 이상하다는 것 정도는 느낀다', '반복되는 패턴을 읽기 시작했다', '시스템과 구조의 허점을 찾아낸다', '흐름을 역이용할 수 있다', '보이지 않는 연결고리를 본다', '세상 모든 것엔 규칙이 있다. 그것을 읽는다'],
         };
+
+        skillGradeDesc['hidden_01'] = [
+            '입문: 금지 절차의 이름과 위험성을 압니다.',
+            '초급: 작은 봉인, 폐쇄 장치, 연구용 잠금 절차를 우회할 수 있습니다.',
+            '중급: 폐기된 미스트 장비를 임시로 재가동할 수 있습니다.',
+            '고급: 이상현상 억제 절차를 모방할 수 있습니다. 실패하면 오염이 역류합니다.',
+            '전문가: 금지된 장치를 의도적으로 불안정화해 전투나 탈출에 이용할 수 있습니다.',
+            '달인: 당신은 실패한 실험의 순서를 기억합니다. 문제는, 그 실험도 당신을 기억한다는 점입니다.'
+        ];
+
+        skillGradeDesc['hidden_02'] = [
+            `근처에 남은 감정의 방향을 어렴풋이 짚습니다.`,
+            `최근 지나간 대상의 잔향을 구분하고 짧게 추적합니다.`,
+            `인간과 괴이의 흔적을 어느 정도 분리해 읽습니다.`,
+            `소리, 냄새, 공포가 남긴 길을 따라 폐쇄구역 내부를 추적합니다.`,
+            `이미 지워진 흔적에서도 이동 경로와 접촉 대상을 역산합니다.`,
+            `안개가 삼킨 사건의 마지막 방향을 거의 본능적으로 찾아냅니다.`
+        ];
+        skillGradeDesc['hidden_03'] = [
+            `괴이 조직과 인간 조직의 차이를 알아봅니다.`,
+            `미스트 변성 장기와 기생 구조를 해석할 수 있습니다.`,
+            `살아 있는 장비, 변이된 뼈, 오염된 혈액을 다룰 수 있습니다.`,
+            `치료와 해체를 동시에 수행하며 변칙 생물의 약점을 찾아냅니다.`,
+            `괴이화 진행 단계를 보고 원인과 다음 변이를 예측합니다.`,
+            `인간의 구조를 벗어난 생명체라도 절개선과 봉합선을 찾아냅니다.`
+        ];
+
 
         // 기술별 현재 선택 등급 저장 { skillKey: gradeIndex }
         let _skillSelections = {};
@@ -4647,6 +5572,12 @@
             const prevGi = _skillSelections[data.skillKey] ?? null;
 
             // 포인트 처리 — 이전 등급 해제 후 새 등급 적용
+            const prevRefund = prevGi !== null ? skillGrades[prevGi].cost : 0;
+            const available = (GameState.isKaoi ? GameState.points.mist : GameState.points.human) + prevRefund;
+            if (available < skillGrades[gi].cost) {
+                showInsufficientResource('자원이 부족합니다.');
+                return;
+            }
             if (prevGi !== null) {
                 if (GameState.isKaoi) GameState.points.mist += skillGrades[prevGi].cost;
                 else GameState.points.human += skillGrades[prevGi].cost;
@@ -4697,7 +5628,23 @@
         GameState.statPoints = 0;
         GameState.selections = {}; // 카테고리별 선택된 항목명 목록
 
-        const statPointMap = { '미침식자': 60, '침식자': 40, '과침식자': 30 };
+        function showInsufficientResource(message = '자원이 부족합니다.') {
+            console.warn(message);
+            const existing = document.getElementById('resource-deny-toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.id = 'resource-deny-toast';
+            toast.textContent = (typeof tr === 'function') ? tr(message) : message;
+            toast.style.cssText = 'position:fixed;right:24px;top:88px;z-index:9999;padding:10px 16px;border:1px solid #33ff33;background:rgba(0,0,0,0.92);color:#33ff33;font-family:inherit;font-size:0.85rem;box-shadow:0 0 12px rgba(51,255,51,0.25);pointer-events:none;';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 1400);
+        }
+
+        function canSpendCredit(cost) {
+            return (GameState.points.credit || 0) >= (cost || 0);
+        }
+
+        const statPointMap = { '미침식자': 60, '침식자': 45, '과침식자': 35 };
 
         function updateStatUI() {
             if (!GameState.stats) return;
@@ -4781,10 +5728,11 @@
                 mistgearSelected: _mistgearSelected,
                 equipState: {
                     weapon: {
-                        selections: [..._equipState.weapon.selections],
-                        materials: { ..._equipState.weapon.materials },
+                        primary: { ..._equipState.weapon.primary },
+                        secondary: { ..._equipState.weapon.secondary },
+                        melee: { ..._equipState.weapon.melee },
                     },
-                    armor: { item: _equipState.armor.item, material: _equipState.armor.material },
+                    armor: { item: _equipState.armor.item },
                     consumable: { ..._equipState.consumable },
                 },
                 hideoutState: {
@@ -4829,10 +5777,17 @@
                     // 미스트기어
                     _mistgearSelected = data.mistgearSelected ?? null;
                     // 장비
-                    _equipState.weapon.selections = new Set(data.equipState?.weapon?.selections || []);
-                    _equipState.weapon.materials = data.equipState?.weapon?.materials || { '도검': null, '총기': null, '특수': null };
+                    if (data.equipState?.weapon?.primary || data.equipState?.weapon?.secondary || data.equipState?.weapon?.melee) {
+                        _equipState.weapon.primary = { path: 'normal', item: null, ammo: null, ...(data.equipState.weapon.primary || {}) };
+                        _equipState.weapon.secondary = { path: 'normal', item: null, ammo: null, ...(data.equipState.weapon.secondary || {}) };
+                        _equipState.weapon.melee = { item: null, material: null, ...(data.equipState.weapon.melee || {}) };
+                    } else {
+                        // 구버전 저장 파일 호환: 장비 구조가 바뀐 뒤에는 구버전 무기 선택을 복원하지 않음
+                        _equipState.weapon.primary = { path: 'normal', item: null, ammo: null };
+                        _equipState.weapon.secondary = { path: 'normal', item: null, ammo: null };
+                        _equipState.weapon.melee = { item: null, material: null };
+                    }
                     _equipState.armor.item = data.equipState?.armor?.item ?? null;
-                    _equipState.armor.material = data.equipState?.armor?.material ?? null;
                     _equipState.consumable = data.equipState?.consumable || {};
                     // 은신처
                     _hideoutState.form = data.hideoutState?.form ?? null;
@@ -4999,7 +5954,9 @@
             }
 
             // 장비 (12)
-            const hasEquip = _equipState.weapon.selections.size > 0 || _equipState.armor.item !== null || Object.keys(_equipState.consumable).length > 0;
+            const hasEquip = ['primary','secondary','melee'].some(k => _equipState.weapon[k]?.item !== null)
+                || _equipState.armor.item !== null
+                || Object.values(_equipState.consumable || {}).some(q => q > 0);
             if (hasEquip) {
                 const catEl = document.getElementById('cat-12');
                 if (catEl) catEl.classList.add('selected');
@@ -5037,374 +5994,597 @@
             document.getElementById('export-preview-overlay').style.display = 'none';
         }
 
+        function _syncExportState() {
+            const nameInput = document.getElementById('name-input');
+            const ageInput = document.getElementById('age-input');
+            if (nameInput) GameState.name = nameInput.value.trim();
+            if (ageInput) GameState.age = ageInput.value.trim();
+            if (typeof updatePointHUD === 'function') updatePointHUD();
+            if (typeof updateStatUI === 'function') updateStatUI();
+            if (typeof updateAllStatusTags === 'function') updateAllStatusTags();
+        }
+
+        function _getPortraitSrcForExport() {
+            const img = document.querySelector('#status-portrait img');
+            return img?.src || null;
+        }
+
+        function _getStatusTooltipImage(name) {
+            const base = String(name || '').split(' — ')[0].trim();
+            const tags = document.querySelectorAll('.status-tag');
+            for (const tag of tags) {
+                const raw = (tag.childNodes?.[0]?.textContent || tag.textContent || '').trim();
+                if (!raw) continue;
+                if (raw === name || raw === base || raw.startsWith(base)) {
+                    const img = tag.querySelector('.tt-img img');
+                    if (img?.src) return img.src;
+                }
+            }
+            return null;
+        }
+
+        function _wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines = Infinity, color = '#2a7a2a') {
+            if (!text) return y;
+            ctx.fillStyle = color;
+            let line = '';
+            let lines = 0;
+            for (const ch of String(text)) {
+                const test = line + ch;
+                if (ctx.measureText(test).width > maxWidth && line) {
+                    ctx.fillText(line, x, y);
+                    y += lineHeight;
+                    lines += 1;
+                    line = ch;
+                    if (lines >= maxLines) return y;
+                } else {
+                    line = test;
+                }
+            }
+            if (line && lines < maxLines) {
+                ctx.fillText(line, x, y);
+                y += lineHeight;
+            }
+            return y;
+        }
+
+        async function _loadImageForExport(src) {
+            return new Promise((resolve) => {
+                if (!src) return resolve(null);
+                const img = new Image();
+                // 로컬 파일/상대경로 이미지에 crossOrigin을 걸면 브라우저가 로드를 거부하는 경우가 있어
+                // 외부 URL에만 적용한다.
+                if (/^https?:/i.test(src)) img.crossOrigin = 'anonymous';
+                img.onload = () => resolve(img);
+                img.onerror = () => resolve(null);
+                img.src = src;
+            });
+        }
+
+        async function _resolveExportImage(baseName) {
+            if (!baseName) return null;
+            if (/^data:|^blob:|^https?:|^file:/i.test(baseName)) return baseName;
+
+            // 내보내기 전용 이미지 탐색.
+            // v32에서 너무 짧은 타임아웃을 사용해 로컬 이미지가 늦게 잡히면
+            // 선택 카드 이미지가 비어 보이는 문제가 있었기 때문에 안정성을 우선한다.
+            for (const ext of IMG_EXTS) {
+                const src = `${baseName}.${ext}`;
+                const ok = await new Promise(res => {
+                    const img = new Image();
+                    const timer = setTimeout(() => res(false), 500);
+                    img.onload = () => { clearTimeout(timer); res(true); };
+                    img.onerror = () => { clearTimeout(timer); res(false); };
+                    img.src = src;
+                });
+                if (ok) return src;
+            }
+            return null;
+        }
+
+        function _getVisibleChoiceImageForExport(name) {
+            const base = String(name || '').split(' — ')[0].trim();
+            if (!base) return null;
+            const items = document.querySelectorAll('.choice-item');
+            for (const item of items) {
+                const n = item.querySelector('.choice-item-name')?.textContent?.trim();
+                if (!n) continue;
+                if (n === base || n === name) {
+                    const img = item.querySelector('.choice-item-img img');
+                    if (img?.src) return img.src;
+                }
+            }
+            return null;
+        }
+
+        function _safeDesc(raw) {
+            return String(raw || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+        }
+
         function _buildExportData() {
             const lines = [];
             const push = (type, opts) => lines.push({ type, ...opts });
 
             push('header', { text: 'MIST EARTH : SURVIVAL' });
+            push('subheader', { text: 'Character Build Export' });
             push('divider', {});
 
-            // 기본 정보
             push('section', { text: '기본 정보' });
             push('row', { label: '이름',  value: GameState.name   || '—' });
             push('row', { label: '나이',  value: GameState.age    || '—' });
             push('row', { label: '외형',  value: GameState.gender || '—' });
-            push('row', { label: '출신',  value: GameState.origin ? `${GameState.origin}` : '—' });
-            const mgStr = (() => { const el = document.getElementById('st-gear'); const t = el?.childNodes[0]?.textContent?.trim(); return (t && t !== '—') ? t : null; })();
+            push('row', { label: '출신',  value: GameState.origin || '—' });
+            const mgStr = (() => {
+                const el = document.getElementById('st-gear');
+                const t = el?.childNodes?.[0]?.textContent?.trim();
+                return (t && t !== '—') ? t : null;
+            })();
             if (mgStr) push('row', { label: '미스트기어', value: mgStr });
-            push('divider', {});
 
-            // 포인트
+            push('divider', {});
             push('section', { text: '포인트' });
             push('row', { label: '인간성', value: String(GameState.points?.human  ?? 0) });
-            push('row', { label: '미스트',  value: String(GameState.points?.mist   ?? 0) });
-            push('row', { label: '오염',    value: String(GameState.points?.contam ?? 0) });
-            push('row', { label: '크레딧',  value: String(GameState.points?.credit ?? 0) });
-            push('divider', {});
+            push('row', { label: '미스트', value: String(GameState.points?.mist   ?? 0) });
+            push('row', { label: '오염',   value: String(GameState.points?.contam ?? 0) });
+            push('row', { label: '크레딧', value: String(GameState.points?.credit ?? 0) });
 
-            // 스탯
+            push('divider', {});
             push('section', { text: 'STATUS' });
             const statLabels = { str: '힘', agi: '민첩', int: '지능', luk: '운', men: '정신', res: '저항' };
             Object.entries(statLabels).forEach(([k, label]) => {
                 push('row', { label, value: String(GameState.stats?.[k] ?? 0) });
             });
-            push('divider', {});
 
-            // 미스트 오염도
-            const contam = (GameState.selections?.[1] || []);
-            if (contam.length) { push('section', { text: '미스트 오염도' }); contam.forEach(s => push('item', { text: s })); }
+            const appendItems = (title, arr) => {
+                if (!arr || !arr.length) return;
+                push('divider', {});
+                push('section', { text: title });
+                arr.forEach(v => push('item', { text: v }));
+            };
 
-            // 발현
-            if (GameState.manifestation) { push('section', { text: '발현' }); push('item', { text: GameState.manifestation }); }
+            appendItems('미스트 오염도', GameState.selections?.[1] || []);
+            if (GameState.manifestation) appendItems('발현', [GameState.manifestation]);
+            if (GameState.origin) appendItems('출신지', [GameState.origin]);
+            appendItems('신체능력', GameState.selections?.[4] || []);
+            appendItems('정신능력', GameState.selections?.[5] || []);
+            appendItems('신체 강점', GameState.selections?.['6-1'] || []);
+            appendItems('신체 약점', GameState.selections?.['6-2'] || []);
+            appendItems('정신 강점', GameState.selections?.['7-1'] || []);
+            appendItems('정신 약점', GameState.selections?.['7-2'] || []);
+            appendItems('기술', GameState.selections?.[8] || []);
+            appendItems('이능', GameState.selections?.[9] || []);
+            appendItems('최종 의뢰', GameState.selections?.[10] || []);
 
-            // 출신지
-            if (GameState.origin) { push('section', { text: '출신지' }); push('item', { text: GameState.origin }); }
-
-            // 신체능력
-            const bodyAbi = (GameState.selections?.[4] || []);
-            if (bodyAbi.length) { push('section', { text: '신체능력' }); bodyAbi.forEach(s => push('item', { text: s })); }
-
-            // 정신능력
-            const menAbi = (GameState.selections?.[5] || []);
-            if (menAbi.length) { push('section', { text: '정신능력' }); menAbi.forEach(s => push('item', { text: s })); }
-
-            // 신체 강점/약점
-            const bodyStr = (GameState.selections?.['6-1'] || []);
-            if (bodyStr.length) { push('section', { text: '신체 강점' }); bodyStr.forEach(s => push('item', { text: s })); }
-            const bodyWk  = (GameState.selections?.['6-2'] || []);
-            if (bodyWk.length)  { push('section', { text: '신체 약점' }); bodyWk.forEach(s => push('item', { text: s })); }
-
-            // 정신 강점/약점
-            const menStr = (GameState.selections?.['7-1'] || []);
-            if (menStr.length) { push('section', { text: '정신 강점' }); menStr.forEach(s => push('item', { text: s })); }
-            const menWk  = (GameState.selections?.['7-2'] || []);
-            if (menWk.length)  { push('section', { text: '정신 약점' }); menWk.forEach(s => push('item', { text: s })); }
-
-            // 기술
-            const skills = (GameState.selections?.[8] || []);
-            if (skills.length) { push('section', { text: '기술' }); skills.forEach(s => push('item', { text: s })); }
-
-            // 이능
-            const abilities = (GameState.selections?.[9] || []);
-            if (abilities.length) { push('section', { text: '이능' }); abilities.forEach(s => push('item', { text: s })); }
-
-            // 최종 의뢰
-            const quest = (GameState.selections?.[10] || []);
-            if (quest.length) { push('section', { text: '최종 의뢰' }); quest.forEach(s => push('item', { text: s })); }
-
-            // 장비 — 무기/방어구
-            const hasWeapon = _equipState.weapon.selections.size > 0;
-            const as = _equipState.armor;
-            const hasEquip = hasWeapon || as.item !== null;
-            if (hasEquip) {
-                push('section', { text: '장비' });
-                _equipState.weapon.selections.forEach(key => {
-                    const [subName, idxStr] = key.split(':');
-                    const idx = parseInt(idxStr);
-                    const subItems = equipData.weapon.subs[subName];
-                    if (!subItems) return;
-                    let name = subItems[idx].name;
-                    if (_equipState.weapon.material !== null) name += `-${equipMaterials[_equipState.weapon.material].name}`;
-                    push('item', { text: `무기: ${name}` });
-                });
-                if (as.item !== null) {
-                    let name = equipData.armor.items[as.item].name;
-                    if (as.material !== null) name += `-${equipMaterials[as.material].name}`;
-                    push('item', { text: `방어구: ${name}` });
-                }
+            const equipLines = [];
+            const slots = equipData.weapon.slots || {};
+            ['primary','secondary'].forEach(slotKey => {
+                const slot = _equipState.weapon[slotKey];
+                const slotData = slots[slotKey];
+                if (!slot || !slotData || slot.item === null) return;
+                const pathData = slotData[slot.path || 'normal'];
+                if (!pathData || !pathData.items[slot.item]) return;
+                const item = pathData.items[slot.item];
+                let name = `${slotData.label}: ${item.name}`;
+                if (slot.ammo !== null && pathData.ammo?.[slot.ammo]) name += `-${pathData.ammo[slot.ammo].name}`;
+                equipLines.push(`무기: ${name}`);
+            });
+            const melee = _equipState.weapon.melee;
+            if (melee && melee.item !== null && slots.melee?.items?.[melee.item]) {
+                const item = slots.melee.items[melee.item];
+                let name = `${slots.melee.label}: ${item.name}`;
+                if (melee.material !== null && slots.melee.materials?.[melee.material]) name += `-${slots.melee.materials[melee.material].name}`;
+                equipLines.push(`무기: ${name}`);
             }
-
-            // 소모품
-            const consEntries = Object.entries(_equipState.consumable).filter(([,q]) => q > 0);
-            if (consEntries.length) {
-                push('section', { text: '소모품' });
-                consEntries.forEach(([name, qty]) => push('item', { text: `${name} x${qty}` }));
+            if (_equipState.armor.item !== null && equipData.armor.items[_equipState.armor.item]) {
+                equipLines.push(`방어구: ${equipData.armor.items[_equipState.armor.item].name}`);
             }
+            appendItems('장비', equipLines);
 
-            // 은신처
+            const consLines = Object.entries(_equipState.consumable).filter(([,q]) => q > 0).map(([n,q]) => `${n} x${q}`);
+            appendItems('소모품', consLines);
+
             const hideoutLines = [];
-            if (_hideoutState.form !== null) hideoutLines.push(`형태: ${hideoutData.form.items[_hideoutState.form].name}`);
-            if (_hideoutState.location !== null) hideoutLines.push(`위치: ${hideoutData.location.items[_hideoutState.location].name}`);
-            _hideoutState.facility.forEach(idx => hideoutLines.push(`시설: ${hideoutData.facility.items[idx].name}`));
-            if (hideoutLines.length) {
-                push('section', { text: '은신처' });
-                hideoutLines.forEach(s => push('item', { text: s }));
-            }
+            if (_hideoutState.form !== null && hideoutData.form.items[_hideoutState.form]) hideoutLines.push(`형태: ${hideoutData.form.items[_hideoutState.form].name}`);
+            if (_hideoutState.location !== null && hideoutData.location.items[_hideoutState.location]) hideoutLines.push(`위치: ${hideoutData.location.items[_hideoutState.location].name}`);
+            _hideoutState.facility.forEach(idx => {
+                if (hideoutData.facility.items[idx]) hideoutLines.push(`시설: ${hideoutData.facility.items[idx].name}`);
+            });
+            appendItems('은신처', hideoutLines);
 
             return lines;
         }
 
-        async function _drawExportCanvas(canvas) {
-            const W = 860;
-            const PAD = 36;
-            const ROW_H = 22;
-            const SECTION_H = 30;
-            const DIVIDER_H = 14;
-            const HEADER_H = 52;
-            const CARD_W_COLS = 4;
-            const CARD_IMG_W = 80;
-            const CARD_IMG_H = 110;
-            const CARD_H = CARD_IMG_H + 6;
-            const CARD_TEXT_W_RATIO = W - PAD*2;
-
-            // 이미지 로드 헬퍼 (실패 시 null)
-            const loadImg = (src) => new Promise(res => {
-                if (!src) return res(null);
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = () => res(img);
-                img.onerror = () => res(null);
-                img.src = src;
-            });
-
-            // 카드 아이템 수집
-            const cardItems = [];
-            const tryCard = async (label, name, desc, imgPath) => {
-                const imgSrc = imgPath ? await findImage(imgPath) : null;
-                const img = imgSrc ? await loadImg(imgSrc) : null;
-                cardItems.push({ label, name, desc: (desc || '').replace(/<[^>]+>/g, '').slice(0, 80), img });
+        async function _buildExportCards() {
+            const cards = [];
+            const pad3 = n => String(n).padStart(3, '0');
+            const pendingLoads = [];
+            const addCard = (label, name, desc, basePath) => {
+                const card = { label, name, desc: _safeDesc(desc), img: null, _basePath: basePath };
+                cards.push(card);
+                pendingLoads.push((async () => {
+                    const domSrc = _getStatusTooltipImage(name) || _getVisibleChoiceImageForExport(name);
+                    const resolved = domSrc || await _resolveExportImage(basePath);
+                    card.img = await _loadImageForExport(resolved);
+                })());
             };
 
             if (GameState.manifestation) {
                 const arr = categoryData[2] || [];
                 const idx = arr.findIndex(x => x.name === GameState.manifestation);
                 const d = arr[idx];
-                await tryCard('발현', GameState.manifestation, d?.desc, idx >= 0 ? `img_cho/02/02_Cho_${String(idx+1).padStart(3,'0')}` : null);
+                const basePath = d?.img || (idx >= 0 ? `img_cho/02/02_Cho_${pad3(idx + 1)}` : null);
+                addCard('발현', GameState.manifestation, d?.desc || d?.detail, basePath);
             }
             if (GameState.origin) {
                 const arr = categoryData[3] || [];
                 const idx = arr.findIndex(x => x.name === GameState.origin);
-                await tryCard('출신지', GameState.origin, arr[idx]?.desc, idx >= 0 ? `img_cho/03/03_Cho_${String(idx+1).padStart(3,'0')}` : null);
+                const d = arr[idx];
+                const basePath = d?.img || (idx >= 0 ? `img_cho/03/03_Cho_${pad3(idx + 1)}` : null);
+                addCard('출신지', GameState.origin, d?.detail || d?.desc, basePath);
             }
-            for (const name of (GameState.selections?.[4] || [])) {
-                const arr = categoryData[4] || []; const idx = arr.findIndex(x => x.name === name);
-                await tryCard('신체능력', name, arr[idx]?.desc, idx >= 0 ? `img_cho/04/04_Cho_${String(idx+1).padStart(3,'0')}` : null);
+
+            const simpleCats = [
+                { key: 4,   label: '신체능력', base: idx => `img_cho/04/04_Cho_${pad3(idx + 1)}` },
+                { key: 5,   label: '정신능력', base: idx => `img_cho/05/05_Cho_${pad3(idx + 1)}` },
+                { key: '6-1', label: '신체 강점', base: idx => `img_cho/06_A/06A_Cho_${pad3(idx + 1)}` },
+                { key: '6-2', label: '신체 약점', base: idx => `img_cho/06_B/06B_Cho_${pad3(idx + 1)}` },
+                { key: '7-1', label: '정신 강점', base: idx => `img_cho/07_A/07A_Cho_${pad3(idx + 1)}` },
+                { key: '7-2', label: '정신 약점', base: idx => `img_cho/07_B/07B_Cho_${pad3(idx + 1)}` },
+            ];
+            for (const cat of simpleCats) {
+                const arr = GameState.selections?.[cat.key] || [];
+                for (const name of arr) {
+                    const dataArr = categoryData[cat.key] || [];
+                    const idx = dataArr.findIndex(x => x.name === name);
+                    const d = dataArr[idx];
+                    const basePath = d?.img || (idx >= 0 ? cat.base(idx) : null);
+                    addCard(cat.label, name, d?.desc || d?.detail, basePath);
+                }
             }
-            for (const name of (GameState.selections?.[5] || [])) {
-                const arr = categoryData[5] || []; const idx = arr.findIndex(x => x.name === name);
-                await tryCard('정신능력', name, arr[idx]?.desc, idx >= 0 ? `img_cho/05/05_Cho_${String(idx+1).padStart(3,'0')}` : null);
-            }
-            for (const name of (GameState.selections?.['6-1'] || [])) {
-                const arr = categoryData['6-1'] || []; const idx = arr.findIndex(x => x.name === name);
-                await tryCard('신체 강점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/06_A/06A_Cho_${String(idx+1).padStart(3,'0')}` : null);
-            }
-            for (const name of (GameState.selections?.['6-2'] || [])) {
-                const arr = categoryData['6-2'] || []; const idx = arr.findIndex(x => x.name === name);
-                await tryCard('신체 약점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/06_B/06B_Cho_${String(idx+1).padStart(3,'0')}` : null);
-            }
-            for (const name of (GameState.selections?.['7-1'] || [])) {
-                const arr = categoryData['7-1'] || []; const idx = arr.findIndex(x => x.name === name);
-                await tryCard('정신 강점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/07_A/07A_Cho_${String(idx+1).padStart(3,'0')}` : null);
-            }
-            for (const name of (GameState.selections?.['7-2'] || [])) {
-                const arr = categoryData['7-2'] || []; const idx = arr.findIndex(x => x.name === name);
-                await tryCard('정신 약점', name, arr[idx]?.desc, idx >= 0 ? `img_cho/07_B/07B_Cho_${String(idx+1).padStart(3,'0')}` : null);
-            }
+
             for (const nameGrade of (GameState.selections?.[8] || [])) {
-                const base = nameGrade.split(' — ')[0]; const grade = nameGrade.split(' — ')[1] || '';
-                const d = (categoryData[8] || []).find(x => x.name === base);
-                const gi = skillGrades.findIndex(g => g.label === grade);
-                const desc = d && gi >= 0 ? (skillGradeDesc[d.skillKey]?.[gi] || '') : '';
-                await tryCard('기술', nameGrade, desc, d && gi >= 0 ? `img_cho/08/${d.skillNum}/${String(gi+1).padStart(3,'0')}` : null);
+                const baseName = String(nameGrade).split(' — ')[0];
+                const grade = String(nameGrade).split(' — ')[1] || '';
+                const d = (categoryData[8] || []).find(x => x.name === baseName);
+                let imgBase = d?.img || null;
+                let desc = d?.desc || '';
+                if (d && !d.hidden) {
+                    const gi = skillGrades.findIndex(g => g.label === grade);
+                    if (gi >= 0 && d.skillNum) {
+                        imgBase = `img_cho/08/${d.skillNum}/${pad3(gi + 1)}`;
+                        desc = skillGradeDesc?.[d.skillKey]?.[gi] || desc;
+                    }
+                }
+                addCard('기술', nameGrade, desc, imgBase);
             }
+
             for (const nameGrade of (GameState.selections?.[9] || [])) {
-                const base = nameGrade.split(' — ')[0];
-                const d = (categoryData[9] || []).find(x => x.name === base);
-                await tryCard('이능', nameGrade, d?.abilityDesc, d ? `img_cho/09/${d.abilityNum}/main` : null);
+                const baseName = String(nameGrade).split(' — ')[0];
+                const d = (categoryData[9] || []).find(x => x.name === baseName);
+                const imgBase = d?.img || (d?.abilityNum ? `img_cho/09/${d.abilityNum}/main` : null);
+                const desc = d?.abilityDesc || d?.desc || '';
+                addCard('이능', nameGrade, desc, imgBase);
             }
-            if (_mistgearSelected !== null) {
+
+            if (_questSelected !== null && questData[_questSelected]) {
+                const q = questData[_questSelected];
+                addCard('최종 의뢰', q.title, q.desc || q.detail || q.rewardText, q.img);
+            }
+            if (_mistgearSelected !== null && mistgearData[_mistgearSelected]) {
                 const g = mistgearData[_mistgearSelected];
-                await tryCard('미스트기어', g.name, g.part, `img_cho/11/mistgear/${g.num}`);
+                addCard('미스트기어', g.name, `${g.part || ''} ${g.hoverText || ''}`.trim(), g.img || `img_cho/11/mistgear/${g.num}`);
             }
 
-            // 텍스트 라인 생성
-            const output = [];
-            const addH = v => output.push({t:'H',v}); const addD = () => output.push({t:'D'});
-            const addS = v => output.push({t:'S',v}); const addR = (l,v) => output.push({t:'R',l,v});
-            const addI = v => output.push({t:'I',v});
-            addH('MIST EARTH : SURVIVAL'); addD();
-            addS('기본 정보');
-            addR('이름', GameState.name||'—'); addR('나이', GameState.age||'—');
-            addR('외형', GameState.gender||'—'); addR('출신', GameState.origin||'—');
-            const mgT = document.getElementById('st-gear')?.childNodes[0]?.textContent?.trim();
-            if (mgT && mgT !== '—') addR('미스트기어', mgT);
-            addD();
-            addS('포인트');
-            addR('인간성', String(GameState.points?.human??0)); addR('미스트', String(GameState.points?.mist??0));
-            addR('오염', String(GameState.points?.contam??0)); addR('크레딧', String(GameState.points?.credit??0));
-            addD();
-            addS('STATUS');
-            const _sb = GameState.statBonus || {};
-            [['힘','str'],['민첩','agi'],['지능','int'],['운','luk'],['정신','men'],['저항','res']].forEach(([l,k]) => {
-                const base = GameState.stats?.[k] ?? 0;
-                const bonus = _sb[k] || 0;
-                const total = base + bonus;
-                addR(l, bonus > 0 ? `${total} (+${bonus})` : bonus < 0 ? `${total} (${bonus})` : String(total));
-            });
-            addD();
-            if (GameState.contamination) { addS('미스트 오염도'); addI(GameState.contamination); }
-            if (GameState.manifestation) { addS('발현'); addI(GameState.manifestation); }
-            const q=(GameState.selections?.[10]||[]); if(q.length){addS('최종 의뢰');q.forEach(addI);}
-            const wl=[]; _equipState.weapon.selections.forEach(key=>{const[sub,i]=key.split(':');const item=equipData.weapon.subs[sub]?.[+i];if(!item)return;const mi=_equipState.weapon.materials[sub];const ml=subMaterialMap[sub]?.list;let n=item.name;if(mi!==null&&ml)n+=`-${ml[mi].name}`;wl.push(`무기: ${n}`);});
-            if(_equipState.armor.item!==null){let n=equipData.armor.items[_equipState.armor.item].name;if(_equipState.armor.material!==null)n+=`-${equipMaterials[_equipState.armor.material].name}`;wl.push(`방어구: ${n}`);}
-            if(wl.length){addS('장비');wl.forEach(addI);}
-            const cl=Object.entries(_equipState.consumable).filter(([,q])=>q>0);
-            if(cl.length){addS('소모품');cl.forEach(([n,q])=>addI(`${n} x${q}`));}
-            const hll=[]; if(_hideoutState.form!==null)hll.push(`형태: ${hideoutData.form.items[_hideoutState.form].name}`);
-            if(_hideoutState.location!==null)hll.push(`위치: ${hideoutData.location.items[_hideoutState.location].name}`);
-            _hideoutState.facility.forEach(i=>hll.push(`시설: ${hideoutData.facility.items[i].name}`));
-            if(hll.length){addS('은신처');hll.forEach(addI);}
+            await Promise.all(pendingLoads);
+            return cards;
+        }
 
-            // 높이 계산
-            let textH = PAD;
-            output.forEach(l=>{
-                if(l.t==='H') textH+=HEADER_H; else if(l.t==='D') textH+=DIVIDER_H;
-                else if(l.t==='S') textH+=SECTION_H; else textH+=ROW_H;
-            });
-            textH += PAD;
+        async function _drawExportCanvas(canvas) {
+            _syncExportState();
+            await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
-            // 카드 섹션 높이 (4열)
-            const CARD_COLS = 4;
-            const CARD_SLOT_W = Math.floor((W - PAD*2 - 8*(CARD_COLS-1)) / CARD_COLS);
-            const CARD_ROW_H = CARD_H + 12;
-            const cardSectionH = cardItems.length > 0 ? SECTION_H + Math.ceil(cardItems.length/CARD_COLS) * CARD_ROW_H + 20 : 0;
+            const W = 1080;
+            const PAD = 42;
+            const DPR = 2;
+            const portraitSrc = _getPortraitSrcForExport();
+            const portraitImg = await _loadImageForExport(portraitSrc);
+            const cards = await _buildExportCards();
+            const lines = _buildExportData();
 
-            const totalH = Math.max(textH + cardSectionH, 400);
-            const MAX_CANVAS = 14000;
-            const DPR = totalH * 2 <= MAX_CANVAS ? 2 : 1;
+            // left / right layout measurements
+            const leftW = 290;
+            const rightX = PAD + leftW + 26;
+            const rightW = W - rightX - PAD;
+            const cardGap = 14;
+            const cardCols = 4;
+            const cardW = Math.floor((W - PAD * 2 - cardGap * (cardCols - 1)) / cardCols);
+            const cardImageH = 210;
+            const cardTextH = 112;
+            const cardH = cardImageH + cardTextH;
 
-            canvas.width  = W * DPR;
+            // Calculate text section height (right column)
+            let rightTextH = 0;
+            for (const line of lines) {
+                if (line.type === 'header') rightTextH += 48;
+                else if (line.type === 'subheader') rightTextH += 26;
+                else if (line.type === 'divider') rightTextH += 16;
+                else if (line.type === 'section') rightTextH += 30;
+                else if (line.type === 'row') rightTextH += 24;
+                else if (line.type === 'item') rightTextH += 22;
+            }
+            rightTextH += 34;
+
+            const topContentH = Math.max(510, rightTextH);
+            const cardRows = cards.length ? Math.ceil(cards.length / cardCols) : 0;
+            const cardSectionH = cards.length ? 46 + cardRows * (cardH + cardGap) : 0;
+            const totalH = PAD + topContentH + (cards.length ? 30 + cardSectionH : 0) + PAD;
+
+            canvas.width = W * DPR;
             canvas.height = totalH * DPR;
-            canvas.style.width  = W + 'px';
+            canvas.style.width = W + 'px';
             canvas.style.height = totalH + 'px';
             const ctx = canvas.getContext('2d');
             ctx.scale(DPR, DPR);
 
-            ctx.fillStyle = '#000500';
+            // Background
+            const bgGrad = ctx.createLinearGradient(0, 0, W, totalH);
+            bgGrad.addColorStop(0, '#000700');
+            bgGrad.addColorStop(0.55, '#020f05');
+            bgGrad.addColorStop(1, '#000400');
+            ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, W, totalH);
 
-            let y = PAD;
-            output.forEach(l => {
-                if (l.t === 'H') {
-                    ctx.font='bold 22px monospace'; ctx.fillStyle='#33ff33';
-                    ctx.shadowColor='#33ff33'; ctx.shadowBlur=10; ctx.textAlign='center';
-                    ctx.fillText(l.v, W/2, y+34); ctx.shadowBlur=0; y+=HEADER_H;
-                } else if (l.t === 'D') {
-                    ctx.strokeStyle='#1a4a1a'; ctx.lineWidth=1;
-                    ctx.beginPath(); ctx.moveTo(PAD,y+7); ctx.lineTo(W-PAD,y+7); ctx.stroke(); y+=DIVIDER_H;
-                } else if (l.t === 'S') {
-                    ctx.font='bold 13px monospace'; ctx.fillStyle='#1a8a1a';
-                    ctx.shadowColor='#33ff33'; ctx.shadowBlur=4; ctx.textAlign='left';
-                    ctx.fillText(`— ${l.v} —`, PAD, y+18); ctx.shadowBlur=0; y+=SECTION_H;
-                } else if (l.t === 'R') {
-                    ctx.font='12px monospace'; ctx.textAlign='left';
-                    ctx.fillStyle='#2a7a2a'; ctx.fillText(l.l, PAD+10, y+15);
-                    ctx.fillStyle='#33ff33'; ctx.fillText(l.v, PAD+130, y+15); y+=ROW_H;
-                } else if (l.t === 'I') {
-                    ctx.font='12px monospace'; ctx.fillStyle='#4aaa4a';
-                    ctx.textAlign='left'; ctx.fillText(`  · ${l.v}`, PAD+10, y+15); y+=ROW_H;
-                }
-            });
+            // subtle grid
+            ctx.save();
+            ctx.strokeStyle = 'rgba(40,120,40,0.08)';
+            ctx.lineWidth = 1;
+            for (let gx = 0; gx <= W; gx += 34) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, totalH); ctx.stroke(); }
+            for (let gy = 0; gy <= totalH; gy += 34) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+            ctx.restore();
 
-            // 카드 섹션
-            if (cardItems.length > 0) {
-                ctx.font='bold 13px monospace'; ctx.fillStyle='#1a8a1a';
-                ctx.shadowColor='#33ff33'; ctx.shadowBlur=4; ctx.textAlign='left';
-                ctx.fillText('— 선택 카드 —', PAD, y+18); ctx.shadowBlur=0; y+=SECTION_H;
-                cardItems.forEach((card, i) => {
-                    const col = i % CARD_COLS;
-                    const row = Math.floor(i / CARD_COLS);
-                    const cx = PAD + col * (CARD_SLOT_W + 8);
-                    const cy = y + row * CARD_ROW_H;
-                    // 카드 배경
-                    ctx.fillStyle='rgba(5,10,5,0.9)'; ctx.strokeStyle='#1a4a1a'; ctx.lineWidth=1;
-                    ctx.fillRect(cx, cy, CARD_SLOT_W, CARD_H);
-                    ctx.strokeRect(cx, cy, CARD_SLOT_W, CARD_H);
-                    // 이미지
-                    if (card.img) {
+            // outer frame
+            ctx.strokeStyle = '#1a4a1a';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(14, 14, W - 28, totalH - 28);
+
+            // left panel
+            const leftX = PAD;
+            const leftY = PAD;
+            ctx.fillStyle = 'rgba(3,14,6,0.92)';
+            ctx.strokeStyle = '#184218';
+            ctx.lineWidth = 1.2;
+            ctx.fillRect(leftX, leftY, leftW, topContentH);
+            ctx.strokeRect(leftX, leftY, leftW, topContentH);
+
+            ctx.font = 'bold 13px monospace';
+            ctx.fillStyle = '#33ff33';
+            ctx.textAlign = 'left';
+            ctx.fillText('SURVIVOR PROFILE', leftX + 18, leftY + 24);
+
+            const portraitBox = { x: leftX + 18, y: leftY + 40, w: leftW - 36, h: 356 };
+            ctx.fillStyle = '#020502';
+            ctx.fillRect(portraitBox.x, portraitBox.y, portraitBox.w, portraitBox.h);
+            ctx.strokeStyle = '#1a4a1a';
+            ctx.strokeRect(portraitBox.x, portraitBox.y, portraitBox.w, portraitBox.h);
+            if (portraitImg) {
+                const scale = Math.max(portraitBox.w / portraitImg.width, portraitBox.h / portraitImg.height);
+                const dw = portraitImg.width * scale;
+                const dh = portraitImg.height * scale;
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(portraitBox.x, portraitBox.y, portraitBox.w, portraitBox.h);
+                ctx.clip();
+                ctx.drawImage(portraitImg, portraitBox.x + (portraitBox.w - dw) / 2, portraitBox.y + (portraitBox.h - dh) / 2, dw, dh);
+                ctx.restore();
+            } else {
+                ctx.font = '12px monospace';
+                ctx.fillStyle = '#1a4a1a';
+                ctx.textAlign = 'center';
+                ctx.fillText('NO PORTRAIT', portraitBox.x + portraitBox.w / 2, portraitBox.y + portraitBox.h / 2);
+            }
+
+            // left panel summary
+            const profileRows = [
+                ['NAME', GameState.name || '—'],
+                ['AGE', GameState.age || '—'],
+                ['TYPE', GameState.gender || '—'],
+                ['ORIGIN', GameState.origin || '—'],
+                ['HUMAN', String(GameState.points?.human ?? 0)],
+                ['MIST', String(GameState.points?.mist ?? 0)],
+                ['CONTAM', String(GameState.points?.contam ?? 0)],
+                ['CREDIT', String(GameState.points?.credit ?? 0)],
+            ];
+            let py = portraitBox.y + portraitBox.h + 22;
+            for (const [label, value] of profileRows) {
+                ctx.font = '11px monospace';
+                ctx.fillStyle = '#1f8f1f';
+                ctx.textAlign = 'left';
+                ctx.fillText(label, leftX + 20, py);
+                ctx.fillStyle = '#d5ffd5';
+                ctx.textAlign = 'right';
+                ctx.fillText(String(value), leftX + leftW - 20, py);
+                ctx.strokeStyle = 'rgba(26,74,26,0.45)';
+                ctx.beginPath();
+                ctx.moveTo(leftX + 18, py + 10);
+                ctx.lineTo(leftX + leftW - 18, py + 10);
+                ctx.stroke();
+                py += 26;
+            }
+
+            // right panel
+            const rightY = PAD;
+            ctx.fillStyle = 'rgba(2,9,4,0.86)';
+            ctx.strokeStyle = '#184218';
+            ctx.fillRect(rightX, rightY, rightW, topContentH);
+            ctx.strokeRect(rightX, rightY, rightW, topContentH);
+
+            let y = rightY + 28;
+            for (const line of lines) {
+                if (line.type === 'header') {
+                    ctx.textAlign = 'left';
+                    ctx.font = 'bold 28px monospace';
+                    ctx.fillStyle = '#33ff33';
+                    ctx.shadowColor = '#33ff33';
+                    ctx.shadowBlur = 14;
+                    ctx.fillText(line.text, rightX + 22, y);
+                    ctx.shadowBlur = 0;
+                    y += 38;
+                } else if (line.type === 'subheader') {
+                    ctx.font = '12px monospace';
+                    ctx.fillStyle = '#2a8a2a';
+                    ctx.fillText(line.text, rightX + 24, y);
+                    y += 22;
+                } else if (line.type === 'divider') {
+                    ctx.strokeStyle = '#163816';
+                    ctx.beginPath();
+                    ctx.moveTo(rightX + 22, y + 2);
+                    ctx.lineTo(rightX + rightW - 22, y + 2);
+                    ctx.stroke();
+                    y += 16;
+                } else if (line.type === 'section') {
+                    ctx.font = 'bold 13px monospace';
+                    ctx.fillStyle = '#8fff8f';
+                    ctx.fillText(`▣ ${line.text}`, rightX + 22, y);
+                    y += 24;
+                } else if (line.type === 'row') {
+                    ctx.font = '12px monospace';
+                    ctx.fillStyle = '#2a8a2a';
+                    ctx.fillText(line.label, rightX + 30, y);
+                    ctx.fillStyle = '#d9ffd9';
+                    ctx.fillText(String(line.value), rightX + 170, y);
+                    y += 22;
+                } else if (line.type === 'item') {
+                    ctx.font = '11px monospace';
+                    ctx.fillStyle = '#53c953';
+                    y = _wrapCanvasText(ctx, `· ${line.text}`, rightX + 38, y, rightW - 70, 18, 2, '#53c953');
+                    y += 2;
+                }
+            }
+
+            // cards section
+            if (cards.length) {
+                let cardsY = PAD + topContentH + 28;
+                ctx.fillStyle = 'rgba(2,9,4,0.86)';
+                const cardsBoxH = 46 + cardRows * (cardH + cardGap);
+                ctx.fillRect(PAD, cardsY, W - PAD * 2, cardsBoxH);
+                ctx.strokeStyle = '#184218';
+                ctx.strokeRect(PAD, cardsY, W - PAD * 2, cardsBoxH);
+                ctx.font = 'bold 16px monospace';
+                ctx.fillStyle = '#8fff8f';
+                ctx.fillText('SELECTED CARDS', PAD + 18, cardsY + 28);
+                cardsY += 46;
+
+                for (let i = 0; i < cards.length; i++) {
+                    const col = i % cardCols;
+                    const row = Math.floor(i / cardCols);
+                    const cx = PAD + col * (cardW + cardGap);
+                    const cy = cardsY + row * (cardH + cardGap);
+
+                    ctx.fillStyle = 'rgba(5,14,7,0.95)';
+                    ctx.strokeStyle = '#1f5f1f';
+                    ctx.fillRect(cx, cy, cardW, cardH);
+                    ctx.strokeRect(cx, cy, cardW, cardH);
+
+                    ctx.fillStyle = '#071107';
+                    ctx.fillRect(cx, cy, cardW, cardImageH);
+                    if (cards[i].img) {
+                        const img = cards[i].img;
+                        const scale = Math.max(cardW / img.width, cardImageH / img.height);
+                        const dw = img.width * scale;
+                        const dh = img.height * scale;
                         ctx.save();
-                        ctx.beginPath(); ctx.rect(cx, cy, CARD_IMG_W, CARD_H); ctx.clip();
-                        const sc = Math.max(CARD_IMG_W/card.img.width, CARD_H/card.img.height);
-                        ctx.drawImage(card.img, cx+(CARD_IMG_W-card.img.width*sc)/2, cy+(CARD_H-card.img.height*sc)/2, card.img.width*sc, card.img.height*sc);
+                        ctx.beginPath();
+                        ctx.rect(cx, cy, cardW, cardImageH);
+                        ctx.clip();
+                        ctx.drawImage(img, cx + (cardW - dw) / 2, cy + (cardImageH - dh) / 2, dw, dh);
                         ctx.restore();
+                    } else {
+                        ctx.font = '12px monospace';
+                        ctx.fillStyle = '#1a4a1a';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('NO IMAGE', cx + cardW / 2, cy + cardImageH / 2);
                     }
-                    // 텍스트
-                    const tx = cx + CARD_IMG_W + 5;
-                    const tw = CARD_SLOT_W - CARD_IMG_W - 8;
-                    ctx.textAlign='left';
-                    ctx.font='9px monospace'; ctx.fillStyle='#1a6a1a'; ctx.fillText(card.label, tx, cy+11);
-                    ctx.font='bold 10px monospace'; ctx.fillStyle='#33ff33';
-                    ctx.shadowColor='#33ff33'; ctx.shadowBlur=3;
-                    // 이름 줄바꿈
-                    let ny = cy + 23;
-                    let nameLine = ''; const nameChars = card.name.split('');
-                    for (const ch of nameChars) {
-                        const test = nameLine + ch;
-                        if (ctx.measureText(test).width > tw && nameLine) { ctx.fillText(nameLine, tx, ny); nameLine=ch; ny+=13; }
-                        else nameLine=test;
-                    }
-                    if (nameLine) { ctx.fillText(nameLine, tx, ny); ny+=13; }
-                    ctx.shadowBlur=0;
-                    // 설명 줄바꿈
-                    ctx.font='8px monospace'; ctx.fillStyle='#2a7a2a';
-                    let descLine=''; ny+=2;
-                    for (const ch of card.desc) {
-                        const test = descLine+ch;
-                        if (ctx.measureText(test).width > tw && descLine) { ctx.fillText(descLine,tx,ny); descLine=ch; ny+=11; if(ny>cy+CARD_H-4)break; }
-                        else descLine=test;
-                    }
-                    if (descLine && ny<=cy+CARD_H-4) ctx.fillText(descLine, tx, ny);
-                });
+                    ctx.strokeStyle = '#163816';
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy + cardImageH);
+                    ctx.lineTo(cx + cardW, cy + cardImageH);
+                    ctx.stroke();
+
+                    ctx.textAlign = 'left';
+                    ctx.font = '10px monospace';
+                    ctx.fillStyle = '#2aa22a';
+                    ctx.fillText(cards[i].label, cx + 10, cy + cardImageH + 16);
+
+                    ctx.font = 'bold 12px monospace';
+                    ctx.fillStyle = '#d9ffd9';
+                    let ty = _wrapCanvasText(ctx, cards[i].name, cx + 10, cy + cardImageH + 34, cardW - 20, 16, 2, '#d9ffd9');
+                    ctx.font = '10px monospace';
+                    _wrapCanvasText(ctx, cards[i].desc || '', cx + 10, ty + 2, cardW - 20, 13, 4, '#57b657');
+                }
             }
         }
 
         async function openExportPreview() {
             closeExportDialog();
             const overlay = document.getElementById('export-preview-overlay');
-            const canvas  = document.getElementById('export-canvas');
-            // style 초기화 (DPR 적용 후 _drawExportCanvas에서 재설정)
-            canvas.style.width  = '';
-            canvas.style.height = '';
+            const canvas = document.getElementById('export-canvas');
             overlay.style.display = 'block';
-            await _drawExportCanvas(canvas);
+
+            // 즉시 로딩 캔버스를 그려서 빈 검은 화면처럼 보이지 않게 처리
+            canvas.width = 1080;
+            canvas.height = 520;
+            canvas.style.width = '1080px';
+            canvas.style.height = '520px';
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#000500';
+            ctx.fillRect(0, 0, 1080, 520);
+            ctx.strokeStyle = '#1a4a1a';
+            ctx.strokeRect(20, 20, 1040, 480);
+            ctx.font = 'bold 24px monospace';
+            ctx.fillStyle = '#33ff33';
+            ctx.textAlign = 'center';
+            ctx.fillText('EXPORT DATA RENDERING...', 540, 250);
+
+            try {
+                await _drawExportCanvas(canvas);
+            } catch (err) {
+                console.error('Export preview failed:', err);
+                ctx.fillStyle = '#000500';
+                ctx.fillRect(0, 0, 1080, 520);
+                ctx.strokeStyle = '#ff3333';
+                ctx.strokeRect(20, 20, 1040, 480);
+                ctx.font = 'bold 22px monospace';
+                ctx.fillStyle = '#ff6666';
+                ctx.fillText('EXPORT PREVIEW ERROR', 540, 230);
+                ctx.font = '14px monospace';
+                ctx.fillText(String(err && err.message ? err.message : err).slice(0, 120), 540, 270);
+            }
+        }
+
+        function _downloadCanvas(canvas, format = 'png') {
+            const fmt = format === 'jpg' ? 'jpg' : 'png';
+            const mime = fmt === 'jpg' ? 'image/jpeg' : 'image/png';
+            const link = document.createElement('a');
+            const safeName = (GameState.name || 'character').replace(/[\\/:*?"<>|]+/g, '_');
+            link.download = `mist-earth-${safeName}.${fmt}`;
+            link.href = fmt === 'jpg' ? canvas.toDataURL(mime, 0.92) : canvas.toDataURL(mime);
+            link.click();
         }
 
         function downloadPreviewPng() {
             const canvas = document.getElementById('export-canvas');
-            const link = document.createElement('a');
-            link.download = `mist-earth-${GameState.name || 'character'}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+            _downloadCanvas(canvas, 'png');
         }
 
-        async function doExport() {
+        function downloadPreviewJpg() {
+            const canvas = document.getElementById('export-canvas');
+            _downloadCanvas(canvas, 'jpg');
+        }
+
+        async function doExport(format = 'png') {
             closeExportDialog();
             const canvas = document.createElement('canvas');
             await _drawExportCanvas(canvas);
-            const link = document.createElement('a');
-            link.download = `mist-earth-${GameState.name || 'character'}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+            _downloadCanvas(canvas, format);
         }
 
         function toggleHelp(e) {
@@ -5505,6 +6685,7 @@
             document.getElementById('pt-contam').textContent = GameState.points.contam;
             const creditEl = document.getElementById('pt-credit');
             if (creditEl) creditEl.textContent = GameState.points.credit || 0;
+            scheduleHiddenUnlockCheck();
         }
 
         // --- 발현 확인 ---
@@ -5583,8 +6764,10 @@
             if (data.points) {
                 if (data.special === 'human_to_mist') {
                     GameState._humanBeforeKaoi = GameState.points.human;
-                    GameState.points.mist += GameState.points.human;
-                    GameState.points.human = 0;
+                    const converted = Math.floor(GameState.points.human * 0.6);
+                    GameState._kaoiConvertedHuman = converted;
+                    GameState.points.mist += converted;
+                    GameState.points.human = Math.max(0, GameState.points.human - converted);
                     GameState.points.contam += data.points.contam || 0;
                     GameState.isKaoi = true;
                 } else {
@@ -6053,11 +7236,12 @@
                 title.textContent = `— ${categoryNames[num] || num} —`;
                 title.classList.add('show');
 
-                const data = categoryData[num] || [
+                const fallbackData = [
                     { name: '선택지 1', desc: '준비 중입니다.', pointText: '' },
                     { name: '선택지 2', desc: '준비 중입니다.', pointText: '' },
                     { name: '선택지 3', desc: '준비 중입니다.', pointText: '' },
                 ];
+                const data = getVisibleDataForCategory(num, categoryData[num] || fallbackData);
 
                 // 선택지 수에 따라 열 수 자동 계산
                 const count = data.length;
@@ -6084,7 +7268,10 @@
                 const [imgFolder, catPrefix] = imgFolderMap[num] || ['img_cho', String(num).padStart(2, '0')];
                 const imgPromises = data.map((d, i) => {
                     let baseName;
-                    if (num === 8) baseName = `img_cho/08/${d.skillNum}/main`;
+                    // v25: 히든/특수 항목은 데이터에 지정된 이미지 경로를 우선 사용합니다.
+                    // 예: img_cho/03/H_001, img_cho/08/H_001/main, img_cho/09/H_001/main
+                    if (d && d.img) baseName = d.img;
+                    else if (num === 8) baseName = `img_cho/08/${d.skillNum}/main`;
                     else if (num === 9) baseName = `img_cho/09/${d.abilityNum}/main`;
                     else {
                         const idx3dig = String(i + 1).padStart(3, '0');
@@ -6096,13 +7283,15 @@
                 Promise.all(imgPromises).then(imgSrcs => {
                     data.forEach((d, i) => {
                         const item = document.createElement('div');
-                        item.className = 'choice-item' + (num === 1 ? ' cat1-item' : '');
+                        item.className = 'choice-item' + (num === 1 ? ' cat1-item' : '') + (d.hidden ? ' hidden-choice' : '');
+                        if (d.hidden) { decorateHiddenElement(item, d); announceHiddenUnlock(d); }
                         const imgContent = imgSrcs[i]
                             ? `<img src="${imgSrcs[i]}" alt="${d.name}">`
                             : `<span style="color:#1a4a1a;font-size:0.65rem;">IMG</span>`;
                         item.innerHTML = `
                             <div class="choice-item-img">${imgContent}</div>
                             <div class="choice-item-text">
+                                ${d.hidden ? `<div class="hidden-badge">HIDDEN</div>` : ''}
                                 <div class="choice-item-name">${d.name || ''}</div>
                                 ${d.desc ? `<div class="choice-item-desc">${d.desc}</div>` : ''}
                                 ${d.pointText ? `<div class="choice-item-points">${d.pointText}</div>` : ''}
@@ -6150,7 +7339,11 @@
                                 showSkillDetail(d, item, i);
                             }
                         } else if (num === 9) {
-                            showAbilityDetail(d, item, i);
+                            if (isDirectHiddenAbility(d)) {
+                                toggleDirectHiddenAbility(d, item);
+                            } else {
+                                showAbilityDetail(d, item, i);
+                            }
                         } else {
                             selectChoiceItem(item, num, i, d);
                         }
@@ -6257,11 +7450,20 @@
                             });
                         }
 
-                        // 이능(9) 재오픈 시 선택된 등급 복원
+                        // 이능(9) 재오픈 시 선택 복원
                         if (num === 9) {
+                            const saved = (GameState.selections && GameState.selections[9]) || [];
                             items.forEach((item, i) => {
                                 const d = data[i];
                                 if (!d) return;
+                                if (isDirectHiddenAbility(d)) {
+                                    if (saved.includes(d.name)) {
+                                        item.classList.add('selected');
+                                        const ne = item.querySelector('.choice-item-name'); if (ne) ne.textContent = d.name;
+                                        const de = item.querySelector('.choice-item-desc'); if (de) de.textContent = d.desc || '';
+                                    }
+                                    return;
+                                }
                                 const gi = _abilitySelections[d.abilityNum] ?? null;
                                 if (gi === null) return;
                                 item.classList.add('selected');
@@ -6302,12 +7504,15 @@
             if (data && data.special === 'human_to_mist') {
                 if (sign > 0) {
                     GameState._humanBeforeKaoi = GameState.points.human;
-                    GameState.points.mist += GameState.points.human;
-                    GameState.points.human = 0;
+                    const converted = Math.floor(GameState.points.human * 0.6);
+                    GameState._kaoiConvertedHuman = converted;
+                    GameState.points.mist += converted;
+                    GameState.points.human = Math.max(0, GameState.points.human - converted);
                     GameState.isKaoi = true;
                 } else {
-                    GameState.points.mist  = Math.max(0, GameState.points.mist - (GameState._humanBeforeKaoi || 0));
+                    GameState.points.mist  = Math.max(0, GameState.points.mist - (GameState._kaoiConvertedHuman || 0));
                     GameState.points.human = GameState._humanBeforeKaoi || 0;
+                    GameState._kaoiConvertedHuman = 0;
                     GameState.isKaoi = false;
                 }
             } else if (GameState.isKaoi && (points.human || 0) !== 0) {
@@ -6339,6 +7544,11 @@
             '심폐 지구력': '쉬이 지침', '손재주': '손이 굼뜸', '체온 유지력': '체온 취약',
             '신경 전달': '느린 반응', '면역 체계 활성': '면역 저하', '정적 근지구력': '지속 불가',
             '말초 혈류 제어': '손 떨림', '분별력': '피암시성',
+            // v13 추가 신체 강점 → 신체 약점
+            '지혈 반응': '출혈성 체질', '반동 제어': '반동 취약', '체취 억제': '강한 체취',
+            '관절 잠금': '관절 풀림', '압박 내성': '압박 공포', '기압 적응': '기압 민감',
+            '수면 분할': '수면 파편화', '소화 지연': '소화 과속', '피부 밀폐': '피부 흡수',
+            '충격 분산': '충격 집중', '상처 봉합감': '상처 둔감', '발성 제어': '발성 누출',
             // 정신 강점 → 정신 약점
             '운좋은': '운없는', '총명한': '산만한', '용맹한': '겁쟁이',
             '병렬 사고': '단선적 사고', '극한 집중': '공황', '뛰어난 직관': '둔한 직관',
@@ -6348,6 +7558,11 @@
             '거짓말': '솔직함', '위압감': '약한 존재감', '간파 심리학': '심리 맹',
             '순간 암기': '기억 소실', '언어 친화': '언어 장벽', '구조 간파': '구조 불감',
             '페르소나': '한 가지 얼굴', '집단 무의식': '고립된 의식', '감언이설': '쉬운 심리',
+            // v13 추가 정신 강점 → 정신 약점
+            '시간 감각': '시간 감각 결여', '숫자 감각': '숫자 공포', '우선순위 분류': '우선순위 붕괴',
+            '결정 단축': '선택 마비', '침묵 적응': '침묵 공포', '기록 습관': '기록 의존',
+            '증거 보존': '증거 집착', '명령 해석': '명령 오해', '금기 인식': '금기 집착',
+            '이름 보류': '이름 강박', '후회 보류': '후회 과잉', '무의미 수용': '무의미 공포',
         };
         // 역방향도 자동 생성
         Object.keys(contradictMap).forEach(k => { contradictMap[contradictMap[k]] = k; });
@@ -6373,7 +7588,7 @@
 
             const wrap = document.getElementById('choice-items-wrap');
             if (!wrap) return;
-            const oppData = categoryData[oppCat];
+            const oppData = getVisibleDataForCategory(oppCat, categoryData[oppCat]);
             if (!oppData) return;
 
             wrap.querySelectorAll('.choice-item').forEach((item, i) => {
@@ -6399,7 +7614,7 @@
         function restoreContradicts(catNum) {
             const oppCat = getOppositeCategory(catNum);
             if (!oppCat) return;
-            const oppData = categoryData[oppCat];
+            const oppData = getVisibleDataForCategory(oppCat, categoryData[oppCat]);
             if (!oppData) return;
 
             // 반대편에서 선택된 항목들 수집
@@ -6407,7 +7622,7 @@
 
             const wrap = document.getElementById('choice-items-wrap');
             if (!wrap) return;
-            const myData = categoryData[catNum];
+            const myData = getVisibleDataForCategory(catNum, categoryData[catNum]);
             if (!myData) return;
 
             wrap.querySelectorAll('.choice-item').forEach((item, i) => {
@@ -6426,6 +7641,10 @@
         }
 
         function selectChoiceItem(el, catNum, idx, data) {
+            if (el && el.classList && el.classList.contains('contradicted')) {
+                if (typeof showToast === 'function') showToast(t('모순은 허락되지 않는다.'));
+                return;
+            }
             const wrap = el.closest('.choice-items-wrap');
             const isMulti = multiSelectCategories.has(catNum);
             if (!GameState.selections) GameState.selections = {};
@@ -6480,7 +7699,7 @@
                 if (prevSelected) {
                     const allItems = Array.from(wrap.querySelectorAll('.choice-item'));
                     const prevIdx = allItems.indexOf(prevSelected);
-                    const catData = categoryData[catNum];
+                    const catData = getVisibleDataForCategory(catNum, categoryData[catNum]);
                     const prevData = catData ? catData[prevIdx] : null;
 
                     if (catNum === 1 && prevData) {
@@ -6513,6 +7732,7 @@
             }
 
             // ── 새 항목 선택 ──
+            if (data && data.hidden) playHiddenEffect(data, 'select');
             el.classList.add('selected');
 
             if (catNum === 1) {
@@ -6664,10 +7884,16 @@
                     const gradeName = nameWithGrade.split(' — ')[1] || '';
                     const abilityItem = data.find(d => d.name === baseName);
                     if (!abilityItem) { wrap.appendChild(_makeTagEl(nameWithGrade, null, '', '')); return; }
-                    const gi = abilityGrades.findIndex(g => g.label === gradeName);
-                    const desc = gi >= 0 ? (abilityGradeDesc[abilityItem.abilityNum] || [])[gi] || '' : '';
+                    let desc = '';
+                    let pointText = '';
+                    if (isDirectHiddenAbility(abilityItem) && !gradeName) {
+                        desc = abilityItem.abilityDesc || abilityItem.desc || '';
+                    } else {
+                        const gi = abilityGrades.findIndex(g => g.label === gradeName);
+                        desc = gi >= 0 ? (abilityGradeDesc[abilityItem.abilityNum] || [])[gi] || '' : '';
+                        pointText = gi >= 0 ? `인간성 -${abilityGrades[gi].humanCost} / 미스트 -${abilityGrades[gi].mistCost} / 오염 +${abilityGrades[gi].contamCost}` : '';
+                    }
                     const imgBaseName = null;
-                    const pointText = gi >= 0 ? `인간성 -${abilityGrades[gi].humanCost} / 미스트 -${abilityGrades[gi].mistCost} / 오염 +${abilityGrades[gi].contamCost}` : '';
                     const tagEl = _makeTagEl(nameWithGrade, null, desc, pointText);
                     if (imgBaseName) findImage(imgBaseName).then(src => { if (src) { const t = tagEl.querySelector('.tt-img'); if (t) t.innerHTML = `<img src="${src}" alt="${baseName}">`; } });
                     wrap.appendChild(tagEl);
@@ -6713,6 +7939,7 @@
 
         function updateAllStatusTags() {
             Object.keys(catToTagId).forEach(k => updateStatusTags(isNaN(k) ? k : Number(k)));
+            scheduleHiddenUnlockCheck();
         }
 
         function uploadPortrait() {
@@ -6760,16 +7987,94 @@
             updateRepeatBtn();
         };
 
+        const DEFAULT_MUSIC_FILES = [
+            "Dust.mp3",
+            "Rust Orchard.mp3",
+            "wispering.mp3",
+            "モノクロの劇場.mp3",
+            "마법소녀 데스매치 ED - 灰色の夜.mp3",
+            "마법소녀 데스매치 OST.mp3"
+        ];
+
+        function normalizeMusicListPayload(payload) {
+            if (Array.isArray(payload)) return payload;
+            if (payload && Array.isArray(payload.files)) return payload.files;
+            if (payload && Array.isArray(payload.tracks)) return payload.tracks;
+            if (payload && Array.isArray(payload.list)) return payload.list;
+            return [];
+        }
+
+        async function loadMusicList() {
+            const listSources = [
+                { url: 'Music/List/list.json', base: 'Music/List/' },
+                { url: 'Music/List/index.json', base: 'Music/List/' },
+                { url: 'Music/List.json', base: 'Music/' },
+                { url: 'Music/list.json', base: 'Music/' },
+                { url: 'Music/List', base: 'Music/' }
+            ];
+
+            for (const source of listSources) {
+                try {
+                    const res = await fetch(source.url, { cache: 'no-store' });
+                    if (!res.ok) continue;
+                    const payload = await res.json();
+                    const files = normalizeMusicListPayload(payload).filter(Boolean);
+                    if (files.length > 0) {
+                        return { files, base: source.base };
+                    }
+                } catch (err) {
+                    // Try the next possible list location.
+                }
+            }
+
+            // Local file environments often cannot fetch a folder list.
+            // In that case, use the known Music/List folder structure directly.
+            return { files: DEFAULT_MUSIC_FILES, base: 'Music/List/' };
+        }
+
+        function makeMusicCandidates(fileName, preferredBase) {
+            const raw = String(fileName || '').trim();
+            if (!raw) return [];
+            if (/^(https?:|\.\/|\/|Music\/|music\/)/i.test(raw)) return [raw];
+
+            const candidates = [
+                `${preferredBase || 'Music/List/'}${raw}`,
+                `Music/List/${raw}`,
+                `Music/${raw}`
+            ];
+            return [...new Set(candidates)];
+        }
+
+        function musicTitleFromFile(fileName) {
+            // Keep music titles exactly as file names (minus extension).
+            // Do not translate, romanize, or uppercase Korean/Japanese titles.
+            return String(fileName || '')
+                .split('/').pop()
+                .replace(/\.[^/.]+$/, '')
+                .replace(/_/g, ' ');
+        }
+
+        function syncPlayPauseIcon() {
+            const btn = document.getElementById('play-pause-btn');
+            if (!btn) return;
+            btn.textContent = mainBgm.paused ? '▶' : '⏸';
+        }
+
         async function initMusicPlayer() {
             try {
-                const res = await fetch('Music/list.json');
-                const files = await res.json();
-                playlist = files.map(f => ({ src: `Music/${f}`, title: f.split('.')[0].toUpperCase() }));
+                const loaded = await loadMusicList();
+                playlist = loaded.files.map(f => ({
+                    src: makeMusicCandidates(f, loaded.base)[0],
+                    srcCandidates: makeMusicCandidates(f, loaded.base),
+                    title: musicTitleFromFile(f)
+                }));
+
                 const listHtml = document.getElementById('track-list');
                 listHtml.innerHTML = '';
                 playlist.forEach((t, i) => {
                     const li = document.createElement('li');
                     li.className = 'track-item' + (i === currentTrackIndex ? ' active' : '');
+                    li.dataset.noI18n = 'true';
                     li.textContent = t.title;
                     li.onclick = (e) => { e.stopPropagation(); playTrack(i); };
                     listHtml.appendChild(li);
@@ -6777,35 +8082,58 @@
 
                 updateRepeatBtn();
 
-                // 자동재생 전에 먼저 이벤트 등록
-                mainBgm.addEventListener('ended', () => {
-                    if (playMode === 0) return;
-                    if (playMode === 1) {
-                        playTrack((currentTrackIndex + 1) % playlist.length);
-                    } else if (playMode === 2) {
-                        let next;
-                        do { next = Math.floor(Math.random() * playlist.length); }
-                        while (playlist.length > 1 && next === currentTrackIndex);
-                        playTrack(next);
-                    } else if (playMode === 3) {
-                        if (currentTrackIndex < playlist.length - 1) playTrack(currentTrackIndex + 1);
-                        else document.getElementById('play-pause-btn').textContent = '▶';
-                    }
-                });
+                // Prevent duplicated listeners when returning to the title/main screen.
+                if (mainBgm.dataset.musicPlayerBound !== 'true') {
+                    mainBgm.dataset.musicPlayerBound = 'true';
 
-                // 첫 번째 트랙 자동 재생
+                    mainBgm.addEventListener('error', () => {
+                        const track = playlist[currentTrackIndex];
+                        if (!track || !track.srcCandidates) return;
+                        const currentCandidate = Number(mainBgm.dataset.candidateIndex || 0);
+                        const nextCandidate = currentCandidate + 1;
+                        if (nextCandidate < track.srcCandidates.length) {
+                            playTrack(currentTrackIndex, nextCandidate);
+                        } else {
+                            console.log('Music file not found:', track.title, track.srcCandidates);
+                            syncPlayPauseIcon();
+                        }
+                    });
+
+                    mainBgm.addEventListener('ended', () => {
+                        if (playMode === 0) return;
+                        if (playMode === 1) {
+                            playTrack((currentTrackIndex + 1) % playlist.length);
+                        } else if (playMode === 2) {
+                            let next;
+                            do { next = Math.floor(Math.random() * playlist.length); }
+                            while (playlist.length > 1 && next === currentTrackIndex);
+                            playTrack(next);
+                        } else if (playMode === 3) {
+                            if (currentTrackIndex < playlist.length - 1) playTrack(currentTrackIndex + 1);
+                            else syncPlayPauseIcon();
+                        }
+                    });
+                }
+
                 if (playlist.length > 0) playTrack(0);
 
             } catch (e) { console.log("Music Error:", e); }
         }
 
-        function playTrack(i) {
+        function playTrack(i, candidateIndex = 0) {
+            if (!playlist[i]) return;
             currentTrackIndex = i;
-            mainBgm.src = playlist[i].src;
-            mainBgm.loop = (playMode === 0); // 한곡반복만 loop
-            mainBgm.play();
+            const track = playlist[i];
+            const candidates = track.srcCandidates || [track.src];
+            const src = candidates[candidateIndex] || candidates[0];
+
+            mainBgm.dataset.candidateIndex = String(candidateIndex);
+            mainBgm.src = encodeURI(src).replace(/#/g, '%23');
+            mainBgm.loop = (playMode === 0); // Repeat one track only.
+            mainBgm.play().catch(err => console.log("Music Play Error:", err));
+
             document.querySelectorAll('.track-item').forEach((el, idx) => el.className = 'track-item' + (idx === i ? ' active' : ''));
-            document.getElementById('play-pause-btn').textContent = '||';
+            syncPlayPauseIcon();
         }
 
         document.getElementById('music-toggle-btn').onclick = (e) => {
@@ -6828,9 +8156,18 @@
 
         document.getElementById('play-pause-btn').onclick = (e) => {
             e.stopPropagation();
-            if (mainBgm.paused) { mainBgm.play(); e.target.textContent = '||'; }
-            else { mainBgm.pause(); e.target.textContent = '▶'; }
+            if (mainBgm.paused) {
+                mainBgm.play().catch(err => console.log('Music Play Error:', err)).finally(syncPlayPauseIcon);
+            } else {
+                mainBgm.pause();
+                syncPlayPauseIcon();
+            }
         };
+
+        mainBgm.addEventListener('play', syncPlayPauseIcon);
+        mainBgm.addEventListener('pause', syncPlayPauseIcon);
+        mainBgm.addEventListener('loadedmetadata', syncPlayPauseIcon);
+        syncPlayPauseIcon();
 
         mainBgm.ontimeupdate = () => { document.getElementById('progress-bar-fill').style.width = (mainBgm.currentTime / mainBgm.duration * 100) + '%'; };
 
@@ -6843,7 +8180,12 @@
             }
         };
 
-        document.getElementById('volume-slider').oninput = (e) => { mainBgm.volume = e.target.value; };
+        const volumeSlider = document.getElementById('volume-slider');
+        if (volumeSlider) {
+            volumeSlider.value = '0.5';
+            mainBgm.volume = 0.5;
+            volumeSlider.oninput = (e) => { mainBgm.volume = Number(e.target.value); };
+        }
 
         function saveGame(e) {
             e.stopPropagation();
