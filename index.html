@@ -2485,6 +2485,74 @@
             return null;
         }
 
+        // v35: 언어가 영어로 바뀌어도 이미지는 번역된 선택지명이 아니라
+        // 카테고리/원본 인덱스/고정 img 경로를 기준으로 찾습니다.
+        // 또한 추가 선택지 이미지 번호가 예전 번호대(025~036)와 현재 원본 인덱스 번호대가
+        // 섞여 있어도 후보 경로를 순서대로 검사해 안전하게 표시합니다.
+        function _choiceImgFolderInfo(catNum) {
+            const map = {
+                2:     ['img_cho/02',   '02'],
+                3:     ['img_cho/03',   '03'],
+                4:     ['img_cho/04',   '04'],
+                5:     ['img_cho/05',   '05'],
+                '6-1': ['img_cho/06_A', '06A'],
+                '6-2': ['img_cho/06_B', '06B'],
+                '7-1': ['img_cho/07_A', '07A'],
+                '7-2': ['img_cho/07_B', '07B'],
+            };
+            return map[catNum] || ['img_cho', String(catNum).padStart(2, '0')];
+        }
+
+        function _nameMatchesChoice(item, savedName) {
+            const n = String(savedName || '').split(' — ')[0].trim();
+            if (!item || !n) return false;
+            const names = [item.name, item.ko, item.en, item.title, translateText(item.name || '')]
+                .filter(Boolean).map(v => String(v).trim());
+            return names.some(v => v === n || n.startsWith(v) || v.startsWith(n));
+        }
+
+        function _originalChoiceIndex(catNum, item, visibleIndex = 0) {
+            const arr = categoryData[catNum] || [];
+            let idx = arr.indexOf(item);
+            if (idx >= 0) return idx;
+            idx = arr.findIndex(d => d === item || _nameMatchesChoice(d, item?.name || item?.en || item?.ko || item?.title));
+            return idx >= 0 ? idx : visibleIndex;
+        }
+
+        function _choiceImageBaseCandidates(catNum, item, visibleIndex = 0) {
+            const candidates = [];
+            const add = v => { if (v && !candidates.includes(v)) candidates.push(v); };
+            if (item && item.img) add(item.img);
+            if (catNum === 8 && item?.skillNum) add(`img_cho/08/${item.skillNum}/main`);
+            if (catNum === 9 && item?.abilityNum) add(`img_cho/09/${item.abilityNum}/main`);
+            const [folder, prefix] = _choiceImgFolderInfo(catNum);
+            const originalIndex = _originalChoiceIndex(catNum, item, visibleIndex);
+            const pad3 = n => String(n).padStart(3, '0');
+            add(`${folder}/${prefix}_Cho_${pad3(originalIndex + 1)}`);
+            add(`${folder}/${prefix}_Cho_${pad3(visibleIndex + 1)}`);
+
+            // 추가 선택지 이미지가 025~036으로 관리되는 카테고리 보정.
+            // 6번 계열은 기존 항목 수가 늘어나 원본 인덱스와 이미지 번호가 어긋날 수 있어
+            // 끝 12개는 025~036도 함께 검사합니다.
+            if (['6-1','6-2','7-1','7-2'].includes(String(catNum))) {
+                const arr = categoryData[catNum] || [];
+                const offsetFromLast12 = originalIndex - Math.max(0, arr.length - 12);
+                if (offsetFromLast12 >= 0 && offsetFromLast12 < 12) {
+                    add(`${folder}/${prefix}_Cho_${pad3(25 + offsetFromLast12)}`);
+                    add(`${folder}/${prefix}_Cho_${pad3(33 + offsetFromLast12)}`);
+                }
+            }
+            return candidates;
+        }
+
+        async function findFirstImage(candidates) {
+            for (const base of candidates || []) {
+                const src = await findImage(base);
+                if (src) return src;
+            }
+            return null;
+        }
+
         async function runPrologueScenario() {
             prologuePage = 0;
             await showProloguePage(0);
@@ -6081,14 +6149,24 @@
             return null;
         }
 
+        async function _resolveFirstExportImage(candidates) {
+            for (const base of candidates || []) {
+                const src = await _resolveExportImage(base);
+                if (src) return src;
+            }
+            return null;
+        }
+
         function _getVisibleChoiceImageForExport(name) {
             const base = String(name || '').split(' — ')[0].trim();
             if (!base) return null;
             const items = document.querySelectorAll('.choice-item');
             for (const item of items) {
                 const n = item.querySelector('.choice-item-name')?.textContent?.trim();
-                if (!n) continue;
-                if (n === base || n === name) {
+                const ko = item.dataset.choiceNameKo || '';
+                const en = translateText(ko);
+                if (!n && !ko) continue;
+                if (n === base || n === name || ko === base || en === base || base.startsWith(ko) || base.startsWith(en)) {
                     const img = item.querySelector('.choice-item-img img');
                     if (img?.src) return img.src;
                 }
@@ -6202,21 +6280,21 @@
                 cards.push(card);
                 pendingLoads.push((async () => {
                     const domSrc = _getStatusTooltipImage(name) || _getVisibleChoiceImageForExport(name);
-                    const resolved = domSrc || await _resolveExportImage(basePath);
+                    const resolved = domSrc || await _resolveFirstExportImage(Array.isArray(basePath) ? basePath : [basePath]);
                     card.img = await _loadImageForExport(resolved);
                 })());
             };
 
             if (GameState.manifestation) {
                 const arr = categoryData[2] || [];
-                const idx = arr.findIndex(x => x.name === GameState.manifestation);
+                const idx = arr.findIndex(x => _nameMatchesChoice(x, GameState.manifestation));
                 const d = arr[idx];
                 const basePath = d?.img || (idx >= 0 ? `img_cho/02/02_Cho_${pad3(idx + 1)}` : null);
                 addCard('발현', GameState.manifestation, d?.desc || d?.detail, basePath);
             }
             if (GameState.origin) {
                 const arr = categoryData[3] || [];
-                const idx = arr.findIndex(x => x.name === GameState.origin);
+                const idx = arr.findIndex(x => _nameMatchesChoice(x, GameState.origin));
                 const d = arr[idx];
                 const basePath = d?.img || (idx >= 0 ? `img_cho/03/03_Cho_${pad3(idx + 1)}` : null);
                 addCard('출신지', GameState.origin, d?.detail || d?.desc, basePath);
@@ -6234,9 +6312,9 @@
                 const arr = GameState.selections?.[cat.key] || [];
                 for (const name of arr) {
                     const dataArr = categoryData[cat.key] || [];
-                    const idx = dataArr.findIndex(x => x.name === name);
+                    const idx = dataArr.findIndex(x => _nameMatchesChoice(x, name));
                     const d = dataArr[idx];
-                    const basePath = d?.img || (idx >= 0 ? cat.base(idx) : null);
+                    const basePath = d ? _choiceImageBaseCandidates(cat.key, d, idx) : (idx >= 0 ? [cat.base(idx)] : null);
                     addCard(cat.label, name, d?.desc || d?.detail, basePath);
                 }
             }
@@ -6244,7 +6322,7 @@
             for (const nameGrade of (GameState.selections?.[8] || [])) {
                 const baseName = String(nameGrade).split(' — ')[0];
                 const grade = String(nameGrade).split(' — ')[1] || '';
-                const d = (categoryData[8] || []).find(x => x.name === baseName);
+                const d = (categoryData[8] || []).find(x => _nameMatchesChoice(x, baseName));
                 let imgBase = d?.img || null;
                 let desc = d?.desc || '';
                 if (d && !d.hidden) {
@@ -6259,7 +6337,7 @@
 
             for (const nameGrade of (GameState.selections?.[9] || [])) {
                 const baseName = String(nameGrade).split(' — ')[0];
-                const d = (categoryData[9] || []).find(x => x.name === baseName);
+                const d = (categoryData[9] || []).find(x => _nameMatchesChoice(x, baseName));
                 const imgBase = d?.img || (d?.abilityNum ? `img_cho/09/${d.abilityNum}/main` : null);
                 const desc = d?.abilityDesc || d?.desc || '';
                 addCard('이능', nameGrade, desc, imgBase);
@@ -7254,31 +7332,7 @@
                 else cols = 4;
                 wrap.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-                // 이미지 폴더 & 파일 prefix: 카테고리별로 다름
-                const imgFolderMap = {
-                    2:     ['img_cho/02',   '02'],
-                    3:     ['img_cho/03',   '03'],
-                    4:     ['img_cho/04',   '04'],
-                    5:     ['img_cho/05',   '05'],
-                    '6-1': ['img_cho/06_A', '06A'],
-                    '6-2': ['img_cho/06_B', '06B'],
-                    '7-1': ['img_cho/07_A', '07A'],
-                    '7-2': ['img_cho/07_B', '07B'],
-                };
-                const [imgFolder, catPrefix] = imgFolderMap[num] || ['img_cho', String(num).padStart(2, '0')];
-                const imgPromises = data.map((d, i) => {
-                    let baseName;
-                    // v25: 히든/특수 항목은 데이터에 지정된 이미지 경로를 우선 사용합니다.
-                    // 예: img_cho/03/H_001, img_cho/08/H_001/main, img_cho/09/H_001/main
-                    if (d && d.img) baseName = d.img;
-                    else if (num === 8) baseName = `img_cho/08/${d.skillNum}/main`;
-                    else if (num === 9) baseName = `img_cho/09/${d.abilityNum}/main`;
-                    else {
-                        const idx3dig = String(i + 1).padStart(3, '0');
-                        baseName = `${imgFolder}/${catPrefix}_Cho_${idx3dig}`;
-                    }
-                    return findImage(baseName);
-                });
+                const imgPromises = data.map((d, i) => findFirstImage(_choiceImageBaseCandidates(num, d, i)));
 
                 Promise.all(imgPromises).then(imgSrcs => {
                     data.forEach((d, i) => {
@@ -7288,6 +7342,8 @@
                         const imgContent = imgSrcs[i]
                             ? `<img src="${imgSrcs[i]}" alt="${d.name}">`
                             : `<span style="color:#1a4a1a;font-size:0.65rem;">IMG</span>`;
+                        item.dataset.choiceNameKo = d.name || '';
+                        item.dataset.choiceImgCandidates = JSON.stringify(_choiceImageBaseCandidates(num, d, i));
                         item.innerHTML = `
                             <div class="choice-item-img">${imgContent}</div>
                             <div class="choice-item-text">
@@ -7790,21 +7846,11 @@
         const _tagImgCache = {};
 
         function _getTagImgSrc(catNum, itemName, itemIdx) {
-            const cacheKey = `${catNum}_${itemIdx}`;
+            const data = categoryData[catNum] || [];
+            const item = data[itemIdx] || data.find(d => _nameMatchesChoice(d, itemName));
+            const cacheKey = `${catNum}_${itemIdx}_${itemName}`;
             if (_tagImgCache[cacheKey] !== undefined) return Promise.resolve(_tagImgCache[cacheKey]);
-            const imgFolderMap = {
-                2:     ['img_cho/02',   '02'],
-                3:     ['img_cho/03',   '03'],
-                4:     ['img_cho/04',   '04'],
-                5:     ['img_cho/05',   '05'],
-                '6-1': ['img_cho/06_A', '06A'],
-                '6-2': ['img_cho/06_B', '06B'],
-                '7-1': ['img_cho/07_A', '07A'],
-                '7-2': ['img_cho/07_B', '07B'],
-            };
-            const [folder, prefix] = imgFolderMap[catNum] || ['img_cho', String(catNum).padStart(2,'0')];
-            const idx3 = String(itemIdx + 1).padStart(3, '0');
-            return findImage(`${folder}/${prefix}_Cho_${idx3}`).then(src => {
+            return findFirstImage(_choiceImageBaseCandidates(catNum, item, itemIdx)).then(src => {
                 _tagImgCache[cacheKey] = src || null;
                 return src || null;
             });
@@ -7865,7 +7911,7 @@
                 sel.forEach(nameWithGrade => {
                     const baseName = nameWithGrade.split(' — ')[0];
                     const gradeName = nameWithGrade.split(' — ')[1] || '';
-                    const skillItem = data.find(d => d.name === baseName);
+                    const skillItem = data.find(d => _nameMatchesChoice(d, baseName));
                     if (!skillItem) { wrap.appendChild(_makeTagEl(nameWithGrade, null, '', '')); return; }
                     const gi = skillGrades.findIndex(g => g.label === gradeName);
                     const desc = gi >= 0 ? (skillGradeDesc[skillItem.skillKey] || [])[gi] || '' : '';
@@ -7882,7 +7928,7 @@
                 sel.forEach(nameWithGrade => {
                     const baseName = nameWithGrade.split(' — ')[0];
                     const gradeName = nameWithGrade.split(' — ')[1] || '';
-                    const abilityItem = data.find(d => d.name === baseName);
+                    const abilityItem = data.find(d => _nameMatchesChoice(d, baseName));
                     if (!abilityItem) { wrap.appendChild(_makeTagEl(nameWithGrade, null, '', '')); return; }
                     let desc = '';
                     let pointText = '';
@@ -7903,7 +7949,7 @@
 
             if (catNum === 11) {
                 sel.forEach(name => {
-                    const item = mistgearData.find(g => g.name === name);
+                    const item = mistgearData.find(g => _nameMatchesChoice(g, name));
                     if (!item) { wrap.appendChild(_makeTagEl(name, null, '', '')); return; }
                     const desc = `${item.part}\n${item.hoverText}`;
                     const pointText = `크레딧 -${item.cost.toLocaleString()}`;
@@ -7917,7 +7963,7 @@
             }
 
             sel.forEach(name => {
-                const idx = data.findIndex(d => d.name === name);
+                const idx = data.findIndex(d => _nameMatchesChoice(d, name));
                 const item = idx >= 0 ? data[idx] : null;
                 const desc = item ? item.desc : '';
                 const pointText = item ? item.pointText : '';
