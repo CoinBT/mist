@@ -1,0 +1,73 @@
+Extracted missing Korean strings: 559
+Added/covered strings: 565
+Translations still containing Hangul after mapping: 10
+
+SOURCE:
+selectAppearance('남성적인', event)
+
+TRANSLATION:
+selectAppearance('남성적인', event)
+
+SOURCE:
+selectAppearance('중성적인', event)
+
+TRANSLATION:
+selectAppearance('중성적인', event)
+
+SOURCE:
+selectAppearance('여성적인', event)
+
+TRANSLATION:
+selectAppearance('여성적인', event)
+
+SOURCE:
+미스트가 더 심해진거 같은데...방비를...아, 미안! 혼잣말이야!
+
+TRANSLATION:
+Mist 더 심해진거 같은데...방비를...아, 미안! 혼잣말이야!
+
+SOURCE:
+이 글을 본 당신, 운이 좋군요? 0.5%인데...빌드글...써야겠지...?
+
+TRANSLATION:
+이 글을 본 당신, 운이 좋군요? 0.5%인데...빌드글...써야겠지...?
+
+SOURCE:
+미스트 기어?
+아티팩트 중에서도 착용 가능한걸 의미하지~
+
+TRANSLATION:
+Mist 기어?
+아티팩트 중에서도 착용 가능한걸 의미하지~
+
+SOURCE:
+어디...어? 야! 그거 거기 아니야!
+아, 미안미안! 잠깐 사고가 있어서!
+
+TRANSLATION:
+어디...어? 야! 그거 거기 아니야!
+아, 미안미안! 잠깐 사고가 있어서!
+
+SOURCE:
+장비? 그건 언니가 맡고있어!
+조금...특이하지만...멋지지!
+
+TRANSLATION:
+장비? 그건 언니가 맡고있어!
+조금...특이하지만...멋지지!
+
+SOURCE:
+...뭐? 야! 나 이래봐도 성인이거든?
+애 취급 하지 말라고!!!!
+
+TRANSLATION:
+...뭐? 야! 나 이래봐도 성인이거든?
+애 취급 하지 말라고!!!!
+
+SOURCE:
+사실 이 CYOA는 NSFW 였답니다?
+왜 SFW냐구요? 귀찮아서요...
+
+TRANSLATION:
+사실 이 CYOA NSFW 였답니다?
+왜 SFW냐구요? 귀찮아서요...
